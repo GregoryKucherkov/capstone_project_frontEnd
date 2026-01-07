@@ -5,64 +5,77 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--white-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
+  /* Global color variables */
+  --main-color: #050505;
+  --gray-color: #BFBEBE;
+  --gray-dark-color: #aaaaaa;
+  --gray-light-color: #E8E8E8;
+  --white-color: #FFFFFF;
+  --red-color: #d10808;
+  --white-transparent-color: rgba(255, 255, 255, 0.2);
+  --white-transparent-color-2: rgba(255, 255, 255, 0.1);
+  --button-color: #1A1A1A;
+
+  --border-radius-s: 15px;
+  --border-radius-m: 30px;
+  --border-radius-full: 50%;
+
+  --transition-duration: 0.2s;
+  --transition-timing-function: ease;
+  --Typography-line-clamp: 1;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
-body {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+body {
+  font-family: "Mulish", sans-serif;
+  font-weight: 500;
+}
+
+
+/* extra settings */
+
+a {
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Optional but recommended for better layout control */
 }

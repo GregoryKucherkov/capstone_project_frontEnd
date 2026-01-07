@@ -1,0 +1,46 @@
+.container {
+  margin: 0 auto;
+  padding: 24px 0 64px 0;
+
+  @media screen and (min-width: 768px) {
+    padding: 16px 16px 0;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: 20px 20px 0;
+  }
+}
+
+.container__extra {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+
+.textWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.description {
+    letter-spacing: -0.28px;
+
+    font-size: 16px;
+    line-height: 143%;
+}
+
+.imageWrapper {
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-position: center;
+
+}
+
+.imageWrapper img {
+    height: 100%;
+    width: 100%;
+	object-fit: cover;
+}
