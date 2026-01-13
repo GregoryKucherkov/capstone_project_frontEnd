@@ -34,7 +34,8 @@
     (min-resolution: 2dppx) {
     background-image: linear-gradient(rgba(46, 47, 66, 0.7),
     rgba(46, 47, 66, 0.7)),
-    url("@/assets/images/hero/hero-img-mob@2x.jpg");
+    /* url("@/assets/images/hero/hero-img-mob@2x.jpg"); */
+    url("@/assets/images/hero/ dumbbells-in-the-gym.jpg");
   }
 
   /* Tablet */
@@ -78,5 +79,18 @@
     font-size: 16px;
     line-height: 24px;
     max-width: 577px;
+  }
+}
+
+
+.heroBtn {
+  padding: 12px 40px;
+  font-size: 14px;
+  line-height: 143%;
+
+  @media screen and (min-width: 768px) {
+    padding: 16px 42px;
+    font-size: 16px;
+    line-height: 24px;
   }
 }

@@ -1,9 +1,10 @@
-export interface UserDashboardProps {}
+import css from "./UserDashboard.module.css"
 
 
-export const UserDashboard = ({}: UserDashboardProps ) => {
+export const UserDashboard = () => {
     return (
-        <>
-        <h1>Dashboard</h1></>
+        <div className={css.container}>
+            <h1 style={{ color: 'blue', fontSize: '24px', marginTop: '20px' }}>Dashboard</h1>
+        </div>
     )
 }

@@ -1,7 +1,7 @@
 .Button {
   width: fit-content;
   font-weight: 700;
-  border-radius: var(--border-radius-s);
+  border-radius: var(--border-radius-m);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -23,7 +23,7 @@
 }
 
 .Button.small {
-  padding: 14px;
+  padding: 10px 16px;
   font-size: 12px;
   line-height: 18px;
 }
@@ -35,6 +35,18 @@
 
   @media screen and (min-width: 768px) {
     padding: 16px 32px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.Button.large {
+  padding: 14px 40px;
+  font-size: 14px;
+  line-height: 143%;
+
+  @media screen and (min-width: 768px) {
+    padding: 16px 45px;
     font-size: 16px;
     line-height: 24px;
   }

@@ -12,14 +12,17 @@ import { useSearchParams } from "react-router-dom";
 const ExercisesLib = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const currentSearch = searchParams.get("search") || "";
+
+    const currentPage = Number(searchParams.get("page")) || 1;
+
     const [inputValue, setInputValue] = useState(currentSearch);
     
 
-    const { data = [], isLoading, isError, error } = useExercises(currentSearch);
+    const { data, isLoading, isError, error } = useExercises(currentSearch, currentPage);
 
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setSearchParams({ search: inputValue });
+        setSearchParams({ search: inputValue, page: "1" });
         setInputValue("");
     };
 
@@ -27,7 +30,7 @@ const ExercisesLib = () => {
     return (
         <main>
             <Container className={css.container}>
-                <h1>Exercises Library</h1>
+                <h1 className={css.libraryTitle}>Exercises Library</h1>
 
                 <ExercisesCategories
                     searchValue={inputValue}
@@ -41,8 +44,12 @@ const ExercisesLib = () => {
 
                 <ErrorBoundary fallback={<p>Failed to load the list. Try refreshing.</p>}>
                 
-                {Array.isArray(data) && data.length > 0 ? (
-                        <ExercisesList exercises={data} />
+                {data?.exercises && data.exercises.length > 0 ? (
+                        <ExercisesList 
+                            exercises={data.exercises} 
+                            totalPages={data.total} 
+                            currentPage={currentPage}
+                        />
                     ) : (
                         !isLoading && <p>No exercises found.</p>
                     )}

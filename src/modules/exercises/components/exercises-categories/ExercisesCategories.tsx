@@ -1,4 +1,6 @@
 import css from "./ExercisesCategories.module.css"
+import CloseIcon from "@/assets/icons/x.svg?react"
+import SearchIcon from "@/assets/icons/search.svg?react"
 
 export type FilterType = "Muscles" | "Body parts" | "Equipment";
 
@@ -18,7 +20,7 @@ const ExercisesCategories = ({
     return (
         <>
             <div className={css.searchContainer}>
-                <form className={css.searchContainer} onSubmit={onSearchSubmit}>
+                <form className={css.searchForm} onSubmit={onSearchSubmit}>
                     <input 
                         type="text"
                         placeholder="Search exercises..."
@@ -26,7 +28,23 @@ const ExercisesCategories = ({
                         className={css.searchInput}
                         onChange={(e) => onSearchChange(e.target.value)}
                     />
-                    <button type="submit" className={css.searchBtn}>Search</button>
+
+                    <div className={css.searchActions}>
+                        {searchValue && (
+                        <button
+                            type="reset"
+                            className={css.clearBtn}
+                            onClick={() => onSearchChange("")}
+                            aria-label="Clear search"
+                        >
+                            <CloseIcon />
+                        </button>
+                        )}
+
+                        <button type="submit" className={css.searchBtn} aria-label="Search">
+                        <SearchIcon style={{stroke: "black"}}/>
+                        </button>
+                    </div>
                 </form>
             </div>
 

@@ -1,0 +1,40 @@
+.searchForm {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #242424;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.searchInput {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+} 
+
+.searchActions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.clearBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.searchBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+}

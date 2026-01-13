@@ -15,6 +15,7 @@ export const Landing = () => {
             <Exercises/>
             <Features/>
             <Testimonials data={testimonialsData}/>
+
         </>
     )
 }

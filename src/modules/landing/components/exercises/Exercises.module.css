@@ -1,6 +1,6 @@
 .container {
   padding-top: 64px;
-  padding-bottom: 64px;
+  padding-bottom: 32px;
 
   @media screen and (min-width: 768px) {
     padding-top: 100px;
@@ -22,7 +22,7 @@
 }
 
 .description {
-  color: var(--gray-color);
+  color: var(--main-color);
   letter-spacing: -0.28px;
 
   font-size: 16px;
@@ -66,8 +66,8 @@
   background-color: var(--main-color);
   
   background-image: linear-gradient(
-    rgba(17, 17, 17, 0.5) 0%,
-    rgba(17, 17, 17, 0.5) 100%
+    rgba(17, 17, 17, 0.6) 0%,
+    rgba(17, 17, 17, 0.6) 100%
   ),
   url("@/assets/images/exercises/3679.gif");
   background-repeat: no-repeat;
@@ -82,8 +82,15 @@
 }
 
 .allExercises {
+  border-radius: 30px;
+  border: 1px solid var(--white-color);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 14px;
   letter-spacing: -0.32px;
+  backdrop-filter: blur(10px);
+
 }
+
 
 /* tablet */
 @media only screen and (min-width: 768px) {
@@ -93,5 +100,6 @@
 
   .allExercises {
     letter-spacing: -0.4px;
+    font-size: 20px;
   }
 }

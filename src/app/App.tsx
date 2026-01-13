@@ -6,10 +6,25 @@ import { SharedLayout } from '@/shared/components/layout/SharedLayout'
 import { Route, Routes } from 'react-router-dom'
 import ExercisesLib from '@/pages/exercises-lib/ExercisesLib'
 import { ErrorBoundary } from '@/shared/ui/error/Error'
+import { useUser } from '@/shared/hooks/use-user'
+
+
+
+// move filterMap to backend enum mirror
+
+// add infinite query
+
+// prefetch next filter on hover
+
+// sync filters to URL
+
 
 function App() {
-  // const { isLoggedIn } = useAuth();
-  const isLoggedIn = false
+  const { isError } = useUser();
+
+  // if (isLoading) return <h1>LOADING APP...</h1>;
+
+  if (isError) return <div>Server Connection Error. Please try again later.</div>;
 
   return (
 
@@ -17,16 +32,13 @@ function App() {
   
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          
-          <Route index element={<Home isLoggedIn={isLoggedIn} />} />
-
+          <Route index element={<Home />} />
           <Route path="/exercises" element={<ExercisesLib />} />
-          
           <Route path="*" element={<div>Not Found</div>} />
         </Route>
       </Routes>
 
-    // </ErrorBoundary>
+    </ErrorBoundary>
 
 
   )

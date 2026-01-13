@@ -5,7 +5,11 @@ export const baseFetch = async (endpoint: string, options: RequestInit = {}) => 
 
   // Merge headers
   const headers = new Headers(options.headers);
-  headers.set("Content-Type", "application/json");
+
+  if (!headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+  
   if (token) {
     headers.set("Authorization", `Bearer ${token}`);
   }
@@ -18,7 +22,15 @@ export const baseFetch = async (endpoint: string, options: RequestInit = {}) => 
   // Global error handling
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || "API Error");
+
+    const errorMessage = errorData.detail || errorData.message || "API Error";
+
+    const error = new Error(errorMessage);
+
+    Object.assign(error, { status: response.status });
+    throw error;
+
+    // throw new Error(errorMessage);
   }
 
   return response.json();

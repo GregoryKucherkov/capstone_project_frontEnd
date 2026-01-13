@@ -5,13 +5,14 @@ import { SignUpForm, type SignUpValues } from "@/modules/auth/components/signup-
 import { type FormikHelpers } from "formik";
 import toast from "react-hot-toast";
 import { DEFAULT_ERROR_MESSAGE } from "@/shared/constants/messages";
-import type { ApiError } from "@/shared/types/api";
+
 
 interface SignUpModalProps {
   onRedirectToSignIn: () => void;
+  onSuccess: () => void;
 }
 
-export const SignUpModal = ({ onRedirectToSignIn }: SignUpModalProps) => {
+export const SignUpModal = ({ onRedirectToSignIn, onSuccess }: SignUpModalProps) => {
     const { mutateAsync: register, isPending } = useRegister();
 
     const disabledForm = isPending;
@@ -22,10 +23,14 @@ export const SignUpModal = ({ onRedirectToSignIn }: SignUpModalProps) => {
 
             toast.success("Registration successful!");
             formActions.resetForm();
-        } catch(err) {
-            const error = err as ApiError;
 
-            toast.error(error.response?.data?.message ?? DEFAULT_ERROR_MESSAGE);
+            onSuccess();
+        } catch(err) {
+            if (err instanceof Error) {
+                toast.error(err.message);
+            } else {
+                toast.error(DEFAULT_ERROR_MESSAGE);
+            }
         }
     }
 

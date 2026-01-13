@@ -44,3 +44,182 @@
     width: 100%;
 	object-fit: cover;
 }
+
+
+.workoutExercises {
+  border: 1px black solid;
+  border-radius: 15px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+ 
+}
+
+.workoutCardTitle{
+  color: var(--main-color);
+  padding: 15px;
+  /* border: 1px black solid */
+}
+
+.ulWorkout {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.liExerciseCard {
+    width: 100%;
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 16px;
+    overflow: hidden;
+    border: 1px black solid
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  padding-bottom: 25px;
+  position: relative;
+  gap: 16px;
+}
+
+.exercisesNameTag {
+  color: black;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--main-color);
+  border-radius: 15px;
+  padding: 5px 8px;
+}
+
+.exercisesNameBtn {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+  gap: 8px;
+  padding: 0px;
+}
+
+
+.exerciseInfo {
+  color: var(--main-color);
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+}
+
+.exersizeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exerciseName {
+  font-size: 20px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.workoutDetails {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* opacity: 0.8; */
+}
+
+.trackingWrapper {
+  
+  border-radius: 15px;
+}
+
+.trackingPeriodTitle {
+  color: black;
+  text-align: start;
+}
+
+.ulTracking {
+  color: black;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+}
+
+.liTracking {
+  border: 2px solid #F9A8D4;
+  background-color: #FCE7F3;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0px 30px;
+
+}
+
+.trackingDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardStats {
+  display: flex;
+  justify-content: space-around;
+  gap: 5px;
+}
+
+.statBox {
+  border-radius: 15px;
+  border: 1px white;
+  background-color: white;
+  padding: 10px;
+  padding-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.trackinButton {
+  margin: 0 auto;
+}
+
+.socialFeedTitle {
+  text-align: start;
+}
+
+
+.socialFeed {
+  border: 1px solid black;
+  border-radius: 15px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+}
+
+
+
+.feedItem {
+  border: 1px solid black;
+ 
+  padding: 15px;
+
+  text-align: start;
+}

@@ -1,13 +1,11 @@
 import { UserDashboard } from "@/modules/user-dashboard/components/user-dashboard/UserDashboard";
 import css from "./Home.module.css"
 import { Landing } from "@/modules/landing/Landing";
+import { useUser } from "@/shared/hooks/use-user";
 
 
-interface HomeProps {
-  isLoggedIn: boolean;
-}
-
-const Home = ({ isLoggedIn }: HomeProps) => {
+const Home = () => {
+    const { isLoggedIn } = useUser();
     
 
     return (

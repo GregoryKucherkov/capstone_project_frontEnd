@@ -1,11 +1,23 @@
 import { baseFetch } from "@/shared/api/baseApi";
 
 
-export const getExercises = async (search?: string) => {
+// export const getExercises = async (search?: string) => {
 
-    const queryPath = search ? `?search=${encodeURIComponent(search)}` : "";
+//     const queryPath = search ? `?search=${encodeURIComponent(search)}` : "";
 
-  return baseFetch(`/exercises${queryPath}`);
+//   return baseFetch(`/exercises${queryPath}`);
+// };
+
+export const getExercises = async (search?: string, page: number = 1, limit: number = 10) => {
+
+  const skip = (page - 1) * limit;
+
+  const params = new URLSearchParams();
+  if (search) params.append("search", search);
+  params.append("skip", skip.toString());
+  params.append("limit", limit.toString());
+
+  return baseFetch(`/exercises?${params.toString()}`);
 };
 
 // export const getExercises = async (filterKey: string, filterValue: string, keyword?: string) => {
