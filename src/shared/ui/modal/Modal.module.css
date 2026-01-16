@@ -21,7 +21,7 @@
   position: relative;
 
   margin: 0 16px;
-  padding: 60px 30px;
+  padding: 65px 30px;
   max-width: 343px;
   min-inline-size: min(280px, 100% - 32px); /* prevents edge collision */
   width: 100%;

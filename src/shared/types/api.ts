@@ -27,6 +27,12 @@ export interface User {
   updated_at: string
 }
 
+export interface UserGuest {
+  id: number;
+  name: string;
+  avatar?: string;
+  description?: string;
+}
 
 export interface SignInValues {
   email: string;

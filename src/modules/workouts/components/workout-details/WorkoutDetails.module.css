@@ -1,0 +1,11 @@
+.workoutWraper {
+    display: flex;
+    gap: 10px;
+}
+
+.ulContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+

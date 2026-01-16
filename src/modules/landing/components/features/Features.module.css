@@ -169,7 +169,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 0px 30px;
+  padding: 20px 10px 30px;
 
 }
 
@@ -201,6 +201,7 @@
 
 .socialFeedTitle {
   text-align: start;
+  color: black;
 }
 
 
@@ -222,4 +223,5 @@
   padding: 15px;
 
   text-align: start;
+  background-color: #A8E6C8;
 }

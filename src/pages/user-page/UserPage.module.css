@@ -1,0 +1,33 @@
+.container {
+  margin-top: 126px;
+}
+.pagination {
+  margin-top: 30px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    margin-top: 150px;
+  }
+
+  .pagination {
+    margin-top: 60px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    margin-top: 170px;
+    margin-bottom: 120px;
+  }
+}
+
+.title {
+  margin-top: 32px;
+}
+
+@media (min-width: 768px) {
+  .title {
+    margin-top: 40px;
+  }
+}

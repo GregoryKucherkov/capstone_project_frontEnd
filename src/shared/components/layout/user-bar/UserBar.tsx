@@ -69,7 +69,6 @@ export const UserBar = () => {
                 name={userName}
             />
             </div>
-            <p className={css.profileName}>{userName}</p>
             <button
             type="button"
             className={clsx(css.button, isOpenProfile && css.buttonOpen)}

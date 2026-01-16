@@ -1,4 +1,4 @@
-import { UserDashboard } from "@/modules/user-dashboard/components/user-dashboard/UserDashboard";
+import { UserDashboard } from "@/pages/user-dashboard/UserDashboard";
 import css from "./Home.module.css"
 import { Landing } from "@/modules/landing/Landing";
 import { useUser } from "@/shared/hooks/use-user";

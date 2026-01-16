@@ -1,0 +1,25 @@
+.card {
+    width: 100%;
+    background-color: var(--white-color);
+    border: 1px black solid;
+    border-radius: 15px;
+    overflow: hidden;
+
+    padding: 16px;
+}
+
+.pink {
+    border-color: #F9A8D4;
+    background-color: #FCE7F3;
+}
+
+.thick {
+    border-width: 2px;
+}
+
+/* For smaller boxes inside big boxes */
+.small {
+    padding: 10px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+}

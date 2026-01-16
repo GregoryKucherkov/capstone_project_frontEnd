@@ -24,15 +24,7 @@ export const Features = () => {
                         <Typography variant="h2">Planning</Typography>
                         <Typography className={css.description} variant="body">"Build your perfect workout week."</Typography>
                     </div>
-                    {/* <div className={css.imageWrapper}>
-                        <img 
-                        src={plannerImg} 
-                        alt="Workout Planner"
-                        width="400" 
-                        height="300"
-                        loading="lazy" 
-                        />
-                    </div> */}
+                    
                     <div className={css.workoutExercises}>
                     <h3 className={css.workoutCardTitle}>📅 Chest day</h3>
                     <hr></hr>
@@ -107,8 +99,8 @@ export const Features = () => {
                     </div>
                     <div className={css.trackingWrapper}>
 
+                    <h3 className={css.trackingPeriodTitle}>When: This week</h3>
                         <ul className={css.ulTracking}>
-                            <h3 className={css.trackingPeriodTitle}>When: This week</h3>
                             <li className={css.liTracking}>
                                 <div className={css.trackingDetails}>
                                     <h3>Chest Day</h3>
@@ -213,24 +205,15 @@ export const Features = () => {
                     </div>
 
             {/* --- SOCIAL --- */}
-
+                <div>
                     <div className={css.textWrapper}>
                         <Typography variant="h2">Social</Typography>
                         <Typography variant="body" className={css.description}>
                             The motivation of a crew.
                         </Typography>
                     </div>
-                    {/* <div className={css.imageWrapper}> */}
-                        {/* <img 
-                            src={socialMockup} 
-                            alt="Community activity feed"
-                            width="200" 
-                            height="200"
-                            loading="lazy" 
-                        /> */}
-                    {/* </div> */}
+                    <h3 className={css.socialFeedTitle}>Feed</h3>
                     <ul className={css.socialFeed}>
-                        <h3 className={css.socialFeedTitle}>Feed</h3>
                         <li className={css.feedItem}>
                             <div className={css.feedHeader}>
                             <span className={css.userName}>🧑 Alex</span>
@@ -291,6 +274,7 @@ export const Features = () => {
                             </div>
                         </li>
                     </ul>
+                </div>
 
             </Container>
         </section>

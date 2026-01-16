@@ -2,8 +2,7 @@ import { ExerciseItem } from "@/modules/exercises/components/exercises-item/Exer
 import css from "./ExercisesList.module.css"
 import { Pagination } from "@/shared/pagination/Pagination"
 import { useSearchParams } from "react-router-dom"
-// import Container from "@/shared/ui/container/Container"
-// import { Typography } from "@/shared/ui/typography/Typography"
+
 
 export interface ExercisesData {
     title: string,

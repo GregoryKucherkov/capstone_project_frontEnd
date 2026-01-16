@@ -12,6 +12,7 @@ import { useUser } from "@/shared/hooks/use-user";
 export default function Header() {
     const homePath = useMatch("/");
     const isHome = !!homePath;
+    
 
     const { isLoggedIn } = useUser();
 
@@ -20,7 +21,7 @@ export default function Header() {
             <header className={css.header}>
                 <Container className={clsx(css.container, isHome && css.homeContainer)}>
                     <Link
-                    className={clsx(css.logo, isHome && css.whiteLogo)}
+                    className={clsx(css.logo, isHome && !isLoggedIn && css.whiteLogo)}
                     to="/"
                     aria-label="Logo Record"
                     >

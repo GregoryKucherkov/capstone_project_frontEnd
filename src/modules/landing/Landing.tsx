@@ -5,8 +5,6 @@ import { Testimonials } from "@/modules/landing/components/testimonials/Testimon
 import testimonialsData from "./api/testimonials.json";
 
 
-// . Social Layer / Community (The "Trust" Section)
-// Social Proof (Testimonials)
 
 export const Landing = () => {
     return(
@@ -15,7 +13,6 @@ export const Landing = () => {
             <Exercises/>
             <Features/>
             <Testimonials data={testimonialsData}/>
-
         </>
     )
 }

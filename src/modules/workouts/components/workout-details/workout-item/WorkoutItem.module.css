@@ -1,0 +1,11 @@
+.smallCardDetails {
+    background-color: #A8E6C8;
+}
+
+.delBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: red;
+
+}

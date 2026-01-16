@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 export const useUser = () => {
   const hasToken = !!localStorage.getItem("token");
 
-
   const { data, isLoading, isError } = useQuery({
     // queryKey: ["user"],
     queryKey: ["auth", "me"],
@@ -17,9 +16,8 @@ export const useUser = () => {
   });
 
   return {
-    isLoggedIn: hasToken ? !!data : false,
     user: data || null,
-    // isLoggedIn: !!data, //  If data exists, they are logged in
+    isLoggedIn: hasToken ? (isLoading ? true : !!data) : false,
     isLoading,
     isError,
 
