@@ -25,6 +25,7 @@ export interface User {
   avatar: string,
   created_at: string,
   updated_at: string
+  isFollowed?: boolean;
 }
 
 export interface UserGuest {
@@ -75,3 +76,8 @@ export interface FavoriteResponse {
   exercise_id: number,
   user_id: number
 }
+
+export type ListItem =
+  | Post
+  | UserGuest
+  | FavoriteResponse;

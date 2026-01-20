@@ -6,7 +6,7 @@ import { Avatar } from "@/shared/ui/avatar/Avatar";
 import { normalizeImagePath } from "@/shared/utils/normalizeImagePath";
 import { ButtonIcon } from "@/shared/ui/button-icon/ButtonIcon";
 import PlusIcon from "@/assets/icons/plus.svg?react"
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { Typography } from "@/shared/ui/typography/Typography";
 
 

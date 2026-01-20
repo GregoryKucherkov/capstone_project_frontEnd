@@ -1,29 +1,27 @@
-import { userService } from "@/shared/api/userApi";
-import type { FavoriteResponse, PostsResponse, UserListResponse } from "@/shared/types/api";
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
-import {TabKey, type TabKeyType} from "@/shared/constants/tabData"
+import {type TabKeyType} from "@/shared/constants/tabData"
 
-type ProfileTabData = UserListResponse | PostsResponse | FavoriteResponse[];
+import { PROFILE_TABS } from "@/modules/user/config/profileTabs.config";
+import type { ListItem } from "@/shared/types/api";
 
 
-export const useProfileData = (userId: number, page: number, activeTab: TabKeyType, limit: number = 10) => {
-    return useQuery<ProfileTabData, Error>({
-        queryKey: ["user", userId, activeTab, page],
-        queryFn: () => {
-            const skip = (page - 1) * limit;
 
-            if (activeTab === TabKey.FOLLOWERS) 
-                return userService.getFollowers(userId, skip, limit);
-            if (activeTab === TabKey.FOLLOWING) 
-                return userService.getFollowing(userId, skip, limit);
-            if (activeTab === TabKey.POSTS) 
-                return userService.getPosts(userId, skip, limit);
-            if (activeTab === TabKey.FAVORITES)
-                return userService.getFavorites(skip, limit)
+export const useProfileData = <TTab extends TabKeyType> (
+  userId: number,
+  page: number,
+  activeTab: TTab,
+  limit = 10
+) => {
+  const { query, normalize } = PROFILE_TABS[activeTab];
+  const skip = (page - 1) * limit;
 
-            throw new Error("Unknown tab key");
-        },
-        enabled: !!userId,
-        placeholderData: keepPreviousData,
-    })
-}
+  return useQuery<ListItem[], Error>({
+    queryKey: ["user", userId, activeTab, page],
+    queryFn: async () => {
+      const raw = await query(userId, skip, limit);
+      return normalize(raw);
+    },
+    enabled: !!userId,
+    placeholderData: keepPreviousData,
+  });
+};

@@ -20,8 +20,10 @@ export const useLogout = () => {
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
 
-            queryClient.setQueryData(["auth", "me"], null);
-            queryClient.removeQueries({ queryKey: ["auth"] });
+            queryClient.clear();
+
+            // queryClient.setQueryData(["auth", "me"], null);
+            // queryClient.removeQueries({ queryKey: ["auth"] });
 
             navigate("/", { replace: true });
         },

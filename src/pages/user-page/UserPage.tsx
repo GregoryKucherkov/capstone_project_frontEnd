@@ -9,29 +9,31 @@ import { useUpdateAvatar } from "@/shared/hooks/useUpdateAvatar";
 import { useProfileUser } from "@/shared/hooks/useProfileUser";
 import { Button } from "@/shared/ui/button/Button";
 import { useLogout } from "@/modules/auth/hooks/useLogout";
-import type { FavoriteResponse, PostsResponse, User, UserGuest, UserListResponse } from "@/shared/types/api";
 import { useFollow, useUnfollow } from "@/shared/hooks/useSocial";
 import { TabsList } from "@/modules/user/components/tab-list/TabList";
 import { useProfileData } from "@/modules/user/hooks/useProfileData";
 import { useState } from "react";
 import { TabKey, type TabKeyType } from "@/shared/constants/tabData";
-import { ListItems, type ListItem } from "@/modules/user/components/list-items/ListItems";
+import { ListItems } from "@/modules/user/components/list-items/ListItems";
 
 
-function isUserGuest(user: User | UserGuest): user is UserGuest {
-  return "is_followed" in user;
-}
+// function isUserGuest(user: User | UserGuest): user is UserGuest {
+//   return "is_followed" in user;
+// }
 
 
 
 export const UserPage = () => {
     const { id } = useParams();
-    const userId = id ? Number(id) : undefined;
-
+    const userId = Number(id)
     const {user: authUser } = useUser()
+    const isMyProfile = authUser?.id === userId;
+
+    const { data: viewedUser, isLoading: isViewedUserLoading } = useProfileUser(isMyProfile ? undefined : userId);
+    const profileUser = isMyProfile ? authUser : viewedUser;
+
     const { mutate: updateAvatar } = useUpdateAvatar();
     const { mutate: logout } = useLogout();
-    const { data: viewedUser, isLoading: isViewedUserLoading } = useProfileUser(userId);
     const { mutate: unfollow } = useUnfollow();
     const { mutate: follow } = useFollow();
 
@@ -39,37 +41,13 @@ export const UserPage = () => {
     const [activeTab, setActiveTab] = useState<TabKeyType>(TabKey.POSTS);
 
 
-    // const isMyProfile = authUser?.id.toString() === id;
-    const isMyProfile = authUser?.id === userId;
-
-    const profileUser = isMyProfile ? authUser : viewedUser;
-
     // Fetch the Tab Content
-    const { data, isLoading: ProfileDataLoading} = useProfileData(
-        userId!, 
-        page, 
-        activeTab
-    );
-
-    const tabData: ListItem[] = (() => {
-        if (!data) return [];
-
-        switch (activeTab) {
-            case TabKey.POSTS:
-            return (data as PostsResponse).posts ?? [];
-            case TabKey.FAVORITES:
-            return data as FavoriteResponse[];
-            case TabKey.FOLLOWERS:
-            case TabKey.FOLLOWING:
-            return (data as UserListResponse).items ?? [];
-            default:
-            return [];
-        }
-        })();
+    const { data: tabData = [], isLoading: ProfileDataLoading} = useProfileData(userId, page, activeTab);
 
     if (isViewedUserLoading) return <p>Loading Profile...</p>;
     if (!profileUser) return <p>User not found</p>;
 
+    const isFollowing = !isMyProfile && !!profileUser.isFollowed;
 
 
     const handleAvatarChange = (file: File) => {
@@ -82,13 +60,10 @@ export const UserPage = () => {
     }
 
     const handleUnFollow = () => {
-        if (!profileUser.id) return;
         unfollow(profileUser.id);
     };
-    
 
     const handleFollow = () => {
-        if (!profileUser?.id) return;
         follow(profileUser.id);
     };
 
@@ -119,23 +94,14 @@ export const UserPage = () => {
                     >
                     LOG OUT
                     </Button>
-                ) : isUserGuest(profileUser) && profileUser.isFollowed ? (
-                    <Button
-                        variant="dark"
-                        size="medium"
-                        bordered={true}
-                        onClick={handleUnFollow}
-                    >
-                    FOLLOWING
-                    </Button>
                 ) : (
                     <Button
                         variant="dark"
-                        size="medium"
-                        bordered={true}
-                        onClick={handleFollow}
+                        bordered
+                        // Now we use the clean local variable
+                        onClick={isFollowing ? handleUnFollow : handleFollow}
                     >
-                    FOLLOW
+                        {isFollowing ? "FOLLOWING" : "FOLLOW"}
                     </Button>
                 )}
                 </div>

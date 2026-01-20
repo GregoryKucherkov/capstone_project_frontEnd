@@ -5,10 +5,9 @@ import { Avatar } from "@/shared/ui/avatar/Avatar";
 import { normalizeImagePath } from "@/shared/utils/normalizeImagePath";
 import { Typography } from "@/shared/ui/typography/Typography";
 import { Button } from "@/shared/ui/button/Button";
-import { Image } from "@/shared/ui/image/Image";
 import { ButtonIcon } from "@/shared/ui/button-icon/ButtonIcon";
 import ArrowUpRight from "@/assets/icons/arrow-up-right.svg?react"
-import type { Post, UserGuest } from "@/shared/types/api";
+import type { UserGuest } from "@/shared/types/api";
 
 
 
@@ -19,7 +18,7 @@ export interface UserCardProps {
     onUnfollow: () => void;
     loading: boolean;
     userPageBasePath?: string; 
-    posts?: Post[]
+    // posts?: Post[]
 
 }
 
@@ -28,7 +27,6 @@ export const UserCard = ({
     tabType,
     onFollow,
     onUnfollow,
-    posts,
     userPageBasePath = "/user",
     loading = false,
 }: UserCardProps) => {
@@ -48,8 +46,9 @@ export const UserCard = ({
         }
     };
 
-    const showPosts = breakpoint === "tablet" || breakpoint === "desktop";
-    const thumbCount = breakpoint === "desktop" ? 4 : 3;
+    //  if i would wwant to render last posts of user(need to change backend out)
+    // const showPosts = breakpoint === "tablet" || breakpoint === "desktop";
+    // const thumbCount = breakpoint === "desktop" ? 4 : 3;
     const iconSize = breakpoint === "desktop" ? "medium" : "small";
     const buttonSize = breakpoint === "desktop" ? "medium" : "small";
 
@@ -82,19 +81,6 @@ export const UserCard = ({
                     </Button>
                 </div>
             </div>
-
-            {showPosts && posts && posts.length > 0 && (
-                <div className={css.recipeList}>
-                {posts.slice(0, thumbCount).map((post) => (
-                    <div key={post.id} className={css.thumb}>
-                    <Image
-                        src={normalizeImagePath(post.media[0])}
-                        alt={`Recipe ${post.id}`}
-                    />
-                    </div>
-                ))}
-                </div>
-            )}
 
             <div className={css.arrowButton}>
                 <ButtonIcon

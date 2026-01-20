@@ -1,15 +1,11 @@
-import { emptyTabMessagesForOwner, emptyTabMessagesForUser, TabKey, type TabKeyType } from "@/shared/constants/tabData";
+import { emptyTabMessagesForOwner, emptyTabMessagesForUser, type TabKeyType } from "@/shared/constants/tabData";
 import { Typography } from "@/shared/ui/typography/Typography";
 import css from "./ListItems.module.css"
 import { PostPreview } from "@/modules/social/components/post-preview/PostPreview";
 import { UserCard } from "@/modules/user/components/user-card/UserCard";
-import type { FavoriteResponse, Post, UserGuest } from "@/shared/types/api";
+import type { ListItem, UserGuest } from "@/shared/types/api";
 
 
-export type ListItem =
-  | Post
-  | UserGuest
-  | FavoriteResponse;
 
 
 export interface ListItemsProps {
@@ -21,6 +17,7 @@ export interface ListItemsProps {
     onUnFollow: () => void;
 
 }
+
 
 
 export const ListItems = ({
@@ -36,7 +33,6 @@ export const ListItems = ({
         const messages = isMyProfile ? emptyTabMessagesForOwner : emptyTabMessagesForUser;
         const message = messages[tab as keyof typeof messages] ?? "No data found.";
 
-
         return (
             <Typography textColor="black" className={css.notFoundMsg}>
                 {message}
@@ -44,23 +40,20 @@ export const ListItems = ({
         )
     }
 
-
     return (
         <div className={css.listContainer}>
             {items.map((item) => {
                 // Posts tab
-            if (tab === TabKey.POSTS) {
-                const post = item as Post;
-                return <PostPreview key={post.id} post={post} />;
+            if ("body" in item) {
+                return <PostPreview key={item.id} post={item} />;
             }
 
             // Favorites tab (exercises)
-            if (tab === TabKey.FAVORITES) {
-                const fav = item as FavoriteResponse;
+            if ("exercise_id" in item) {
                 return (
-                <div key={`${fav.user_id}-${fav.exercise_id}`}>
-                    Exercise #{fav.exercise_id}
-                </div>
+                    <div key={`${item.user_id}-${item.exercise_id}`}>
+                        Exercise #{item.exercise_id}
+                    </div>
                 );
             }
 
@@ -70,11 +63,10 @@ export const ListItems = ({
                 <UserCard
                     key={user.id}
                     user={user}
-                    tabType={tab}
+                    tabType={tab as "followers" | "following"}
                     onFollow={onFollow}
                     onUnfollow={onUnFollow}
                     loading={loading}
-                    posts={post}
                 />
             );
             })}

@@ -20,6 +20,7 @@ export const tabsForOwner = [
 export const tabsForUser = [
   { key: TabKey.POSTS, label: "Posts" },
   { key: TabKey.FOLLOWERS, label: "Followers" },
+  { key: TabKey.FOLLOWING, label: "Following" }
 ];
 
 export const emptyTabMessagesForOwner: Record<TabKeyType, string> = {

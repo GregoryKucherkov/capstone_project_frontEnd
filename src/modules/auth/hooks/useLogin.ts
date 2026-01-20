@@ -9,6 +9,8 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: loginUserApi,
     onSuccess: (data) => {
+      queryClient.clear();
+      
       // 1. Save token to localStorage
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("refreshToken", data.refresh_token);
