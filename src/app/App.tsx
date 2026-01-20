@@ -7,6 +7,8 @@ import { Route, Routes } from 'react-router-dom'
 import ExercisesLib from '@/pages/exercises-lib/ExercisesLib'
 import { ErrorBoundary } from '@/shared/ui/error/Error'
 import { useUser } from '@/shared/hooks/use-user'
+import { PrivateRoute } from '@/shared/components/private-route'
+import { UserPage } from '@/pages/user-page/UserPage'
 
 
 
@@ -33,6 +35,16 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
+
+          <Route
+            path="/user/:id"
+            element={
+              <PrivateRoute>
+                <UserPage />
+              </PrivateRoute>
+            }
+          />
+
           <Route path="/exercises" element={<ExercisesLib />} />
           <Route path="*" element={<div>Not Found</div>} />
         </Route>

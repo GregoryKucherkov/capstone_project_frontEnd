@@ -32,6 +32,14 @@ export interface UserGuest {
   name: string;
   avatar?: string;
   description?: string;
+  isFollowed?: boolean;
+}
+
+export interface UserListResponse {
+  items: UserGuest[];
+  total: number;
+  page: number;
+  size: number;
 }
 
 export interface SignInValues {
@@ -45,4 +53,25 @@ export interface AuthResponse {
   refresh_token: string;
   token_type: string;
   user: User;
+}
+
+export interface Post {
+  id: number,
+  body: string,
+  user_id: number,
+  likes_count: number,
+  is_liked_by_me: boolean,
+  media: string[]
+}
+
+export interface PostsResponse {
+  posts: Post[];
+  total: number;
+  page: number;
+  size: number;
+}
+
+export interface FavoriteResponse {
+  exercise_id: number,
+  user_id: number
 }

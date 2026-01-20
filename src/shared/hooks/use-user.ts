@@ -7,7 +7,6 @@ export const useUser = () => {
   const hasToken = !!localStorage.getItem("token");
 
   const { data, isLoading, isError } = useQuery({
-    // queryKey: ["user"],
     queryKey: ["auth", "me"],
     queryFn: getCurrentUser,
     enabled: hasToken,
@@ -16,9 +15,9 @@ export const useUser = () => {
   });
 
   return {
-    user: data || null,
-    isLoggedIn: hasToken ? (isLoading ? true : !!data) : false,
+    user: data ?? null,
     isLoading,
+    isLoggedIn: !!data,
     isError,
 
   };

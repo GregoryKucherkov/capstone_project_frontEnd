@@ -11,6 +11,7 @@ export const useUpdateAvatar = () => {
         mutationFn: (file: File) => userService.changeAvatar(file),
         onSuccess: (updatedUser) => {
             queryClient.setQueryData(["auth", "me"], updatedUser);
+            
             queryClient.setQueryData(["user", updatedUser.id], updatedUser);
             toast.success("Avatar updated successfully!");
         },
