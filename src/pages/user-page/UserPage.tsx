@@ -1,7 +1,6 @@
 import Container from "@/shared/ui/container/Container";
 import { useParams } from "react-router-dom";
-import css from "./UserPage.module.css"
-// import { Button } from "@/shared/ui/button/Button";
+import css from "./UserPage.module.css";
 import { Typography } from "@/shared/ui/typography/Typography";
 import { useUser } from "@/shared/hooks/use-user";
 import { UserInfo } from "@/modules/user/components/user-info/UserInfo";
@@ -17,111 +16,107 @@ import { TabKey, type TabKeyType } from "@/shared/constants/tabData";
 import { ListItems } from "@/modules/user/components/list-items/ListItems";
 
 
-// function isUserGuest(user: User | UserGuest): user is UserGuest {
-//   return "is_followed" in user;
-// }
-
-
-
 export const UserPage = () => {
-    const { id } = useParams();
-    const userId = Number(id)
-    const {user: authUser } = useUser()
-    const isMyProfile = authUser?.id === userId;
+  const { id } = useParams();
+  const userId = Number(id);
+  const { user: authUser } = useUser();
+  const isMyProfile = authUser?.id === userId;
 
-    const { data: viewedUser, isLoading: isViewedUserLoading } = useProfileUser(isMyProfile ? undefined : userId);
-    const profileUser = isMyProfile ? authUser : viewedUser;
+  const { data: viewedUser, isLoading: isViewedUserLoading } = useProfileUser(
+    isMyProfile ? undefined : userId,
+  );
+  const profileUser = isMyProfile ? authUser : viewedUser;
 
-    const { mutate: updateAvatar } = useUpdateAvatar();
-    const { mutate: logout } = useLogout();
-    const { mutate: unfollow } = useUnfollow();
-    const { mutate: follow } = useFollow();
+  const { mutate: updateAvatar } = useUpdateAvatar();
+  const { mutate: logout } = useLogout();
+  const { mutate: unfollow } = useUnfollow();
+  const { mutate: follow } = useFollow();
 
-    const [page, setPage] = useState(1);
-    const [activeTab, setActiveTab] = useState<TabKeyType>(TabKey.POSTS);
+  const [page, setPage] = useState(1);
+  const [activeTab, setActiveTab] = useState<TabKeyType>(TabKey.POSTS);
 
+  // Fetch the Tab Content
+  const { data: tabData = [], isLoading: ProfileDataLoading } = useProfileData(
+    userId,
+    page,
+    activeTab,
+  );
 
-    // Fetch the Tab Content
-    const { data: tabData = [], isLoading: ProfileDataLoading} = useProfileData(userId, page, activeTab);
+  if (isViewedUserLoading) return <p>Loading Profile...</p>;
+  if (!profileUser) return <p>User not found</p>;
 
-    if (isViewedUserLoading) return <p>Loading Profile...</p>;
-    if (!profileUser) return <p>User not found</p>;
+  const isFollowing = !isMyProfile && !!profileUser.isFollowed;
 
-    const isFollowing = !isMyProfile && !!profileUser.isFollowed;
+  const handleAvatarChange = (file: File) => {
+    if (!isMyProfile) return;
+    updateAvatar(file);
+  };
 
+  const handleOpenLogOut = () => {
+    logout();
+  };
 
-    const handleAvatarChange = (file: File) => {
-        if (!isMyProfile) return;
-        updateAvatar(file); 
-    };
+  const handleUnFollow = () => {
+    unfollow(profileUser.id);
+  };
 
-    const handleOpenLogOut = () => {
-        logout()
-    }
+  const handleFollow = () => {
+    follow(profileUser.id);
+  };
 
-    const handleUnFollow = () => {
-        unfollow(profileUser.id);
-    };
+  return (
+    <Container className={css.container}>
+      <div> Back button</div>
+      <Typography variant="h2" className={css.title}>
+        Profile
+      </Typography>
 
-    const handleFollow = () => {
-        follow(profileUser.id);
-    };
+      <div className={css.profileContainer}>
+        <div className={css.profile}>
+          <UserInfo
+            user={profileUser}
+            isMyProfile={isMyProfile}
+            onAvatarChange={handleAvatarChange}
+          />
 
-
-
-    return (
-        <Container className={css.container}>
-
-            <div> Back button</div>
-            <Typography variant="h2" className={css.title}>
-                Profile
-            </Typography>
-
-            <div className={css.profileContainer}>
-                <div className={css.profile}>
-                        <UserInfo
-                            user={profileUser}
-                            isMyProfile={isMyProfile}
-                            onAvatarChange={handleAvatarChange}
-                        />
-
-                {isMyProfile ? (
-                    <Button
-                        variant="dark"
-                        bordered={true}
-                        size="medium"
-                        onClick={handleOpenLogOut}
-                    >
-                    LOG OUT
-                    </Button>
-                ) : (
-                    <Button
-                        variant="dark"
-                        bordered
-                        // Now we use the clean local variable
-                        onClick={isFollowing ? handleUnFollow : handleFollow}
-                    >
-                        {isFollowing ? "FOLLOWING" : "FOLLOW"}
-                    </Button>
-                )}
-                </div>
-                <div className={css.profileTabs}>
-                    <TabsList
-                        isMyProfile={isMyProfile}
-                        activeTab={activeTab}
-                        onTabChange={(tab) => { setActiveTab(tab); setPage(1); }}
-                    />
-                    <ListItems
-                        tab={activeTab}
-                        items={tabData}
-                        isMyProfile={isMyProfile}
-                        onFollow={handleFollow}
-                        onUnFollow={handleUnFollow}
-                        loading={ProfileDataLoading}
-                    />
-                </div>
+          {isMyProfile ? (
+            <Button
+              variant="dark"
+              bordered={true}
+              size="medium"
+              onClick={handleOpenLogOut}
+            >
+              LOG OUT
+            </Button>
+          ) : (
+            <Button
+              variant="dark"
+              bordered
+              onClick={isFollowing ? handleUnFollow : handleFollow}
+            >
+              {isFollowing ? "FOLLOWING" : "FOLLOW"}
+            </Button>
+          )}
         </div>
-
-        </Container>
-    )
-}
+        <div className={css.profileTabs}>
+          <TabsList
+            isMyProfile={isMyProfile}
+            activeTab={activeTab}
+            onTabChange={(tab) => {
+              setActiveTab(tab);
+              setPage(1);
+            }}
+          />
+          <ListItems
+            tab={activeTab}
+            items={tabData}
+            isMyProfile={isMyProfile}
+            onFollow={handleFollow}
+            onUnFollow={handleUnFollow}
+            loading={ProfileDataLoading}
+          />
+        </div>
+      </div>
+    </Container>
+  );
+};

@@ -1,4 +1,4 @@
-import css from "./FeedComponent.module.css"
+import css from "./FeedComponent.module.css";
 
 <li className={css.feedItem}>
   {/* Header */}
@@ -24,4 +24,4 @@ import css from "./FeedComponent.module.css"
 
   {/* Collapsible comments (later) */}
   {/* <div className={css.comments}>...</div> */}
-</li>
+</li>;

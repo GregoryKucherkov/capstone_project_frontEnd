@@ -1,13 +1,11 @@
 import css from "./SocialNetworks.module.css";
 import clsx from "clsx";
-import FacebookSVG from "@/assets/icons/facebook.svg?react"
-import InstagramSVG from "@/assets/icons/instagram.svg?react"
-import YoutubeSVG from "@/assets/icons/youtube.svg?react"
-
-
+import FacebookSVG from "@/assets/icons/facebook.svg?react";
+import InstagramSVG from "@/assets/icons/instagram.svg?react";
+import YoutubeSVG from "@/assets/icons/youtube.svg?react";
 
 const socialLinks = [
-    {
+  {
     href: "https://www.facebook.com/goITclub/",
     id: "facebook",
     label: "Facebook",
@@ -25,12 +23,11 @@ const socialLinks = [
     label: "YouTube",
     Icon: YoutubeSVG,
   },
-]
+];
 
-
-export const SocialNetworks = ()=> {
-    return (
-        <ul className={css.list}>
+export const SocialNetworks = () => {
+  return (
+    <ul className={css.list}>
       {socialLinks.map((link) => {
         const { href, id, label, Icon } = link;
 
@@ -49,5 +46,5 @@ export const SocialNetworks = ()=> {
         );
       })}
     </ul>
-    )
-}
+  );
+};

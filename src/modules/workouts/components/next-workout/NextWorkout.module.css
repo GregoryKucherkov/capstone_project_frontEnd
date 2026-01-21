@@ -12,15 +12,15 @@
 }
 
 .container__extra {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .nextWorkout {
-    display: flex;
-    flex-direction: column;
-    gap: 20px
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .workoutDetails {
@@ -28,13 +28,12 @@
   flex-direction: column;
 }
 
-
 .workoutWraper {
-    display: flex;
-    gap: 10px;
-    padding-bottom: 30px;
+  display: flex;
+  gap: 10px;
+  padding-bottom: 30px;
 }
 
 .workoutButton {
-    margin: 0 auto;
+  margin: 0 auto;
 }

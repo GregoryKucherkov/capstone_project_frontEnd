@@ -1,6 +1,9 @@
 const BASE_URL = "https://record-api-y4hr.onrender.com/api";
 
-export const baseFetch = async (endpoint: string, options: RequestInit = {}) => {
+export const baseFetch = async (
+  endpoint: string,
+  options: RequestInit = {},
+) => {
   const token = localStorage.getItem("token");
 
   // Merge headers
@@ -9,7 +12,7 @@ export const baseFetch = async (endpoint: string, options: RequestInit = {}) => 
   if (!headers.has("Content-Type") && !(options.body instanceof FormData)) {
     headers.set("Content-Type", "application/json");
   }
-  
+
   if (token) {
     headers.set("Authorization", `Bearer ${token}`);
   }

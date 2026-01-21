@@ -20,10 +20,10 @@
 
 @media (min-width: 481px) {
   .Testimonials__illustration {
-      width: 59px;
-      height: 48px;
-      left: 40px;
-      top: -75px;
+    width: 59px;
+    height: 48px;
+    left: 40px;
+    top: -75px;
   }
 }
 
@@ -46,8 +46,8 @@
 
 @media (min-width: 481px) {
   .Testimonials__paginationBullet {
-      width: 16px;
-      height: 16px;
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -74,7 +74,6 @@
   gap: 64px;
   margin: 64px auto 40px;
   max-width: 343px;
-  
 }
 
 .TestimonialsCard__comment {
@@ -86,12 +85,12 @@
 
 @media (min-width: 481px) {
   .TestimonialsCard {
-      margin-top: 80px;
-      max-width: 730px;
+    margin-top: 80px;
+    max-width: 730px;
   }
 
   .TestimonialsCard__comment {
-      font-size: 24px;
-      line-height: 36px;
+    font-size: 24px;
+    line-height: 36px;
   }
 }

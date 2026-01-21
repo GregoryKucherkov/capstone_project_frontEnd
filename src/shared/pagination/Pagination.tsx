@@ -1,20 +1,24 @@
-import ReactPaginate from 'react-paginate'
-import css from './Pagination.module.css'
+import ReactPaginate from "react-paginate";
+import css from "./Pagination.module.css";
 import ChevronUp from "../../assets/icons/chevron-up.svg?react";
 
 export interface PaginationProps {
-    totalPages: number;
-    activePage: number;
-    onPageChange: (pageNumber: number) => void;
-
+  totalPages: number;
+  activePage: number;
+  onPageChange: (pageNumber: number) => void;
 }
 
-
-export const Pagination = ({ totalPages, activePage, onPageChange }: PaginationProps) => (
+export const Pagination = ({
+  totalPages,
+  activePage,
+  onPageChange,
+}: PaginationProps) => (
   <ReactPaginate
     pageCount={totalPages}
     forcePage={activePage - 1}
-    onPageChange={({ selected }: { selected: number }) => onPageChange(selected + 1)}
+    onPageChange={({ selected }: { selected: number }) =>
+      onPageChange(selected + 1)
+    }
     previousLabel={<ChevronUp className={css.PaginationButtonPrev} />}
     nextLabel={<ChevronUp className={css.PaginationButtonNext} />}
     breakLabel="…"
@@ -28,4 +32,4 @@ export const Pagination = ({ totalPages, activePage, onPageChange }: PaginationP
     breakLinkClassName={css.PaginationButton}
     disabledLinkClassName={css.PaginationButton__disabled}
   />
-)
+);

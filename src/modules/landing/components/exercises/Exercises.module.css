@@ -46,7 +46,6 @@
     color: var(--main-color);
     line-height: 24px;
     letter-spacing: -0.32px;
-    
   }
 }
 
@@ -64,12 +63,10 @@
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--main-color);
-  
-  background-image: linear-gradient(
-    rgba(17, 17, 17, 0.6) 0%,
-    rgba(17, 17, 17, 0.6) 100%
-  ),
-  url("@/assets/images/exercises/3679.gif");
+
+  background-image:
+    linear-gradient(rgba(17, 17, 17, 0.6) 0%, rgba(17, 17, 17, 0.6) 100%),
+    url("@/assets/images/exercises/3679.gif");
   background-repeat: no-repeat;
   overflow: hidden;
 
@@ -88,9 +85,7 @@
   padding: 8px 14px;
   letter-spacing: -0.32px;
   backdrop-filter: blur(10px);
-
 }
-
 
 /* tablet */
 @media only screen and (min-width: 768px) {

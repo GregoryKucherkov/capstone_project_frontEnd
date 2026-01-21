@@ -1,14 +1,13 @@
-import { useState, type ReactNode, type ImgHTMLAttributes } from 'react'
-import placeholder from '@/assets/icons/mock-of-picture.svg'
-import { normalizeImagePath } from '@/shared/utils/normalizeImagePath';
+import { useState, type ReactNode, type ImgHTMLAttributes } from "react";
+import placeholder from "@/assets/icons/mock-of-picture.svg";
+import { normalizeImagePath } from "@/shared/utils/normalizeImagePath";
 
-
-interface ImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> {
-    src?: string | null; 
-    alt: string;
-    className?: string;
-    renderFallback?: () => ReactNode;
-    fallbackSrc?: string;
+interface ImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, "src"> {
+  src?: string | null;
+  alt: string;
+  className?: string;
+  renderFallback?: () => ReactNode;
+  fallbackSrc?: string;
 }
 
 const Image = ({
@@ -26,14 +25,7 @@ const Image = ({
   if (isBroken) {
     if (renderFallback) return <>{renderFallback()}</>;
 
-    return (
-      <img
-        src={fallbackSrc}
-        alt={alt}
-        className={className}
-        {...props}
-      />
-    )
+    return <img src={fallbackSrc} alt={alt} className={className} {...props} />;
   }
 
   return (
@@ -44,7 +36,7 @@ const Image = ({
       onError={() => setHasError(true)}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Image }
+export { Image };

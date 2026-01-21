@@ -1,4 +1,4 @@
-import css from "./UserBar.module.css"
+import css from "./UserBar.module.css";
 
 import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 import clsx from "clsx";
@@ -11,14 +11,12 @@ import { useUser } from "@/shared/hooks/use-user";
 import { Avatar } from "@/shared/ui/avatar/Avatar";
 
 interface ProfileMenuProps {
-    onClose: () => void
-
+  onClose: () => void;
 }
 
 const ProfileMenu = ({ onClose }: ProfileMenuProps) => {
   const { user } = useUser();
   const [, setSearchParams] = useSearchParams();
-  
 
   return (
     <div className={css.popover}>
@@ -30,8 +28,8 @@ const ProfileMenu = ({ onClose }: ProfileMenuProps) => {
         type="button"
         className={clsx(css.link, css.logoutButton)}
         onClick={() => {
-            setSearchParams({ modal: "logout" });
-            onClose();
+          setSearchParams({ modal: "logout" });
+          onClose();
         }}
       >
         Log out
@@ -41,43 +39,38 @@ const ProfileMenu = ({ onClose }: ProfileMenuProps) => {
   );
 };
 
-
 export const UserBar = () => {
+  const { user } = useUser();
+  const [isOpenProfile, setIsOpenProfile] = useState(false);
+  const breakpoint = useBreakpoint();
+  const isMobile = ["mobile", "small-mobile"].includes(breakpoint);
+  const containerRef = useRef(null);
 
+  const userName = user?.name || "User";
 
-    const { user } = useUser();
-    const [isOpenProfile, setIsOpenProfile] = useState(false);
-    const breakpoint = useBreakpoint();
-    const isMobile = ["mobile", "small-mobile"].includes(breakpoint);
-    const containerRef = useRef(null);
-
-    const userName = user?.name || "User";
-
-
-    return (
-
-        <div className={css.container} ref={containerRef}>
-        <div
-            className={css.profile}
-            onClick={() => setIsOpenProfile((prev) => !prev)}
+  return (
+    <div className={css.container} ref={containerRef}>
+      <div
+        className={css.profile}
+        onClick={() => setIsOpenProfile((prev) => !prev)}
+      >
+        <div style={{ flexShrink: 0 }}>
+          <Avatar
+            src={user?.avatar}
+            alt={`${userName}'s avatar`}
+            size={isMobile ? 32 : 50}
+            name={userName}
+          />
+        </div>
+        <button
+          type="button"
+          className={clsx(css.button, isOpenProfile && css.buttonOpen)}
         >
-            <div style={{ flexShrink: 0 }}>
-            <Avatar
-                src={user?.avatar}
-                alt={`${userName}'s avatar`}
-                size={isMobile ? 32 : 50}
-                name={userName}
-            />
-            </div>
-            <button
-            type="button"
-            className={clsx(css.button, isOpenProfile && css.buttonOpen)}
-            >
-            <ChevronDownIcon className={css.arrowIcon} />
-            </button>
-        </div>
+          <ChevronDownIcon className={css.arrowIcon} />
+        </button>
+      </div>
 
-        {isOpenProfile && <ProfileMenu onClose={() => setIsOpenProfile(false)} />}
-        </div>
-    );
-}
+      {isOpenProfile && <ProfileMenu onClose={() => setIsOpenProfile(false)} />}
+    </div>
+  );
+};

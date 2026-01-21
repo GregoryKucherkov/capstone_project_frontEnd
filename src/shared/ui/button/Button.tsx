@@ -3,26 +3,23 @@ import clsx from "clsx";
 
 const s = styles as unknown as Record<string, string>;
 
-export type ButtonVariant = "dark" | "light" | "transparent" | "pink"
-export type ButtonSize = "small"|"medium"|"large"
+export type ButtonVariant = "dark" | "light" | "transparent" | "pink";
+export type ButtonSize = "small" | "medium" | "large";
 // export type ButtonType = "button"|"submit"|"reset"
 
-
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: ButtonVariant;
-    size?: ButtonSize;
-    bordered?: boolean;
-    icon?: React.ReactNode;
-    fullWidth?: boolean;
-    children: React.ReactNode;
-    className?: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  bordered?: boolean;
+  icon?: React.ReactNode;
+  fullWidth?: boolean;
+  children: React.ReactNode;
+  className?: string;
 }
 
-
-export const Button = (
-    {
+export const Button = ({
   variant = "light",
-  size="medium",
+  size = "medium",
   bordered = false,
   disabled = false,
   type = "button",
@@ -32,11 +29,9 @@ export const Button = (
   className,
   fullWidth = false,
   ...restProps
-}
-: ButtonProps
-) => {
-    return (
-        <button
+}: ButtonProps) => {
+  return (
+    <button
       className={clsx(
         s.Button,
         s[variant],
@@ -53,5 +48,5 @@ export const Button = (
       {children}
       {icon}
     </button>
-    )
-}
+  );
+};

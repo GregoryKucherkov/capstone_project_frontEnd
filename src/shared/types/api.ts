@@ -9,22 +9,21 @@ export interface UserResponse {
   is_verified: boolean;
   avatar: string | null;
   created_at: string;
-  // ... any other fields 
+  // ... any other fields
 }
-
 
 // /users/me response
 export interface User {
-  name: string,
-  description: string,
-  email: string,
-  is_private: boolean,
-  is_active: boolean,
-  is_verified: boolean,
-  id: number,
-  avatar: string,
-  created_at: string,
-  updated_at: string
+  name: string;
+  description: string;
+  email: string;
+  is_private: boolean;
+  is_active: boolean;
+  is_verified: boolean;
+  id: number;
+  avatar: string;
+  created_at: string;
+  updated_at: string;
   isFollowed?: boolean;
 }
 
@@ -48,7 +47,6 @@ export interface SignInValues {
   password: string;
 }
 
-
 export interface AuthResponse {
   access_token: string;
   refresh_token: string;
@@ -57,12 +55,12 @@ export interface AuthResponse {
 }
 
 export interface Post {
-  id: number,
-  body: string,
-  user_id: number,
-  likes_count: number,
-  is_liked_by_me: boolean,
-  media: string[]
+  id: number;
+  body: string;
+  user_id: number;
+  likes_count: number;
+  is_liked_by_me: boolean;
+  media: string[];
 }
 
 export interface PostsResponse {
@@ -73,11 +71,8 @@ export interface PostsResponse {
 }
 
 export interface FavoriteResponse {
-  exercise_id: number,
-  user_id: number
+  exercise_id: number;
+  user_id: number;
 }
 
-export type ListItem =
-  | Post
-  | UserGuest
-  | FavoriteResponse;
+export type ListItem = Post | UserGuest | FavoriteResponse;

@@ -12,39 +12,36 @@
 }
 
 .container__extra {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
-
 .textWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .description {
-    letter-spacing: -0.28px;
+  letter-spacing: -0.28px;
 
-    font-size: 16px;
-    line-height: 143%;
+  font-size: 16px;
+  line-height: 143%;
 }
 
 .imageWrapper {
-    height: 400px;
-    border-radius: 20px;
-    overflow: hidden;
-    background-position: center;
-
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-position: center;
 }
 
 .imageWrapper img {
-    height: 100%;
-    width: 100%;
-	object-fit: cover;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
-
 
 .workoutExercises {
   border: 1px black solid;
@@ -53,10 +50,9 @@
   display: grid;
   grid-template-columns: 1fr;
   justify-content: center;
- 
 }
 
-.workoutCardTitle{
+.workoutCardTitle {
   color: var(--main-color);
   padding: 15px;
   /* border: 1px black solid */
@@ -70,12 +66,12 @@
 }
 
 .liExerciseCard {
-    width: 100%;
-    background-color: var(--white-color);
-    border-radius: 15px;
-    padding: 16px;
-    overflow: hidden;
-    border: 1px black solid
+  width: 100%;
+  background-color: var(--white-color);
+  border-radius: 15px;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px black solid;
 }
 
 .cardHeader {
@@ -107,7 +103,6 @@
   gap: 8px;
   padding: 0px;
 }
-
 
 .exerciseInfo {
   color: var(--main-color);
@@ -141,7 +136,6 @@
 }
 
 .trackingWrapper {
-  
   border-radius: 15px;
 }
 
@@ -158,19 +152,17 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-
 }
 
 .liTracking {
-  border: 2px solid #F9A8D4;
-  background-color: #FCE7F3;
+  border: 2px solid #f9a8d4;
+  background-color: #fce7f3;
   border-radius: 15px;
 
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px 10px 30px;
-
 }
 
 .trackingDetails {
@@ -204,7 +196,6 @@
   color: black;
 }
 
-
 .socialFeed {
   border: 1px solid black;
   border-radius: 15px;
@@ -215,13 +206,11 @@
   padding: 15px;
 }
 
-
-
 .feedItem {
   border: 1px solid black;
- 
+
   padding: 15px;
 
   text-align: start;
-  background-color: #A8E6C8;
+  background-color: #a8e6c8;
 }

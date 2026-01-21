@@ -11,7 +11,7 @@ interface State {
 
 export class ErrorBoundary extends Component<Props, State> {
   public state: State = {
-    hasError: false
+    hasError: false,
   };
 
   // public static getDerivedStateFromError(_: Error): State {
@@ -19,8 +19,8 @@ export class ErrorBoundary extends Component<Props, State> {
   //   return { hasError: true };
   // }
 
-  public static getDerivedStateFromError(): State { 
-    return { hasError: true }; 
+  public static getDerivedStateFromError(): State {
+    return { hasError: true };
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {

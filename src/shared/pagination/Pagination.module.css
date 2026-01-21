@@ -16,8 +16,8 @@
   border: none;
   border-radius: var(--border-radius-full);
   color: var(--main-color);
-  transition: background var(--transition-duration)
-      var(--transition-timing-function),
+  transition:
+    background var(--transition-duration) var(--transition-timing-function),
     color var(--transition-duration) var(--transition-timing-function);
 }
 

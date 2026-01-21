@@ -1,7 +1,6 @@
 import * as yup from "yup";
 import { EMAIL_REGEX } from "@/shared/constants/regex";
 
-
 export const loginValidationSchema = yup.object({
   email: yup
     .string()

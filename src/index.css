@@ -12,17 +12,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-
   /* Global color variables */
   --main-color: #050505;
-  --gray-color: #BFBEBE;
+  --gray-color: #bfbebe;
   --gray-dark-color: #aaaaaa;
-  --gray-light-color: #E8E8E8;
-  --white-color: #FFFFFF;
+  --gray-light-color: #e8e8e8;
+  --white-color: #ffffff;
   --red-color: #d10808;
   --white-transparent-color: rgba(255, 255, 255, 0.2);
   --white-transparent-color-2: rgba(255, 255, 255, 0.1);
-  --button-color: #1A1A1A;
+  --button-color: #1a1a1a;
 
   --border-radius-s: 15px;
   --border-radius-m: 30px;
@@ -32,8 +31,6 @@
   --transition-timing-function: ease;
   --Typography-line-clamp: 1;
 }
-
-
 
 h1,
 h2,
@@ -66,7 +63,6 @@ body {
   font-family: "Mulish", sans-serif;
   font-weight: 500;
 }
-
 
 /* extra settings */
 

@@ -1,32 +1,30 @@
 import { Typography } from "@/shared/ui/typography/Typography";
 import styles from "./Input.module.css";
 
-
-export type VariantProp  = "default" | "underline" | "ghost";
+export type VariantProp = "default" | "underline" | "ghost";
 
 export interface InputProps {
-    name?: string;
-    placeholder?: string;
-    value?: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    type?: string;
-    error?: string;
-    variant?: VariantProp;
-    maxLength?: number;
-    disabled?: boolean;
-    required?: boolean;
-    iconRight?: React.ReactNode
-    onIconClick?: () => void;
-    className?: string;
-    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-
+  name?: string;
+  placeholder?: string;
+  value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  error?: string;
+  variant?: VariantProp;
+  maxLength?: number;
+  disabled?: boolean;
+  required?: boolean;
+  iconRight?: React.ReactNode;
+  onIconClick?: () => void;
+  className?: string;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({
   name,
   placeholder,
-  value="",
+  value = "",
   onChange,
   type = "text",
   error,
@@ -43,7 +41,9 @@ export const Input = ({
   const showCounter = typeof maxLength === "number";
 
   return (
-    <div className={`${styles.wrapper} ${disabled ? styles.disabled : ""} ${className}`}>
+    <div
+      className={`${styles.wrapper} ${disabled ? styles.disabled : ""} ${className}`}
+    >
       <div className={styles.inputWrapper}>
         <input
           className={`${styles.input} ${styles[variant]} ${error ? styles.error : ""}`}
@@ -58,7 +58,11 @@ export const Input = ({
           onBlur={onBlur}
         />
         {iconRight && (
-          <button type="button" className={styles.iconButton} onClick={onIconClick}>
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={onIconClick}
+          >
             {iconRight}
           </button>
         )}
@@ -68,7 +72,11 @@ export const Input = ({
           </div>
         )}
       </div>
-      {error && <Typography variant="body" textColor="red">{error}</Typography>}
+      {error && (
+        <Typography variant="body" textColor="red">
+          {error}
+        </Typography>
+      )}
     </div>
   );
 };

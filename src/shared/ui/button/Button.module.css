@@ -5,8 +5,8 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: background var(--transition-duration)
-      var(--transition-timing-function),
+  transition:
+    background var(--transition-duration) var(--transition-timing-function),
     border var(--transition-duration) var(--transition-timing-function),
     color var(--transition-duration) var(--transition-timing-function);
   text-transform: uppercase;
@@ -92,17 +92,14 @@
 }
 
 .Button.pink {
-  background: #ED1A63;
+  background: #ed1a63;
   color: var(--white-color);
   border: 1px solid transparent;
 }
 
 .Button.pink.bordered {
-    border: 1px solid var(--white-transparent-color);
+  border: 1px solid var(--white-transparent-color);
 }
-
-
-
 
 .Button.bordered {
   border: 1px solid var(--main-color);

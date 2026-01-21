@@ -1,8 +1,6 @@
 import { getCurrentUser } from "@/modules/auth/api/authApi";
 import { useQuery } from "@tanstack/react-query";
 
-
-
 export const useUser = () => {
   const hasToken = !!localStorage.getItem("token");
 
@@ -19,6 +17,5 @@ export const useUser = () => {
     isLoading: isLoading || isFetching,
     isLoggedIn: !!data,
     isError,
-
   };
 };

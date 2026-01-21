@@ -5,19 +5,23 @@ import clsx from "clsx";
 import css from "./Modal.module.css";
 
 // import CloseIcon from "@/x.svg?react";
-import CloseIcon from "@/assets/icons/x.svg?react"
+import CloseIcon from "@/assets/icons/x.svg?react";
 
 const modalRootRef = document.getElementById("modal-root");
 
 export interface ModalProps {
-    isOpen: boolean,
-    closeModal: () => void;
-    modalClassName?: string;
-    children: React.ReactNode;
-
+  isOpen: boolean;
+  closeModal: () => void;
+  modalClassName?: string;
+  children: React.ReactNode;
 }
 
-export const Modal = ({ isOpen, closeModal, modalClassName, children }: ModalProps) => {
+export const Modal = ({
+  isOpen,
+  closeModal,
+  modalClassName,
+  children,
+}: ModalProps) => {
   const handleBackdropClick = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
       if (e.target === e.currentTarget) closeModal();

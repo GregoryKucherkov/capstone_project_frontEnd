@@ -1,7 +1,6 @@
 import { registerUserApi } from "@/modules/auth/api/authApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-
 // export const useRegister = () => {
 //   return useMutation({
 //     mutationFn: registerUserApi,
@@ -22,8 +21,8 @@ export const useRegister = () => {
       if (data.user) {
         queryClient.setQueryData(["auth", "me"], data.user);
       }
-      
+
       queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
-    }
+    },
   });
 };
