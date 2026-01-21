@@ -11,7 +11,7 @@ export const BottomNav = () => {
     const navItems = [
         { path: "/", label: "Home", icon: <FiHome size={24} /> },
         { path: "/progress", label: "Progress", icon: <FiBarChart2 size={24} /> },
-        { path: "/add_workout", label: "Add", icon: <FiPlus size={24} /> },
+        { path: "/add-workout", label: "Add", icon: <FiPlus size={24} /> },
         { path: "/community", label: "Community", icon: <FiUsers size={24} /> },
         { path: "/exercises", label: "Exercises", icon: <FiActivity size={24} /> }
     ];

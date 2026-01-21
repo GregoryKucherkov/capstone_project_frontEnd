@@ -9,6 +9,11 @@ import { ErrorBoundary } from '@/shared/ui/error/Error'
 import { useUser } from '@/shared/hooks/use-user'
 import { PrivateRoute } from '@/shared/components/private-route'
 import { UserPage } from '@/pages/user-page/UserPage'
+import { AddWorkout } from '@/pages/add-workout/AddWorkout'
+import { QuickWorkout } from '@/pages/add-workout/quick-workout/QuickWorkout'
+import { PlannedWorkout } from '@/pages/add-workout/planned-workout/PlannedWorkout'
+import { ManageWorkouts } from '@/pages/add-workout/manage-workouts/ManageWorkouts'
+import { FavoriteExercises } from '@/pages/add-workout/favorite-exercises/FavoriteExercises'
 
 
 
@@ -44,6 +49,50 @@ function App() {
               </PrivateRoute>
             }
           />
+{/* ADD WORKOUT PAGES */}
+          <Route
+            path="/add-workout"
+            element={
+              <PrivateRoute>
+                <AddWorkout />
+              </PrivateRoute>
+            }
+           />
+           <Route
+              path="/add-workout/quick"
+              element={
+                <PrivateRoute>
+                  <QuickWorkout />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/add-workout/planned"
+              element={
+                <PrivateRoute>
+                  <PlannedWorkout />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/add-workout/manage"
+              element={
+                <PrivateRoute>
+                  <ManageWorkouts />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/add-workout/favorite"
+              element={
+                <PrivateRoute>
+                  <FavoriteExercises />
+                </PrivateRoute>
+              }
+            />
+          
+              
+          
 
           <Route path="/exercises" element={<ExercisesLib />} />
           <Route path="*" element={<div>Not Found</div>} />

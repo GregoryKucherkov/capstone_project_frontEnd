@@ -5,7 +5,9 @@ import { useUser } from "@/shared/hooks/use-user";
 
 
 const Home = () => {
-    const { isLoggedIn } = useUser();
+    const { isLoggedIn, isLoading } = useUser();
+
+    if (isLoading) return <div>Loading...</div>;
     
 
     return (

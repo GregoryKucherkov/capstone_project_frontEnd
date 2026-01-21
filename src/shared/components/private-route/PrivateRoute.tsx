@@ -1,6 +1,6 @@
 import { useUser } from "@/shared/hooks/use-user";
 import type { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 
 export interface PrivateRouteProps {
@@ -10,8 +10,20 @@ export interface PrivateRouteProps {
 
 export const PrivateRoute = ({ redirectTo = "/", children }: PrivateRouteProps) => {
     const {user, isLoading} = useUser()
+    const location = useLocation();
 
     if (isLoading) return null;
 
-    return user ? <>{children}</> : <Navigate to={redirectTo} />;
+
+    if (!user) {
+    return (
+      <Navigate
+        to={redirectTo}
+        replace
+        state={{ from: location }}
+      />
+    );
+  }
+
+  return <>{children}</>;
 }

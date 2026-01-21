@@ -23,7 +23,7 @@ export const UserInfo = ({user, isMyProfile, onAvatarChange}: UserInfoProps) => 
     const breakpoint = useBreakpoint();
     const isMobile = ["mobile", "small-mobile"].includes(breakpoint);
 
-    const {name, description, avatar} = user
+    const {name, avatar} = user
 
 
     const handleAvatarClick = () => {

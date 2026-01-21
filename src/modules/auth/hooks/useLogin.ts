@@ -8,8 +8,7 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: loginUserApi,
-    onSuccess: (data) => {
-      queryClient.clear();
+    onSuccess: async (data) => {
       
       // 1. Save token to localStorage
       localStorage.setItem("token", data.access_token);
@@ -19,8 +18,6 @@ export const useLogin = () => {
       if (data.user) {
         queryClient.setQueryData(["auth", "me"], data.user);
       }
-      
-      queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
       
     },
     onError: (error) => {

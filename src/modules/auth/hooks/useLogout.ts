@@ -20,22 +20,13 @@ export const useLogout = () => {
             localStorage.removeItem("token");
             localStorage.removeItem("refreshToken");
 
-            queryClient.clear();
-
-            // queryClient.setQueryData(["auth", "me"], null);
-            // queryClient.removeQueries({ queryKey: ["auth"] });
+            queryClient.setQueryData(["auth", "me"], null);
+            queryClient.removeQueries({ queryKey: ["auth"] });
 
             navigate("/", { replace: true });
         },
 
-        onSettled: () => {
-            // Final safety sync
-            queryClient.invalidateQueries({ queryKey: ["auth"] });
-            
-        },
         onError: (err) => {
-            localStorage.clear();
-            queryClient.clear();
             navigate("/");
 
             if (err instanceof Error) {
@@ -60,7 +51,7 @@ export const useLogout = () => {
 //             localStorage.removeItem("token");
 //             localStorage.removeItem("refreshToken");
 
-//             // 2. Wipe the ENTIRE React Query cache (Workouts, Stats, User, etc.)
+//             // 2. Wipe the ENTIRE React Query cache, NUKE option (Workouts, Stats, User, etc.)
 //             queryClient.clear(); 
 
 //             // 3. Send them home

@@ -5,6 +5,7 @@ import { type FormikHelpers } from "formik";
 import toast from "react-hot-toast";
 import { DEFAULT_ERROR_MESSAGE } from "@/shared/constants/messages";
 import { Typography } from "@/shared/ui/typography/Typography";
+import { useNavigate } from "react-router-dom";
 
 
 export interface SignInModalProps {
@@ -16,6 +17,7 @@ export interface SignInModalProps {
 
 export const SignInModal = ({onRedirectToSignUp, onSuccess}: SignInModalProps) => {
     const { mutateAsync: signIn, isPending } = useLogin();
+    const navigate = useNavigate();
 
     const disabledForm = isPending;
 
@@ -24,6 +26,7 @@ export const SignInModal = ({onRedirectToSignUp, onSuccess}: SignInModalProps) =
             await signIn(values)
             formActions.resetForm();
             onSuccess();
+            navigate("/", { replace: true });
         } catch (err) {
             if (err instanceof Error) {
                 toast.error(err.message);
