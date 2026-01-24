@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import css from "./TabList.module.css";
 import { Button } from "@/shared/ui/button/Button";
-import { tabsForOwner, tabsForUser } from "@/shared/constants/tabData";
-import type { TabKeyType } from "@/modules/user/hooks/useProfileData";
+import { tabsForOwner, tabsForUser, type TabKeyType } from "@/shared/constants/tabData";
+
 
 export interface TabListProps {
   isMyProfile: boolean;

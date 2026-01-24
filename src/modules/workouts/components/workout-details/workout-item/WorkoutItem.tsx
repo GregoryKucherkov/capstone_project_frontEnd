@@ -25,9 +25,9 @@ export const WorkoutItem = ({
     0;
 
   return (
-    <Card>
-      <div className={css.workoutWraper}>
+    <>
         <Card variant="small" className={css.smallCardDetails}>
+          <div className={css.textWraper}>
           <Typography variant="h4" className={css.label}>
             {title}
           </Typography>
@@ -38,6 +38,9 @@ export const WorkoutItem = ({
             🔥 {calories || 0} Cal
           </Typography>
 
+          </div>
+
+        <div className={css.iconWraper}>
           <button
             type="button"
             className={css.delBtn}
@@ -45,10 +48,10 @@ export const WorkoutItem = ({
             disabled={isDeleting}
             aria-label="Delete exercise"
           >
-            <Trash />
+            <Trash width="18px" height="18px"/>
           </button>
+        </div>
         </Card>
-      </div>
-    </Card>
+    </>
   );
 };

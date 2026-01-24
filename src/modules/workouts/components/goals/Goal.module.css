@@ -1,0 +1,62 @@
+.emptyGoal{ 
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background: var(--green-light);
+}
+
+.emtyBtn {
+    margin: 0 auto;
+}
+
+.goalCard {
+    border-color:var(--mint-green);
+    background-color: var(--green-light);
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title {
+  text-transform: capitalize;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  
+}
+
+.deadlineBadge {
+  color: var(--hot-pink); /* Pinkish text for the deadline */
+  font-size: 18px;
+  
+}
+
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+}
+
+.progressBarBg {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 12px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  background-color: var(--yellow-color); 
+  height: 100%;
+  transition: width 0.4s ease-out;
+}
+
+.percentageText {
+  text-align: right;
+  font-size: 0.85rem;
+  padding-top: 4px;
+  color: var(--main-color);
+}
+

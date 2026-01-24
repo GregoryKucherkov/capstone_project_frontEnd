@@ -5,7 +5,7 @@ import Container from "@/shared/ui/container/Container";
 
 const Exercises = () => {
   return (
-    <section className={css.container}>
+    <section>
       <Container>
         <div className={css.headWrapper}>
           <Typography variant="h2">Exercises</Typography>
@@ -15,7 +15,7 @@ const Exercises = () => {
         </div>
         <Link to={"/exercises"} className={css.exercises}>
           <Typography
-            variant="h4"
+            variant="h3"
             textColor="white"
             className={css.allExercises}
           >

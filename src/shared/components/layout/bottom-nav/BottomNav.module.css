@@ -18,14 +18,15 @@
   text-align: center;
 
   border: 1px;
-  /* background-color: aliceblue; */
 }
 
 .link {
-  /* this is your navLinkClass base */
   display: flex;
   flex-direction: column;
   padding: 8px 0;
+
+  color: #999999; /* Inactive: Muted Gray */
+  transition: color 0.2s ease;
 }
 
 .navLinkClass {
@@ -39,5 +40,5 @@
 }
 
 .active {
-  color: #f9a8d4;
+  color: var(--hot-pink);
 }

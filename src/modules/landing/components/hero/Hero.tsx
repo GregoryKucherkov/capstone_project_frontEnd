@@ -11,8 +11,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className={css.container}>
-      <div className={css.heroSection}>
+    <section className={css.heroSection}>
         <div className={css.heroTextWrapper}>
           <Typography className={css.heroTitle} variant="h1">
             Build a better yourself
@@ -30,7 +29,6 @@ export const Hero = () => {
             Get Started
           </Button>
         </div>
-      </div>
     </section>
   );
 };

@@ -1,4 +1,45 @@
+.title {
+    text-transform: capitalize;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+
+}
+
 .totalSection {
   display: flex;
   gap: 15px;
+}
+
+.nutritionCard {
+  border-color: orange;
+  background-color: #FFF5EB;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.smallCard {
+  border: var(--white-color);
+  flex: 1;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px; 
+}
+
+.details span {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--hot-pink);
+}
+
+.nutritionCard .nutritionBtn {
+  margin: 0 auto;
+  border: 1px solid orange;
 }

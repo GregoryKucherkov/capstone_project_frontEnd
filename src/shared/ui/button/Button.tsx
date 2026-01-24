@@ -3,9 +3,9 @@ import clsx from "clsx";
 
 const s = styles as unknown as Record<string, string>;
 
-export type ButtonVariant = "dark" | "light" | "transparent" | "pink";
+export type ButtonVariant = "dark" | "light" | "transparent" | "pink" | "green";
 export type ButtonSize = "small" | "medium" | "large";
-// export type ButtonType = "button"|"submit"|"reset"
+export type ButtonType = "button"|"submit"|"reset"
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;

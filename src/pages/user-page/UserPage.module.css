@@ -1,6 +1,31 @@
 .container {
   margin-top: 126px;
 }
+
+.backBtn {
+  color: var(--main-color);
+}
+
+.goBack {
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  background: var(--main-color);
+  color: var(--white-color);
+  border-color: var(--main-color);
+
+  transition:
+    color var(--transition-duration) var(--transition-timing-function),
+    background var(--transition-duration) var(--transition-timing-function),
+    border var(--transition-duration) var(--transition-timing-function);
+  border-radius: var(--border-radius-full);
+}
+
 .pagination {
   margin-top: 30px;
 }
@@ -23,11 +48,68 @@
 }
 
 .title {
-  margin-top: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 @media (min-width: 768px) {
   .title {
     margin-top: 40px;
+  }
+}
+
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  align-items: center;
+
+  padding-bottom: 64px;
+}
+
+.profile {
+  width: 100%;
+}
+
+.profile button {
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.profileTabs {
+  width: 100%;
+  min-height: 400px;
+}
+
+@media (min-width: 440px) {
+  .description {
+    max-width: 443px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+  .profileContainer {
+    gap: 80px;
+    padding-bottom: 100px;
+  }
+  .profile {
+    max-width: 396px;
+  }
+}
+
+@media (min-width: 768px) {
+  .userPage {
+    padding: 4rem 2rem;
+  }
+}
+
+@media (min-width: 1148px) {
+  .profileContainer {
+    flex-direction: row;
+    gap: 40px;
+    align-items: initial;
+
+    padding-bottom: 120px;
   }
 }

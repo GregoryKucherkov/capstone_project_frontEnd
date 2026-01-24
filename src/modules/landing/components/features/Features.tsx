@@ -4,17 +4,16 @@ import Container from "@/shared/ui/container/Container";
 import ArrFwd from "@/assets/icons/arrow-frwd.svg?react";
 import Run from "@/assets/icons/running.svg?react";
 import { Button } from "@/shared/ui/button/Button";
-
-// Planning: "Build your perfect week." (Screenshot of the planner).
-
-// Tracking: "Watch the numbers go up." (Image of a progress chart).
+import { FcCalendar } from "react-icons/fc";
+import clsx from "clsx";
 
 // Social: "The motivation of a crew." (Small avatars/bubbles showing "John just finished Leg Day!").
 
 export const Features = () => {
   return (
-    <section className={css.container}>
-      <Container className={css.container__extra}>
+    <section>
+      <Container className={css.container}>
+
         {/* --- Planning Section --- */}
         <div className={css.textWrapper}>
           <Typography variant="h2">Planning</Typography>
@@ -23,9 +22,12 @@ export const Features = () => {
           </Typography>
         </div>
 
-        <div className={css.workoutExercises}>
-          <h3 className={css.workoutCardTitle}>📅 Chest day</h3>
-          <hr></hr>
+        <div className={css.cardsWrapper}>
+          <Typography variant="h3" className={css.cardTitle}>
+            <FcCalendar style={{ marginRight: '10px', verticalAlign: 'middle' }} />
+              Chest day
+          </Typography>
+
           <ul className={css.ulWorkout}>
             <li className={css.liExerciseCard}>
               <div className={css.cardHeader}>
@@ -93,19 +95,20 @@ export const Features = () => {
         </div>
 
         {/* --- Tracking Section --- */}
-
         <div className={css.textWrapper}>
           <Typography variant="h2">Tracking</Typography>
           <Typography variant="body" className={css.description}>
             Watch the numbers go up.
           </Typography>
         </div>
-        <div className={css.trackingWrapper}>
-          <h3 className={css.trackingPeriodTitle}>When: This week</h3>
+
+        <div className={clsx(css.cardsWrapper, css.tracking)}>
+          <Typography variant="h3" className={css.cardTitle}>When: This week</Typography>
+          
           <ul className={css.ulTracking}>
             <li className={css.liTracking}>
               <div className={css.trackingDetails}>
-                <h3>Chest Day</h3>
+                <Typography variant="h4">Chest Day</Typography>
               </div>
               {/* Stats row */}
               <div className={css.cardStats}>
@@ -205,22 +208,27 @@ export const Features = () => {
         </div>
 
         {/* --- SOCIAL --- */}
-        <div>
+        
           <div className={css.textWrapper}>
             <Typography variant="h2">Social</Typography>
             <Typography variant="body" className={css.description}>
               The motivation of a crew.
             </Typography>
           </div>
-          <h3 className={css.socialFeedTitle}>Feed</h3>
+
+        <div className={css.cardsWrapper}>
+          <Typography variant="h3" className={css.cardTitle}>Feed</Typography>
           <ul className={css.socialFeed}>
             <li className={css.feedItem}>
               <div className={css.feedHeader}>
-                <span className={css.userName}>🧑 Alex</span>
+                <span className={css.userName}>
+                  <span role="img" aria-label="person">🧑 </span> 
+                  Alex
+                </span>
               </div>
 
               <div className={css.feedAction}>
-                <span>completed Chest Day</span>
+                <span>Completed Chest Day</span>
               </div>
 
               <div className={css.feedMeta}>
@@ -237,11 +245,13 @@ export const Features = () => {
 
             <li className={css.feedItem}>
               <div className={css.feedHeader}>
-                <span className={css.userName}>🧑 Maria</span>
+                <span className={css.userName}>
+                  <span role="img" aria-label="person">🧑 </span>
+                   Maria</span>
               </div>
 
               <div className={css.feedAction}>
-                <span>finished Leg Day</span>
+                <span>Finished Leg Day</span>
               </div>
 
               <div className={css.feedMeta}>
@@ -258,11 +268,14 @@ export const Features = () => {
 
             <li className={css.feedItem}>
               <div className={css.feedHeader}>
-                <span className={css.userName}>🧑 John</span>
+                <span className={css.userName}>
+                  <span role="img" aria-label="person">🧑 </span>
+                  John
+                </span>
               </div>
 
               <div className={css.feedAction}>
-                <span>started Push Day</span>
+                <span>Started Push Day</span>
               </div>
 
               <div className={css.feedMeta}>

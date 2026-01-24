@@ -5,6 +5,8 @@ import { useNextWorkout } from "@/modules/workouts/hooks/useNextWorkout";
 import { useDeleteExercise } from "@/modules/workouts/hooks/useDeleteExercise";
 import { WorkoutItem } from "@/modules/workouts/components/workout-details/workout-item/WorkoutItem";
 import { Card } from "@/shared/ui/card/Card";
+import Loader from "@/shared/ui/loader/Loader";
+import { Button } from "@/shared/ui/button/Button";
 
 export interface ExerciseDataProps {
   id: number;
@@ -28,7 +30,7 @@ export const WorkoutDetails = () => {
 
   const { mutate: deleteExercise, isPending } = useDeleteExercise(dayId);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
 
   const mockExercises: ExerciseDataProps[] = [
     {
@@ -77,9 +79,11 @@ export const WorkoutDetails = () => {
 
   return (
     <Container>
-      <Typography variant="h3" className={css.nxtWrktLabel}>
+      <Card variant="thick" className={css.detailsCard}>
+      <Typography variant="h2" className={css.detailsTitle}>
         Exercises Today{" "}
       </Typography>
+
       <ul className={css.ulContainer}>
         {displayData.map((exercise: ExerciseDataProps) => (
           <li key={exercise.id} className={css.liExerciseItem}>
@@ -91,6 +95,8 @@ export const WorkoutDetails = () => {
           </li>
         ))}
       </ul>
+      <Button className={css.wrkDetBtn} size = "small">Add exercises</Button>
+      </Card>
     </Container>
   );
 };

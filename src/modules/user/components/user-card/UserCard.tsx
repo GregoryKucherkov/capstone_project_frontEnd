@@ -11,9 +11,9 @@ import type { UserGuest } from "@/shared/types/api";
 
 export interface UserCardProps {
   user: UserGuest;
-  tabType: "followers" | "following";
-  onFollow: () => void;
-  onUnfollow: () => void;
+  // tabType: "followers" | "following";
+  onFollow: (id: number) => void;
+  onUnfollow: (id: number) => void;
   loading: boolean;
   userPageBasePath?: string;
   // posts?: Post[]
@@ -21,7 +21,7 @@ export interface UserCardProps {
 
 export const UserCard = ({
   user,
-  tabType,
+  // tabType,
   onFollow,
   onUnfollow,
   userPageBasePath = "/user",
@@ -30,16 +30,18 @@ export const UserCard = ({
   const breakpoint = useBreakpoint();
   const navigate = useNavigate();
 
-  const isFollowing = tabType === "following" || (user.isFollowed ?? false);
+  // const isFollowing = tabType === "following" || (user.isFollowed ?? false);
+  const isFollowing = !!user.isFollowed;
+
   const handleNavigateToUser = () => {
     navigate(`${userPageBasePath}/${user.id}`);
   };
 
   const handleToggleFollow = () => {
     if (isFollowing) {
-      onUnfollow();
+      onUnfollow(user.id);
     } else {
-      onFollow();
+      onFollow(user.id);
     }
   };
 

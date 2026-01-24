@@ -14,8 +14,8 @@ export interface ListItemsProps {
   items: ListItem[];
   isMyProfile: boolean;
   loading: boolean;
-  onFollow: () => void;
-  onUnFollow: () => void;
+  onFollow: (id: number) => void;
+  onUnFollow: (id: number) => void;
 }
 
 export const ListItems = ({
@@ -62,7 +62,7 @@ export const ListItems = ({
           <UserCard
             key={user.id}
             user={user}
-            tabType={tab as "followers" | "following"}
+            // tabType={tab as "followers" | "following"}
             onFollow={onFollow}
             onUnfollow={onUnFollow}
             loading={loading}

@@ -1,6 +1,4 @@
-// import { useState } from 'react'
 import Home from "@/pages/Home/Home";
-
 import "./App.css";
 import { SharedLayout } from "@/shared/components/layout/SharedLayout";
 import { Route, Routes } from "react-router-dom";
@@ -15,6 +13,7 @@ import { PlannedWorkout } from "@/pages/add-workout/planned-workout/PlannedWorko
 import { ManageWorkouts } from "@/pages/add-workout/manage-workouts/ManageWorkouts";
 import { FavoriteExercises } from "@/pages/add-workout/favorite-exercises/FavoriteExercises";
 import { Workouts } from "@/pages/workouts/Workouts";
+import Loader from "@/shared/ui/loader/Loader";
 
 // move filterMap to backend enum mirror
 
@@ -25,9 +24,9 @@ import { Workouts } from "@/pages/workouts/Workouts";
 // sync filters to URL
 
 function App() {
-  const { isError } = useUser();
+  const { isError, isLoading } = useUser();
 
-  // if (isLoading) return <h1>LOADING APP...</h1>;
+   if (isLoading) return <Loader/>;
 
   if (isError)
     return <div>Server Connection Error. Please try again later.</div>;

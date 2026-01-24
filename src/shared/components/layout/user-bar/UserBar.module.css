@@ -9,7 +9,7 @@
   /* width: 122px; */
 
   /* background-color: var(--button-color); */
-  background-color: green;
+  background-color: var(--main-color);
   border-radius: 30px;
   cursor: pointer;
 

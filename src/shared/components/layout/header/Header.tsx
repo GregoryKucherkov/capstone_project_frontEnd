@@ -13,7 +13,6 @@ export default function Header() {
   const { isLoggedIn } = useUser();
 
   return (
-    <>
       <header className={css.header}>
         <Container className={clsx(css.container, isHome && css.homeContainer)}>
           <Link
@@ -28,6 +27,6 @@ export default function Header() {
           </div>
         </Container>
       </header>
-    </>
+    
   );
 }

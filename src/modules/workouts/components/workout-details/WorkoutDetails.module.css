@@ -1,10 +1,26 @@
-.workoutWraper {
+.detailsCard {
+  border-color:var(--mint-green);
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 20px;
 }
+
+.detailsTitle {
+  text-transform: capitalize;
+  font-size: 24px; 
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
 
 .ulContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.detailsCard .wrkDetBtn {
+  margin: 0 auto;
+  border: 1px solid var(--hot-pink);
+
 }

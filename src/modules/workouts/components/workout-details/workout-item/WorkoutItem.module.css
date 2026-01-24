@@ -1,5 +1,21 @@
 .smallCardDetails {
-  background-color: #a8e6c8;
+  background-color: var(--green-light);
+  border-color: var(--mint-green);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* flex: 1;
+  text-align: center; */
+  
+}
+
+.textWraper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
 }
 
 .delBtn {

@@ -1,20 +1,18 @@
-.container {
-  margin: 0 auto;
-  padding: 24px 0 64px 0;
-
-  @media screen and (min-width: 768px) {
-    padding: 16px 16px 0;
-  }
-
-  @media screen and (min-width: 1440px) {
-    padding: 20px 20px 0;
-  }
+.nxtWrktLabel {
+  text-transform: uppercase;
+  font-size: 12px;
 }
 
-.container__extra {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+.nextWorkout .statValue {
+  text-transform: capitalize;
+  font-size: 24px; 
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.nextWorkout .titleCard {
+  font-size: 20px;
+  text-transform: capitalize;
 }
 
 .nextWorkout {
@@ -31,7 +29,27 @@
 .workoutWraper {
   display: flex;
   gap: 10px;
+  justify-content: space-between;
+
   padding-bottom: 30px;
+}
+
+.workoutWraper > div {
+  flex: 1;
+  text-align: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px; 
+}
+
+.label span {
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .workoutButton {

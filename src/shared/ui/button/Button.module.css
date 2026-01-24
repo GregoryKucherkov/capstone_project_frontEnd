@@ -92,7 +92,13 @@
 }
 
 .Button.pink {
-  background: #ed1a63;
+  background: var(--hot-pink);
+  color: var(--white-color);
+  border: 1px solid transparent;
+}
+
+.Button.green {
+  background: var(--green-light);
   color: var(--white-color);
   border: 1px solid transparent;
 }
