@@ -3,10 +3,10 @@ import type { SignUpValues } from "@/modules/auth/components/signup-form/SignUpF
 import { baseFetch } from "@/shared/api/baseApi";
 import type { AuthResponse, User } from "@/shared/types/api";
 
-export const registerUserApi = (
+export const registerUserApi = async (
   values: SignUpValues,
 ): Promise<AuthResponse> => {
-  return baseFetch("/auth/register", {
+  return await baseFetch("/auth/register", {
     method: "POST",
     body: JSON.stringify({
       name: values.name,
@@ -24,7 +24,7 @@ export const loginUserApi = async (
   body.append("username", values.email);
   body.append("password", values.password);
 
-  return baseFetch("/auth/login", {
+  return await baseFetch("/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -36,7 +36,7 @@ export const loginUserApi = async (
 export const logoutUserApi = async (
   refreshToken: string,
 ): Promise<{ message: string }> => {
-  return baseFetch(
+  return await baseFetch(
     `/auth/logout?refresh_token=${encodeURIComponent(refreshToken)}`,
     {
       method: "POST",

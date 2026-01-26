@@ -6,6 +6,7 @@ import { ErrorBoundary } from "@/shared/ui/error/Error";
 import { useState } from "react";
 import { ExercisesCategories } from "@/modules/exercises/components/exercises-categories/ExercisesCategories";
 import { useSearchParams } from "react-router-dom";
+import Loader from "@/shared/ui/loader/Loader";
 
 const ExercisesLib = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,6 +27,10 @@ const ExercisesLib = () => {
     setInputValue("");
   };
 
+  const handleOnAdd = () => {
+    console.log("on Add button")
+  }
+
   return (
     <main>
       <Container className={css.container}>
@@ -37,7 +42,7 @@ const ExercisesLib = () => {
           onSearchSubmit={handleSearchSubmit}
         />
 
-        {isLoading && <p>Loading your workouts...</p>}
+        {isLoading && <Loader/>}
         {isError && (
           <p>
             Error: {error instanceof Error ? error.message : "Fetch failed"}
@@ -52,6 +57,7 @@ const ExercisesLib = () => {
               exercises={data.exercises}
               totalPages={data.total}
               currentPage={currentPage}
+              onAdd={handleOnAdd}
             />
           ) : (
             !isLoading && <p>No exercises found.</p>

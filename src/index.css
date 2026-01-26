@@ -84,3 +84,55 @@ a {
   padding: 0;
   box-sizing: border-box; /* Optional but recommended for better layout control */
 }
+
+
+/* date Picker */
+.rdp-root {
+  --rdp-accent-color: var(--hot-pink) !important;
+}
+
+.rdp {
+  --rdp-cell-size: 45px; /* Using px as requested */
+  --rdp-accent-color: #000000; 
+  --rdp-background-color: #f0f0f0;
+  margin: 0;
+
+}
+
+.rdp-weekday {
+  color: var(--main-color);
+}
+
+/* Force all day numbers to be black */
+.rdp-day {
+  color: #000000;
+  font-size: 14px; 
+  font-weight: 500;
+}
+
+/* Style the selected day number (usually white on black background) */
+.rdp-day_selected {
+  color: #ffffff; 
+  background-color: #000000;
+  border-radius: 50%;
+ 
+}
+
+/* Style the month/year header */
+.rdp-caption_label {
+  font-size: 18px;
+  color: #000000 ;
+  font-weight: bold;
+}
+
+
+/* Style the weekday names (Mon, Tue, etc.)  */
+.rdp-head_cell {
+  color: #666666;
+  font-size: 24px ;
+  text-transform: uppercase;
+}
+
+
+
+

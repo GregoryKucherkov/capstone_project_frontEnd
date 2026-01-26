@@ -10,7 +10,7 @@ export const useUnfollow = () => {
   return useMutation({
     mutationFn: (id: number) => userService.unfollowUser(id),
     onSuccess: (_data, id) => {
-      // 1️⃣ Update profile header
+      // Update profile header
       queryClient.setQueryData(
         ["user", id],
         (old: UserGuest | undefined) =>
@@ -29,26 +29,6 @@ export const useUnfollow = () => {
   });
 };
 
-// export const useFollow = () => {
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn: (id: number) => userService.followUser(id),
-//     onSuccess: (id: number) => {
-//       queryClient.setQueryData(
-//         ["user", id],
-//         (oldData: UserGuest | undefined) =>
-//           oldData ? { ...oldData, is_followed: true } : oldData,
-//       );
-//       queryClient.invalidateQueries({ queryKey: ["user", id] });
-//     },
-//     onError: (err: unknown) => {
-//       const message =
-//         err instanceof Error ? err.message : "Failed to follow user";
-//       toast.error(message);
-//     },
-//   });
-// };
 
 export const useFollow = () => {
   const queryClient = useQueryClient();
@@ -57,15 +37,14 @@ export const useFollow = () => {
     mutationFn: (id: number) => userService.followUser(id),
     // data = the API response, id = the number  passed in
     onSuccess: (_data, id) => {
-      // 1. Manual Cache Update
+      // Manual Cache Update
       queryClient.setQueryData(
         ["user", id],
         (oldData: UserGuest | undefined) =>
           oldData ? { ...oldData, isFollowed: true } : oldData,
       );
 
-      // 2. Refresh both Profile and Tabs
-    
+      // if Refresh whole user(not optimal)
       // queryClient.invalidateQueries({ 
       //   queryKey: ["user"] 
       // });

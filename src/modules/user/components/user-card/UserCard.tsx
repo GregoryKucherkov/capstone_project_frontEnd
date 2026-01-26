@@ -11,7 +11,6 @@ import type { UserGuest } from "@/shared/types/api";
 
 export interface UserCardProps {
   user: UserGuest;
-  // tabType: "followers" | "following";
   onFollow: (id: number) => void;
   onUnfollow: (id: number) => void;
   loading: boolean;
@@ -21,7 +20,6 @@ export interface UserCardProps {
 
 export const UserCard = ({
   user,
-  // tabType,
   onFollow,
   onUnfollow,
   userPageBasePath = "/user",

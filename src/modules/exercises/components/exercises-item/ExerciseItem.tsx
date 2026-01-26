@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import css from "./ExerciseItem.module.css";
 import { Button } from "@/shared/ui/button/Button";
-import type { ExercisesData } from "@/modules/exercises/components/exercises-list/ExercisesList";
+import type { CoreExercisesData } from "@/shared/types/api";
 
-export type ExercisesDataProps = {
-  data: ExercisesData;
+
+type ExercisesDataProps = {
+  data: CoreExercisesData;
+  onAdd: (exercise: { id: number; title: string }) => void;
 };
 
-const ExerciseItem = ({ data }: ExercisesDataProps) => {
+const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
   const exerciseName = data.title;
   const navigate = useNavigate();
 
@@ -47,6 +49,12 @@ const ExerciseItem = ({ data }: ExercisesDataProps) => {
         onClick={() => navigate(`/?category=${data.id}`)}
       >
         Details
+      </Button>
+      <Button
+        style={{ border: '1px solid red' }}
+        onClick={() => onAdd({ id: data.id, title: data.title })}
+      >
+        Add to Workout
       </Button>
     </div>
   );

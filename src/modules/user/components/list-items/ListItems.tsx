@@ -62,7 +62,6 @@ export const ListItems = ({
           <UserCard
             key={user.id}
             user={user}
-            // tabType={tab as "followers" | "following"}
             onFollow={onFollow}
             onUnfollow={onUnFollow}
             loading={loading}

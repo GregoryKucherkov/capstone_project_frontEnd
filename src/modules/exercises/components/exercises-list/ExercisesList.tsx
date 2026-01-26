@@ -2,28 +2,22 @@ import { ExerciseItem } from "@/modules/exercises/components/exercises-item/Exer
 import css from "./ExercisesList.module.css";
 import { Pagination } from "@/shared/pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
+import type { CoreExercisesData } from "@/shared/types/api";
 
-export interface ExercisesData {
-  title: string;
-  muscle_group: string;
-  difficulty: string;
-  description: string;
-  media_url: string;
-  calories_burn: number;
-  id: number;
-  created_at: string;
-}
+
 
 export interface ExercisesListProps {
-  exercises: ExercisesData[];
+  exercises: CoreExercisesData[];
   totalPages: number;
   currentPage: number;
+  onAdd: (exercise: { id: number; title: string }) => void;
 }
 
 const ExercisesList = ({
   exercises,
   totalPages,
   currentPage,
+  onAdd,
 }: ExercisesListProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -38,12 +32,13 @@ const ExercisesList = ({
       <ul className={css.ulExeList}>
         {exercises.map((exercise) => (
           <li className={css.liExelist} key={exercise.id}>
-            <ExerciseItem data={exercise} />
+            <ExerciseItem data={exercise} onAdd={onAdd}/>
+
           </li>
         ))}
       </ul>
 
-      {totalPages > 1 && (
+      {totalPages > 0 && (
         <Pagination
           totalPages={totalPages}
           activePage={currentPage}
