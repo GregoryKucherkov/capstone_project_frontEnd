@@ -13,7 +13,6 @@ export const Features = () => {
   return (
     <section>
       <Container className={css.container}>
-
         {/* --- Planning Section --- */}
         <div className={css.textWrapper}>
           <Typography variant="h2">Planning</Typography>
@@ -24,8 +23,10 @@ export const Features = () => {
 
         <div className={css.cardsWrapper}>
           <Typography variant="h3" className={css.cardTitle}>
-            <FcCalendar style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-              Chest day
+            <FcCalendar
+              style={{ marginRight: "10px", verticalAlign: "middle" }}
+            />
+            Chest day
           </Typography>
 
           <ul className={css.ulWorkout}>
@@ -103,8 +104,10 @@ export const Features = () => {
         </div>
 
         <div className={clsx(css.cardsWrapper, css.tracking)}>
-          <Typography variant="h3" className={css.cardTitle}>When: This week</Typography>
-          
+          <Typography variant="h3" className={css.cardTitle}>
+            When: This week
+          </Typography>
+
           <ul className={css.ulTracking}>
             <li className={css.liTracking}>
               <div className={css.trackingDetails}>
@@ -208,21 +211,25 @@ export const Features = () => {
         </div>
 
         {/* --- SOCIAL --- */}
-        
-          <div className={css.textWrapper}>
-            <Typography variant="h2">Social</Typography>
-            <Typography variant="body" className={css.description}>
-              The motivation of a crew.
-            </Typography>
-          </div>
+
+        <div className={css.textWrapper}>
+          <Typography variant="h2">Social</Typography>
+          <Typography variant="body" className={css.description}>
+            The motivation of a crew.
+          </Typography>
+        </div>
 
         <div className={css.cardsWrapper}>
-          <Typography variant="h3" className={css.cardTitle}>Feed</Typography>
+          <Typography variant="h3" className={css.cardTitle}>
+            Feed
+          </Typography>
           <ul className={css.socialFeed}>
             <li className={css.feedItem}>
               <div className={css.feedHeader}>
                 <span className={css.userName}>
-                  <span role="img" aria-label="person">🧑 </span> 
+                  <span role="img" aria-label="person">
+                    🧑{" "}
+                  </span>
                   Alex
                 </span>
               </div>
@@ -246,8 +253,11 @@ export const Features = () => {
             <li className={css.feedItem}>
               <div className={css.feedHeader}>
                 <span className={css.userName}>
-                  <span role="img" aria-label="person">🧑 </span>
-                   Maria</span>
+                  <span role="img" aria-label="person">
+                    🧑{" "}
+                  </span>
+                  Maria
+                </span>
               </div>
 
               <div className={css.feedAction}>
@@ -269,7 +279,9 @@ export const Features = () => {
             <li className={css.feedItem}>
               <div className={css.feedHeader}>
                 <span className={css.userName}>
-                  <span role="img" aria-label="person">🧑 </span>
+                  <span role="img" aria-label="person">
+                    🧑{" "}
+                  </span>
                   John
                 </span>
               </div>

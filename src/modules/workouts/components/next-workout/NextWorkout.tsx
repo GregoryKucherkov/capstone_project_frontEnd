@@ -24,7 +24,6 @@ export const NextWorkout = () => {
 
   if (isLoading) return <Loader />;
 
-
   // if (!hasWorkout) {
   //     return (
   //         <Container>
@@ -46,9 +45,7 @@ export const NextWorkout = () => {
 
   const startOfWeek = new Date();
 
-  startOfWeek.setDate(
-  startOfWeek.getDate() - ((startOfWeek.getDay() + 6) % 7)
-  );
+  startOfWeek.setDate(startOfWeek.getDate() - ((startOfWeek.getDay() + 6) % 7));
   startOfWeek.setHours(0, 0, 0, 0);
 
   const weeklyDone =
@@ -69,19 +66,19 @@ export const NextWorkout = () => {
         <div className={css.workoutWraper}>
           <Card variant="small">
             <Typography variant="body" className={css.label}>
-              Exercises: 
+              Exercises:
               <span>{workoutData?.exercises?.length || 0}</span>
             </Typography>
           </Card>
           <Card variant="small">
             <Typography variant="body" className={css.label}>
-              Callories to burn: 
+              Callories to burn:
               <span>{caloriesToBurn}</span>
             </Typography>
           </Card>
           <Card variant="small">
             <Typography variant="body" className={css.label}>
-              Done this week: 
+              Done this week:
               <span>{weeklyDone}</span>
             </Typography>
           </Card>

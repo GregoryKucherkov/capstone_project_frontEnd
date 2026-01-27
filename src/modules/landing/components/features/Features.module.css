@@ -16,7 +16,6 @@
   line-height: 143%;
 }
 
-
 .cardsWrapper {
   border: 2px solid;
   border-color: var(--pink-middle);
@@ -51,8 +50,12 @@
   border-radius: 15px;
   padding: 16px;
   overflow: hidden;
-  border: 1px solid  var(--pink-middle);
-  background: linear-gradient(to bottom right, var(--pink-light), var(--green-light));
+  border: 1px solid var(--pink-middle);
+  background: linear-gradient(
+    to bottom right,
+    var(--pink-light),
+    var(--green-light)
+  );
 }
 
 .cardHeader {
@@ -134,7 +137,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-   
   }
 }
 
@@ -142,10 +144,8 @@
   .ulTracking {
     flex-wrap: nowrap;
     justify-content: center;
-   
   }
 }
-
 
 .liTracking {
   border: 1px solid var(--mint-green);
@@ -184,7 +184,6 @@
   margin: 0 auto;
 }
 
-
 .socialFeed {
   border-radius: 15px;
   color: black;
@@ -207,9 +206,7 @@
   background: var(--pink-light);
   text-align: start;
 
-
   display: flex;
   flex-direction: column;
   padding: 20px 20px 30px;
 }
-

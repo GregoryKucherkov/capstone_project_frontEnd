@@ -28,8 +28,8 @@ const ExercisesLib = () => {
   };
 
   const handleOnAdd = () => {
-    console.log("on Add button")
-  }
+    console.log("on Add button");
+  };
 
   return (
     <main>
@@ -42,7 +42,7 @@ const ExercisesLib = () => {
           onSearchSubmit={handleSearchSubmit}
         />
 
-        {isLoading && <Loader/>}
+        {isLoading && <Loader />}
         {isError && (
           <p>
             Error: {error instanceof Error ? error.message : "Fetch failed"}

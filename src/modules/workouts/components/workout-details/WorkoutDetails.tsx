@@ -80,22 +80,24 @@ export const WorkoutDetails = () => {
   return (
     <Container>
       <Card variant="thick" className={css.detailsCard}>
-      <Typography variant="h2" className={css.detailsTitle}>
-        Exercises Today{" "}
-      </Typography>
+        <Typography variant="h2" className={css.detailsTitle}>
+          Exercises Today{" "}
+        </Typography>
 
-      <ul className={css.ulContainer}>
-        {displayData.map((exercise: ExerciseDataProps) => (
-          <li key={exercise.id} className={css.liExerciseItem}>
-            <WorkoutItem
-              data={exercise}
-              onDeleteExercise={deleteExercise}
-              isDeleting={isPending}
-            ></WorkoutItem>
-          </li>
-        ))}
-      </ul>
-      <Button className={css.wrkDetBtn} size = "small">Add exercises</Button>
+        <ul className={css.ulContainer}>
+          {displayData.map((exercise: ExerciseDataProps) => (
+            <li key={exercise.id} className={css.liExerciseItem}>
+              <WorkoutItem
+                data={exercise}
+                onDeleteExercise={deleteExercise}
+                isDeleting={isPending}
+              ></WorkoutItem>
+            </li>
+          ))}
+        </ul>
+        <Button className={css.wrkDetBtn} size="small">
+          Add exercises
+        </Button>
       </Card>
     </Container>
   );

@@ -1,4 +1,3 @@
-
 import { NextWorkout } from "@/modules/workouts/components/next-workout/NextWorkout";
 import { WorkoutDetails } from "@/modules/workouts/components/workout-details/WorkoutDetails";
 import { Goal } from "@/modules/workouts/components/goals/Goal";
@@ -8,12 +7,11 @@ import { DashboardHero } from "@/pages/user-dashboard/components/dashboard-hero/
 export const UserDashboard = () => {
   return (
     <>
-      <DashboardHero/>
+      <DashboardHero />
       <Goal />
       <NextWorkout />
       <WorkoutDetails />
       <Nutrition />
     </>
-      
   );
 };

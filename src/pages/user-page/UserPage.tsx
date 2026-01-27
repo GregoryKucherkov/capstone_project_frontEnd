@@ -14,17 +14,14 @@ import { useProfileData } from "@/modules/user/hooks/useProfileData";
 import { useState } from "react";
 import { TabKey, type TabKeyType } from "@/shared/constants/tabData";
 import { ListItems } from "@/modules/user/components/list-items/ListItems";
-import ArrBack from "@/assets/icons/arrow-left.svg?react"
+import ArrBack from "@/assets/icons/arrow-left.svg?react";
 import Loader from "@/shared/ui/loader/Loader";
-
-
 
 export const UserPage = () => {
   const { id } = useParams();
 
   const location = useLocation();
   const backPath = location.state?.from || "/";
-
 
   const userId = Number(id);
   const { user: authUser, isLoading: isAuthLoading } = useUser();
@@ -34,7 +31,6 @@ export const UserPage = () => {
     isMyProfile ? undefined : userId,
   );
 
-  
   const profileUser = isMyProfile ? authUser : viewedUser;
 
   const { mutate: updateAvatar } = useUpdateAvatar();
@@ -45,8 +41,6 @@ export const UserPage = () => {
   const [page, setPage] = useState(1);
   const [activeTab, setActiveTab] = useState<TabKeyType>(TabKey.POSTS);
 
-
-  
   // Fetch the Tab Content
   const { data: tabData = [], isLoading: ProfileDataLoading } = useProfileData(
     userId,
@@ -79,11 +73,9 @@ export const UserPage = () => {
     follow(id);
   };
 
-  
-
   return (
     <Container className={css.container}>
-      <div className={css.backBtn}> 
+      <div className={css.backBtn}>
         <Link to={backPath} className={css.goBack}>
           <ArrBack />
         </Link>
@@ -114,7 +106,11 @@ export const UserPage = () => {
               variant="dark"
               bordered
               // onClick={isFollowing ? handleUnFollow : handleFollow}
-              onClick={() => isFollowing ? handleUnFollow(profileUser.id) : handleFollow(profileUser.id)}
+              onClick={() =>
+                isFollowing
+                  ? handleUnFollow(profileUser.id)
+                  : handleFollow(profileUser.id)
+              }
             >
               {isFollowing ? "FOLLOWING" : "FOLLOW"}
             </Button>

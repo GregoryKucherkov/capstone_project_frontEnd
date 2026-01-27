@@ -7,13 +7,11 @@ import Loader from "@/shared/ui/loader/Loader";
 const Home = () => {
   const { isLoggedIn, isLoading } = useUser();
 
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={css.homeStack}>
-    
       {isLoggedIn ? <UserDashboard /> : <Landing />}
-      
     </div>
   );
 };

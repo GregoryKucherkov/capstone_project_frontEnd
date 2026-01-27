@@ -1,5 +1,8 @@
 import { baseFetch } from "@/shared/api/baseApi";
-import type { ProgramDayOutSlim } from "@/shared/types/api";
+import type {
+  ProgramDayOutSlim,
+  ProgramExerciseCreatePayload,
+} from "@/shared/types/api";
 
 export const workoutService = {
   // Retrieves scheduled workouts for a date range
@@ -32,11 +35,41 @@ export const workoutService = {
     });
   },
 
-  createProgramDay: (data: {scheduled_for: string, title?: string | null, program_id?: number | null}): Promise<ProgramDayOutSlim> => {
+  createProgramDay: (data: {
+    scheduled_for: string;
+    title?: string | null;
+    program_id?: number | null;
+  }): Promise<ProgramDayOutSlim> => {
     return baseFetch("/programs/days", {
       method: "POST",
       body: JSON.stringify(data),
-    })
-  }
+    });
+  },
 
+  addExerciseToDay: (dayId: number, exercise: ProgramExerciseCreatePayload) => {
+    return baseFetch(`/programs/days/${dayId}/exercises`, {
+      method: "POST",
+      body: JSON.stringify(exercise),
+    });
+  },
+
+  addExerciseToDayBulk: (
+    dayId: number,
+    exercise: ProgramExerciseCreatePayload[],
+  ) => {
+    return baseFetch(`/programs/days/${dayId}/exercises/bulk`, {
+      method: "POST",
+      body: JSON.stringify(exercise),
+    });
+  },
+
+  scheduleWorkout: (data: { dayId: number; scheduled_for: string }) => {
+    return baseFetch("/programs/schedule", {
+      method: "POST",
+      body: JSON.stringify({
+        program_day_id: data.dayId,
+        scheduled_for: data.scheduled_for,
+      }),
+    });
+  },
 };

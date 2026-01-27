@@ -19,15 +19,15 @@
   --gray-light-color: #e8e8e8;
   --white-color: #ffffff;
   --red-color: #d10808;
-  --hot-pink: #ED1A63;
-  --pink-middle: #F9A8D4;
-  --pink-light: #FCE7F3;
-  --mint-green: #A8E6C8;
-  --green-light: #D1FAE5;
-  --bright-yellow: #F7DC6F;
-  --yellow-color: #F59E0B;
-  --purple-collor: #A855F7;
-  --blue-color: #3B82F6;
+  --hot-pink: #ed1a63;
+  --pink-middle: #f9a8d4;
+  --pink-light: #fce7f3;
+  --mint-green: #a8e6c8;
+  --green-light: #d1fae5;
+  --bright-yellow: #f7dc6f;
+  --yellow-color: #f59e0b;
+  --purple-collor: #a855f7;
+  --blue-color: #3b82f6;
   --white-transparent-color: rgba(255, 255, 255, 0.2);
   --white-transparent-color-2: rgba(255, 255, 255, 0.1);
   --button-color: #1a1a1a;
@@ -85,7 +85,6 @@ a {
   box-sizing: border-box; /* Optional but recommended for better layout control */
 }
 
-
 /* date Picker */
 .rdp-root {
   --rdp-accent-color: var(--hot-pink) !important;
@@ -93,10 +92,9 @@ a {
 
 .rdp {
   --rdp-cell-size: 45px; /* Using px as requested */
-  --rdp-accent-color: #000000; 
+  --rdp-accent-color: #000000;
   --rdp-background-color: #f0f0f0;
   margin: 0;
-
 }
 
 .rdp-weekday {
@@ -106,33 +104,27 @@ a {
 /* Force all day numbers to be black */
 .rdp-day {
   color: #000000;
-  font-size: 14px; 
+  font-size: 14px;
   font-weight: 500;
 }
 
 /* Style the selected day number (usually white on black background) */
 .rdp-day_selected {
-  color: #ffffff; 
+  color: #ffffff;
   background-color: #000000;
   border-radius: 50%;
- 
 }
 
 /* Style the month/year header */
 .rdp-caption_label {
   font-size: 18px;
-  color: #000000 ;
+  color: #000000;
   font-weight: bold;
 }
-
 
 /* Style the weekday names (Mon, Tue, etc.)  */
 .rdp-head_cell {
   color: #666666;
-  font-size: 24px ;
+  font-size: 24px;
   text-transform: uppercase;
 }
-
-
-
-

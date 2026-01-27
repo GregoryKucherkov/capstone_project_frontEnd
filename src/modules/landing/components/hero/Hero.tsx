@@ -12,23 +12,23 @@ export const Hero = () => {
 
   return (
     <section className={css.heroSection}>
-        <div className={css.heroTextWrapper}>
-          <Typography className={css.heroTitle} variant="h1">
-            Build a better yourself
-          </Typography>
-          <Typography className={css.heroSubtitle} variant="body">
-            Personal tool to plan and execute your workouts!
-          </Typography>
-          <Button
-            bordered
-            variant="pink"
-            size="large"
-            className={css.heroBtn}
-            onClick={handleClick}
-          >
-            Get Started
-          </Button>
-        </div>
+      <div className={css.heroTextWrapper}>
+        <Typography className={css.heroTitle} variant="h1">
+          Build a better yourself
+        </Typography>
+        <Typography className={css.heroSubtitle} variant="body">
+          Personal tool to plan and execute your workouts!
+        </Typography>
+        <Button
+          bordered
+          variant="pink"
+          size="large"
+          className={css.heroBtn}
+          onClick={handleClick}
+        >
+          Get Started
+        </Button>
+      </div>
     </section>
   );
 };

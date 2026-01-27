@@ -77,24 +77,12 @@ export interface FavoriteResponse {
 
 export type ListItem = Post | UserGuest | FavoriteResponse;
 
-
 export interface ProgramDayOutSlim {
   id: number;
   scheduled_for: string;
   title: string | null;
   user_id: number | null;
   program_id: number | null;
-}
-
-export interface CoreExercisesData {
-  title: string;
-  muscle_group: string;
-  difficulty: string;
-  description: string;
-  media_url: string;
-  calories_burn: number;
-  id: number;
-  created_at: string;
 }
 
 export interface CustomExercisesCreate {
@@ -106,33 +94,79 @@ export interface CustomExercisesCreate {
   calories_burn?: number | null;
 }
 
-
-export interface OwnExercise {
-    id: number;
-    user_id: number;
-    title: string;
-    muscle_group?: string | null;
-    difficulty?: string | null;
-    description?: string | null;
-    media_url?: string | null;
-    calories_burn?: number | null;
-    created_at: string;
-}
-
-
-export type UnifiedExercise = CoreExercisesData | OwnExercise;
-
-export interface ExerciseBase {
+export interface ExerciseCommon {
   id: number;
   title: string;
+  muscle_group?: string | null;
+  difficulty?: string | null;
+  description?: string | null;
   media_url?: string | null;
   calories_burn?: number | null;
 }
 
-export type PlannedExerciseForm = ExerciseBase & {
+export interface CoreExercisesData extends ExerciseCommon {
+  created_at: string;
+}
+
+export interface OwnExercise extends ExerciseCommon {
+  user_id: number;
+  created_at: string;
+}
+
+export type PlannedExerciseDraft = {
+  tempId: string; // frontend identity
+  exerciseId: number; // backend exercise id
+  source: "library" | "user";
+
+  title: string;
+  muscle_group?: string | null;
+  difficulty?: string | null;
+  description?: string | null;
+  media_url?: string | null;
+  calories_burn?: number | null;
+
   sets: number | "";
   reps: number | "";
   rest: number | "";
+};
+
+export interface CustomExercisesCreate {
+  title: string;
+  muscle_group?: string | null;
+  difficulty?: string | null;
+  description?: string | null;
+  media_url?: string | null;
+  calories_burn?: number | null;
+}
+
+export interface ExerciseCommon {
+  id: number;
+  title: string;
+  muscle_group?: string | null;
+  difficulty?: string | null;
+  description?: string | null;
+  media_url?: string | null;
+  calories_burn?: number | null;
+}
+
+export interface CoreExercisesData extends ExerciseCommon {
+  created_at: string;
+}
+
+export interface OwnExercise extends ExerciseCommon {
+  user_id: number;
+  created_at: string;
+}
+
+export type ProgramExerciseCreatePayload = {
+  exercise_name?: string;
+
+  sets: number;
+  reps: string;
+  rest_seconds: number;
+
+  core_exercise_id?: number;
+  custom_exercise_id?: number;
 };
 
 export interface PaginatedExercises {

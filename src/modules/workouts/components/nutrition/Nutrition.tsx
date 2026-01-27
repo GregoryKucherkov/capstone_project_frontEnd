@@ -14,7 +14,9 @@ export const Nutrition = () => {
   return (
     <Container>
       <Card className={css.nutritionCard} variant="thick">
-        <Typography variant="h2" className={css.title}>Nutrition</Typography>
+        <Typography variant="h2" className={css.title}>
+          Nutrition
+        </Typography>
         <div className={css.totalSection}>
           <Card variant="small" className={css.smallCard}>
             <Typography variant="body" className={css.details}>
@@ -24,12 +26,14 @@ export const Nutrition = () => {
           </Card>
           <Card variant="small" className={css.smallCard}>
             <Typography variant="body" className={css.details}>
-              Logged: 
+              Logged:
               <span className={css.totalValue}>{meals.length} meals</span>
             </Typography>
           </Card>
         </div>
-        <Button className={css.nutritionBtn} size = "small">Log food</Button>
+        <Button className={css.nutritionBtn} size="small">
+          Log food
+        </Button>
       </Card>
     </Container>
   );

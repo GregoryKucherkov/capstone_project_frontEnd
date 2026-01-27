@@ -1,9 +1,8 @@
 .title {
-    text-transform: capitalize;
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-
+  text-transform: capitalize;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .totalSection {
@@ -13,7 +12,7 @@
 
 .nutritionCard {
   border-color: orange;
-  background-color: #FFF5EB;
+  background-color: #fff5eb;
 
   display: flex;
   flex-direction: column;
@@ -30,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 4px; 
+  gap: 4px;
 }
 
 .details span {

@@ -11,10 +11,8 @@ export const useUnfollow = () => {
     mutationFn: (id: number) => userService.unfollowUser(id),
     onSuccess: (_data, id) => {
       // Update profile header
-      queryClient.setQueryData(
-        ["user", id],
-        (old: UserGuest | undefined) =>
-          old ? { ...old, isFollowed: false } : old
+      queryClient.setQueryData(["user", id], (old: UserGuest | undefined) =>
+        old ? { ...old, isFollowed: false } : old,
       );
 
       queryClient.invalidateQueries({
@@ -28,7 +26,6 @@ export const useUnfollow = () => {
     },
   });
 };
-
 
 export const useFollow = () => {
   const queryClient = useQueryClient();
@@ -45,10 +42,12 @@ export const useFollow = () => {
       );
 
       // if Refresh whole user(not optimal)
-      // queryClient.invalidateQueries({ 
-      //   queryKey: ["user"] 
+      // queryClient.invalidateQueries({
+      //   queryKey: ["user"]
       // });
-      queryClient.invalidateQueries({ queryKey: ["user", id, TabKey.FOLLOWERS] });
+      queryClient.invalidateQueries({
+        queryKey: ["user", id, TabKey.FOLLOWERS],
+      });
     },
     onError: (err: unknown) => {
       const message =

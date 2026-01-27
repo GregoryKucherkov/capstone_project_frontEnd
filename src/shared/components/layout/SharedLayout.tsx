@@ -7,22 +7,20 @@ import { AuthModals } from "@/modules/auth/components/auth-modals";
 import { BottomNav } from "@/shared/components/layout/bottom-nav/BottomNav";
 import { useUser } from "@/shared/hooks/use-user";
 
-
 export const SharedLayout = () => {
   const { isLoggedIn } = useUser();
   return (
     <div className={css.pageWrapper}>
-    <Header />
-    <main >
+      <Header />
+      <main>
         <Suspense fallback={<div>Loading...</div>}>
-        <Outlet />
+          <Outlet />
         </Suspense>
-    </main>
+      </main>
 
-    {isLoggedIn ? <BottomNav /> : <Footer />}
+      {isLoggedIn ? <BottomNav /> : <Footer />}
 
-    <AuthModals />
+      <AuthModals />
     </div>
-
   );
 };

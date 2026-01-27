@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import css from "./ExerciseItem.module.css";
 import { Button } from "@/shared/ui/button/Button";
-import type { CoreExercisesData } from "@/shared/types/api";
-
+import type { CoreExercisesData, ExerciseCommon } from "@/shared/types/api";
 
 type ExercisesDataProps = {
   data: CoreExercisesData;
-  onAdd: (exercise: { id: number; title: string }) => void;
+  onAdd: (exercise: ExerciseCommon) => void;
 };
 
 const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
@@ -25,7 +24,7 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
     <div className={css.itemWraper}>
       <div className={css.thumb}>
         <img
-          src={data.media_url}
+          src={data.media_url ?? undefined}
           alt={exerciseName}
           className={css.exerciseImage}
           loading="lazy"
@@ -51,7 +50,7 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
         Details
       </Button>
       <Button
-        style={{ border: '1px solid red' }}
+        style={{ border: "1px solid red" }}
         onClick={() => onAdd({ id: data.id, title: data.title })}
       >
         Add to Workout

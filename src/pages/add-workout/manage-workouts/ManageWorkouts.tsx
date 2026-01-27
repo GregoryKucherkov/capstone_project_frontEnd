@@ -7,7 +7,7 @@ import { Typography } from "@/shared/ui/typography/Typography";
 import { useCreateProgramDay } from "@/modules/workouts/hooks/useCreateProgramDay";
 import { Button } from "@/shared/ui/button/Button";
 import { OwnExerciseForm } from "@/modules/workouts/components/own-exercise/OwnExerciseForm";
-import { type PlannedExerciseForm } from "@/modules/workouts/components/plan-workout/PlanExerciseForm";
+import type { ExerciseCommon, PlannedExerciseDraft } from "@/shared/types/api";
 import { ExercisesCategories } from "@/modules/exercises/components/exercises-categories/ExercisesCategories";
 import { useExercises } from "@/modules/exercises/hooks/useExercises";
 import Loader from "@/shared/ui/loader/Loader";
@@ -16,9 +16,7 @@ import { PlanExerciseModal } from "@/modules/workouts/components/PlanExerciseMod
 import { ListOwnExe } from "@/modules/workouts/components/list-own-exercises/ListOwnExe";
 import { useCustomExercises } from "@/modules/workouts/hooks/useCustomExercises";
 import { ReviewWorkout } from "@/modules/workouts/components/review-workout/ReviewWorkout";
-
-
-
+import { useScheduleWorkoutFlow } from "@/modules/workouts/hooks/useScheduleWorkout";
 
 export const ManageWorkouts = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -28,33 +26,33 @@ export const ManageWorkouts = () => {
 
   const [showCustomExerciseForm, setShowCustomExerciseForm] = useState(false);
 
-  const [modalExercise, setModalExercise] = useState<PlannedExerciseForm | null>(null);
+  const [modalExercise, setModalExercise] =
+    useState<PlannedExerciseDraft | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // for custom exercises lib
-  const [customList, setShowCustomList] = useState(false)
+  const [customList, setShowCustomList] = useState(false);
   const [customPage, setCustomPage] = useState(1);
   const size = 2;
   const skip = (customPage - 1) * size;
 
+  const {
+    data: custoExe,
+    isLoading: isLoadingCustom,
+    isError: isErrorCustom,
+  } = useCustomExercises(skip, size);
 
-  const {data: custoExe, isLoading: isLoadingCustom, isError: isErrorCustom } = useCustomExercises(skip, size)
+  const { scheduleWorkout, isPending: isScheduling } = useScheduleWorkoutFlow();
 
   // for library option
   const customTotalPages = custoExe ? Math.ceil(custoExe.total / size) : 0;
   const [showLibraryForm, setShowLibraryForm] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError } = useExercises(
-      search,
-      page,
-    );
-  
+  const { data, isLoading, isError } = useExercises(search, page);
 
-  const [review, setReview] = useState(false)
-  const [exercises, setExercises] = useState<PlannedExerciseForm[]>([]);
-
-
+  const [review, setReview] = useState(false);
+  const [exercises, setExercises] = useState<PlannedExerciseDraft[]>([]);
 
   const { mutateAsync: createDay, isPending } = useCreateProgramDay();
 
@@ -67,25 +65,26 @@ export const ManageWorkouts = () => {
         title: dayTitle,
       });
 
-      setActiveDayId(result.id); 
-      
+      setActiveDayId(result.id);
     } catch (error) {
       console.error("Failed to initialize workout day", error);
     }
   };
 
-  // const handleExerciseChange = (idx: number, updated: PlannedExerciseForm) => {
-  //   setExercises(prev => prev.map((ex, i) => (i === idx ? updated : ex)));
-  // };
-
-  // const handleRemoveExercise = (idx: number) => {
-  //   setExercises(prev => prev.filter((_, i) => i !== idx));
-  // };
-
-  const handleAddFromLibrary = (exercise: { id: number; title: string }) => {
+  const handleAddFromLibrary = (
+    exercise: ExerciseCommon,
+    source: "user" | "library",
+  ) => {
     setModalExercise({
-      id: exercise.id,
+      tempId: crypto.randomUUID(),
+      exerciseId: exercise.id,
+      source,
+
       title: exercise.title,
+      media_url: exercise.media_url,
+      calories_burn: exercise.calories_burn,
+      muscle_group: exercise.muscle_group,
+
       sets: "",
       reps: "",
       rest: "",
@@ -94,31 +93,44 @@ export const ManageWorkouts = () => {
     setIsModalOpen(true);
   };
 
-  const handleModalChange = (updated: PlannedExerciseForm) => {
+  const handleModalChange = (updated: PlannedExerciseDraft) => {
     setModalExercise(updated);
   };
 
   const handleModalSave = () => {
     if (modalExercise) {
-      setExercises(prev => [...prev, modalExercise]);
+      setExercises((prev) => [...prev, modalExercise]);
       setModalExercise(null);
       setIsModalOpen(false);
     }
   };
 
-  
+  const handleDeleteExercise = (tempId: string) => {
+    setExercises((prev) => prev.filter((ex) => ex.tempId !== tempId));
+  };
+
+  const handleSchedule = async () => {
+    if (!activeDayId) return;
+
+    scheduleWorkout({
+      dayId: activeDayId,
+      exercises, //PlannedExerciseDraft[]
+      scheduledFor: new Date(),
+    });
+  };
 
   return (
     <Container className={css.container}>
-      <Typography variant="h1" className={css.title}>Plan your next workout!</Typography>
+      <Typography variant="h1" className={css.title}>
+        Plan your next workout!
+      </Typography>
 
       {/* STEP 1: Pick a date */}
-      <Card variant = "default" className={css.dateCard}>
+      <Card variant="default" className={css.dateCard}>
         <MyDatePicker
           selected={selectedDate}
           onSelect={(date) => {
             setSelectedDate(date);
-
           }}
         />
       </Card>
@@ -134,13 +146,17 @@ export const ManageWorkouts = () => {
           onChange={(e) => setDayTitle(e.target.value)}
         />
 
-        <button 
-          onClick={handleDay} 
+        <button
+          onClick={handleDay}
           disabled={isPending || !selectedDate}
-          style={{ marginTop: '20px', padding: '12px 24px' }}
+          style={{ marginTop: "20px", padding: "12px 24px" }}
           className={css.dayCreateBtn}
         >
-          {isPending ? "Creating..." : activeDayId ? "Day Saved" : "Next: Add Exercises"}
+          {isPending
+            ? "Creating..."
+            : activeDayId
+              ? "Day Saved"
+              : "Next: Add Exercises"}
         </button>
       </Card>
 
@@ -150,44 +166,66 @@ export const ManageWorkouts = () => {
 
         {/* Button to create custom exercise */}
         <Card variant="small">
-          <Button disabled={!activeDayId} onClick={() => {
-            setShowCustomExerciseForm(true);
-            setShowCustomList(false);
-            setShowLibraryForm(false);
-            }} style={{ border: '1px solid red' }}>Create your own exercises</Button>
-
+          <Button
+            disabled={!activeDayId}
+            onClick={() => {
+              setShowCustomExerciseForm(true);
+              setShowCustomList(false);
+              setShowLibraryForm(false);
+            }}
+            style={{ border: "1px solid red" }}
+          >
+            Create your own exercises
+          </Button>
 
           {showCustomExerciseForm && (
             <OwnExerciseForm
               onCreate={(newEx) => {
-                setExercises(prev => [
-                  ...prev, 
-                  {id: newEx.id, 
-                    title: newEx.title,
+                const newDraft: PlannedExerciseDraft = {
+                  tempId: crypto.randomUUID(),
+                  exerciseId: newEx.id,
+                  source: "user",
+
+                  title: newEx.title,
+                  muscle_group: null,
+                  difficulty: null,
+                  description: null,
+                  media_url: null,
+                  calories_burn: null,
+
                   sets: 0,
                   reps: 0,
                   rest: 0,
-                }]);
-                setIsModalOpen(true); 
+                };
+
+                setModalExercise(newDraft);
+                setIsModalOpen(true);
                 setShowCustomExerciseForm(false);
-                
               }}
             >
-              <Button onClick={() => setShowCustomExerciseForm(false)} style={{ marginTop: "12px" }}>
-            Cancel
-          </Button>
+              <Button
+                onClick={() => setShowCustomExerciseForm(false)}
+                style={{ marginTop: "12px" }}
+              >
+                Cancel
+              </Button>
             </OwnExerciseForm>
           )}
 
-          <Button disabled={!activeDayId} onClick={() => {
-            setShowCustomList(true);
-            setShowCustomExerciseForm(false);
-            setShowLibraryForm(false);
-            }} style={{ border: '1px solid red' }}
-            >Choose from your exercises</Button>
+          <Button
+            disabled={!activeDayId}
+            onClick={() => {
+              setShowCustomList(true);
+              setShowCustomExerciseForm(false);
+              setShowLibraryForm(false);
+            }}
+            style={{ border: "1px solid red" }}
+          >
+            Choose from your exercises
+          </Button>
           {customList && (
             <>
-              {isLoadingCustom && <Loader/>}
+              {isLoadingCustom && <Loader />}
               {isErrorCustom && <p>Failed to load exercises</p>}
               {custoExe && (
                 <ListOwnExe
@@ -195,42 +233,48 @@ export const ManageWorkouts = () => {
                   totalPages={customTotalPages}
                   currentPage={customPage}
                   onPageChange={setCustomPage}
-                  onAdd={handleAddFromLibrary}
+                  onAdd={(ex) => handleAddFromLibrary(ex, "user")}
                 />
               )}
             </>
           )}
 
-          <Button disabled={!activeDayId} onClick={() => {
-            setShowLibraryForm(true);
-            setShowCustomExerciseForm(false);
-            setShowCustomList(false);
-            }} style={{ border: '1px solid red' }}>Choose from library</Button>
+          <Button
+            disabled={!activeDayId}
+            onClick={() => {
+              setShowLibraryForm(true);
+              setShowCustomExerciseForm(false);
+              setShowCustomList(false);
+            }}
+            style={{ border: "1px solid red" }}
+          >
+            Choose from library
+          </Button>
           {showLibraryForm && (
-            <ExercisesCategories 
-              searchValue={search} 
+            <ExercisesCategories
+              searchValue={search}
               onSearchChange={(value) => {
                 setSearch(value);
-                setPage(1)
+                setPage(1);
               }}
-            onSearchSubmit={(e) => {
-              e.preventDefault();
-              setPage(1);
-            }}
+              onSearchSubmit={(e) => {
+                e.preventDefault();
+                setPage(1);
+              }}
             />
           )}
           {showLibraryForm && (
             <>
-            {isLoading && <Loader/>}
-            {isError && <p>Failed to load exercises</p>}
-            {data && (
-              <ExercisesList
-                exercises={data.exercises}
-                totalPages={data.total}
-                currentPage={page}
-                onAdd={handleAddFromLibrary}
-              />
-            )}
+              {isLoading && <Loader />}
+              {isError && <p>Failed to load exercises</p>}
+              {data && (
+                <ExercisesList
+                  exercises={data.exercises}
+                  totalPages={data.total}
+                  currentPage={page}
+                  onAdd={(ex) => handleAddFromLibrary(ex, "library")}
+                />
+              )}
             </>
           )}
 
@@ -250,17 +294,38 @@ export const ManageWorkouts = () => {
           )}
         </Card>
       </Card>
-    
-    {/* STEP 4: review and schedule */}
+
+      {/* STEP 4: review and schedule */}
       <Card>
-          <Typography variant="h4">Checkout</Typography>
-          <Button style={{ border: '1px solid red' }} onClick={() => {setReview(true)}}>Check your workout</Button>
-          {review &&  (
-            <ReviewWorkout workout={exercises}/>
-          )}
-          <Button style={{ border: '1px solid red' }}>Schedule</Button>
-        </Card>
+        <Typography variant="h4">Checkout</Typography>
+        <Button
+          style={{ border: "1px solid red" }}
+          onClick={() => {
+            setReview(true);
+          }}
+        >
+          Check your workout
+        </Button>
+        {review && (
+          <ReviewWorkout workout={exercises} onDelete={handleDeleteExercise} />
+        )}
+        <Button
+          style={{ border: "1px solid red" }}
+          onClick={handleSchedule}
+          disabled={isScheduling || exercises.length === 0}
+        >
+          {isScheduling ? "Scheduling..." : "Schedule"}
+        </Button>
+        <Button
+          style={{ border: "1px solid red" }}
+          onClick={() => {
+            setExercises([]);
+            setReview(false);
+          }}
+        >
+          Cancel
+        </Button>
+      </Card>
     </Container>
   );
-
 };

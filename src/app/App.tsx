@@ -26,7 +26,7 @@ import Loader from "@/shared/ui/loader/Loader";
 function App() {
   const { isError, isLoading } = useUser();
 
-   if (isLoading) return <Loader/>;
+  if (isLoading) return <Loader />;
 
   if (isError)
     return <div>Server Connection Error. Please try again later.</div>;

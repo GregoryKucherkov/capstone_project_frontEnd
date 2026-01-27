@@ -13,20 +13,19 @@ export default function Header() {
   const { isLoggedIn } = useUser();
 
   return (
-      <header className={css.header}>
-        <Container className={clsx(css.container, isHome && css.homeContainer)}>
-          <Link
-            className={clsx(css.logo, isHome && !isLoggedIn && css.whiteLogo)}
-            to="/"
-            aria-label="Logo Record"
-          >
-            Record
-          </Link>
-          <div className={css.profileContainer}>
-            {isLoggedIn ? <UserBar /> : <AuthBar />}
-          </div>
-        </Container>
-      </header>
-    
+    <header className={css.header}>
+      <Container className={clsx(css.container, isHome && css.homeContainer)}>
+        <Link
+          className={clsx(css.logo, isHome && !isLoggedIn && css.whiteLogo)}
+          to="/"
+          aria-label="Logo Record"
+        >
+          Record
+        </Link>
+        <div className={css.profileContainer}>
+          {isLoggedIn ? <UserBar /> : <AuthBar />}
+        </div>
+      </Container>
+    </header>
   );
 }
