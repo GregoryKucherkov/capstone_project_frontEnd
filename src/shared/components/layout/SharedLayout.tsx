@@ -6,6 +6,7 @@ import Footer from "@/shared/components/layout/footer/Footer";
 import { AuthModals } from "@/modules/auth/components/auth-modals";
 import { BottomNav } from "@/shared/components/layout/bottom-nav/BottomNav";
 import { useUser } from "@/shared/hooks/use-user";
+import Loader from "@/shared/ui/loader/Loader";
 
 export const SharedLayout = () => {
   const { isLoggedIn } = useUser();
@@ -13,7 +14,7 @@ export const SharedLayout = () => {
     <div className={css.pageWrapper}>
       <Header />
       <main>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
       </main>

@@ -12,7 +12,7 @@ import { QuickWorkout } from "@/pages/add-workout/quick-workout/QuickWorkout";
 import { PlannedWorkout } from "@/pages/add-workout/planned-workout/PlannedWorkout";
 import { ManageWorkouts } from "@/pages/add-workout/manage-workouts/ManageWorkouts";
 import { FavoriteExercises } from "@/pages/add-workout/favorite-exercises/FavoriteExercises";
-import { Workouts } from "@/pages/workouts/Workouts";
+import { Workouts } from "@/pages/workouts-stats/Workouts";
 import Loader from "@/shared/ui/loader/Loader";
 
 // move filterMap to backend enum mirror
@@ -103,7 +103,10 @@ function App() {
           />
 
           <Route path="/exercises" element={<ExercisesLib />} />
-          <Route path="*" element={<div>Not Found</div>} />
+          <Route
+            path="*"
+            element={<div style={{ color: "black" }}>Not Found</div>}
+          />
         </Route>
       </Routes>
     </ErrorBoundary>

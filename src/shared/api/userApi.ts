@@ -59,4 +59,13 @@ export const userService = {
   getFavorites: (skip: number, limit: number): Promise<FavoriteResponse[]> => {
     return baseFetch(`/users/me/favorite?skip=${skip}&limit=${limit}`);
   },
+
+  addFavoriteExe: (exercise_id: number) => {
+    return baseFetch(`/users/me/favorite`, {
+      method: "POST",
+      body: JSON.stringify({
+        exercise_id: exercise_id,
+      }),
+    });
+  },
 };

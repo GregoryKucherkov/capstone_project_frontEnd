@@ -1,25 +1,32 @@
 import { baseFetch } from "@/shared/api/baseApi";
+import type {
+  CoreExercisesData,
+  PaginatedCoreExercises,
+} from "@/shared/types/api";
 
-// export const getExercises = async (search?: string) => {
+export const exerciseService = {
+  getCoreExercises: (
+    search?: string,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<PaginatedCoreExercises> => {
+    const skip = (page - 1) * limit;
+    const params = new URLSearchParams();
 
-//     const queryPath = search ? `?search=${encodeURIComponent(search)}` : "";
+    if (search) params.append("search", search);
+    params.append("skip", skip.toString());
+    params.append("limit", limit.toString());
 
-//   return baseFetch(`/exercises${queryPath}`);
-// };
+    return baseFetch(`/exercises?${params.toString()}`, {
+      method: "GET",
+    });
+  },
 
-export const getExercises = async (
-  search?: string,
-  page: number = 1,
-  limit: number = 10,
-) => {
-  const skip = (page - 1) * limit;
-
-  const params = new URLSearchParams();
-  if (search) params.append("search", search);
-  params.append("skip", skip.toString());
-  params.append("limit", limit.toString());
-
-  return baseFetch(`/exercises?${params.toString()}`);
+  getCoreExerciseId: (exercise_id: number): Promise<CoreExercisesData> => {
+    return baseFetch(`/exercises/${exercise_id}`, {
+      method: "GET",
+    });
+  },
 };
 
 // export const getExercises = async (filterKey: string, filterValue: string, keyword?: string) => {

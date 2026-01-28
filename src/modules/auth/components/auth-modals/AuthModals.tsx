@@ -8,14 +8,27 @@ export const AuthModals = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeModal = searchParams.get("modal");
 
-  const closeAll = () => setSearchParams({});
-  // const closeAll = () => {
-  //     searchParams.delete("modal");
-  //     setSearchParams(searchParams);
-  // }
+  const closeAll = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("modal");
+    setSearchParams(params.toString());
+  };
 
-  const handleRedirectToSignUp = () => setSearchParams({ modal: "signup" });
-  const handleRedirectToSignIn = () => setSearchParams({ modal: "signin" });
+  // without preserving URL params when switching modals
+  // const handleRedirectToSignUp = () => setSearchParams({ modal: "signup" });
+  // const handleRedirectToSignIn = () => setSearchParams({ modal: "signin"  });
+
+  const handleRedirectToSignUp = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("modal", "signup");
+    setSearchParams(params);
+  };
+
+  const handleRedirectToSignIn = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("modal", "signin");
+    setSearchParams(params);
+  };
 
   return (
     <>

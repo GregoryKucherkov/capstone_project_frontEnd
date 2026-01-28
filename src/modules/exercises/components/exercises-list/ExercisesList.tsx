@@ -3,6 +3,7 @@ import css from "./ExercisesList.module.css";
 import { Pagination } from "@/shared/pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import type { CoreExercisesData, ExerciseCommon } from "@/shared/types/api";
+import { ExerciseDetails } from "@/modules/exercises/components/exercise-details/ExerciseDetails";
 
 export interface ExercisesListProps {
   exercises: CoreExercisesData[];
@@ -34,6 +35,8 @@ const ExercisesList = ({
           </li>
         ))}
       </ul>
+
+      <ExerciseDetails />
 
       {totalPages > 0 && (
         <Pagination

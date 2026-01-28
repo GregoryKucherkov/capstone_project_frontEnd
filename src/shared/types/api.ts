@@ -139,25 +139,6 @@ export interface CustomExercisesCreate {
   calories_burn?: number | null;
 }
 
-export interface ExerciseCommon {
-  id: number;
-  title: string;
-  muscle_group?: string | null;
-  difficulty?: string | null;
-  description?: string | null;
-  media_url?: string | null;
-  calories_burn?: number | null;
-}
-
-export interface CoreExercisesData extends ExerciseCommon {
-  created_at: string;
-}
-
-export interface OwnExercise extends ExerciseCommon {
-  user_id: number;
-  created_at: string;
-}
-
 export type ProgramExerciseCreatePayload = {
   exercise_name?: string;
 
@@ -174,4 +155,18 @@ export interface PaginatedExercises {
   total: number;
   page: number;
   size: number;
+}
+
+export interface PaginatedCoreExercises {
+  exercises: CoreExercisesData[];
+  total: number;
+  page: number;
+  size: number;
+}
+
+export interface QuickWorkoutExercise {
+  title: string;
+  sets: number | "";
+  reps: number | "";
+  rest: number | "";
 }

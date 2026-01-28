@@ -8,6 +8,7 @@ import {
 import { type FormikHelpers } from "formik";
 import toast from "react-hot-toast";
 import { DEFAULT_ERROR_MESSAGE } from "@/shared/constants/messages";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface SignUpModalProps {
   onRedirectToSignIn: () => void;
@@ -19,6 +20,8 @@ export const SignUpModal = ({
   onSuccess,
 }: SignUpModalProps) => {
   const { mutateAsync: register, isPending } = useRegister();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const disabledForm = isPending;
 
@@ -32,7 +35,11 @@ export const SignUpModal = ({
       toast.success("Registration successful!");
       formActions.resetForm();
 
+      const redirectTo = searchParams.get("redirect") || "/";
+
       onSuccess();
+
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       if (err instanceof Error) {
         toast.error(err.message);

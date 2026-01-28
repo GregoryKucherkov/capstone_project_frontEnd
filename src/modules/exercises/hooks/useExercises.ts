@@ -1,10 +1,10 @@
-import { getExercises } from "@/modules/exercises/services/exercise-api";
+import { exerciseService } from "@/modules/exercises/services/exercise-api";
 import { useQuery } from "@tanstack/react-query";
 
 export const useExercises = (query: string, page: number) => {
   return useQuery({
     queryKey: ["exercises", query, page],
-    queryFn: () => getExercises(query, page),
+    queryFn: () => exerciseService.getCoreExercises(query, page),
     enabled: query.length === 0 || query.length >= 2,
 
     staleTime: Infinity, // Data stays "fresh" as long as the app is open
@@ -34,3 +34,12 @@ export const useExercises = (query: string, page: number) => {
 //     queryFn: () => getExercises(filterKey, filterValue, keyword),
 //   });
 // };
+
+export const useExerciseId = (exerciseId: number) => {
+  return useQuery({
+    queryKey: ["exercise", exerciseId],
+    queryFn: () => exerciseService.getCoreExerciseId(exerciseId),
+    enabled: !!exerciseId,
+    staleTime: Infinity,
+  });
+};
