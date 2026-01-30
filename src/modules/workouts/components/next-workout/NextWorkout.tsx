@@ -1,10 +1,11 @@
-import { Button } from "@/shared/ui/button/Button";
 import css from "./NextWorkout.module.css";
 import Container from "@/shared/ui/container/Container";
 import { Typography } from "@/shared/ui/typography/Typography";
 import { Card } from "@/shared/ui/card/Card";
 import { useNextWorkout } from "@/modules/workouts/hooks/useNextWorkout";
 import Loader from "@/shared/ui/loader/Loader";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/shared/ui/button/Button";
 
 interface ExerciseItem {
   core_exercise: {
@@ -21,6 +22,7 @@ interface WorkoutSession {
 
 export const NextWorkout = () => {
   const { workoutData, sessions, isLoading, hasWorkout } = useNextWorkout();
+  const navigate = useNavigate();
 
   if (isLoading) return <Loader />;
 
@@ -89,10 +91,26 @@ export const NextWorkout = () => {
           type="button"
           variant="pink"
           size="small"
-          fullWidth
+          onClick={() =>
+            navigate("/add-workout/planned", { state: { fromDashboard: true } })
+          }
         >
           Start Workout
         </Button>
+
+        {/* <Link
+          to="/add-workout/planned"
+          state={{ fromDashboard: true }}
+          className={clsx(
+            s.Button,
+            s.pink,
+            s.small,
+            s.fullWidth,
+            css.workoutButton
+          )}
+        >
+          Start Workout
+        </Link> */}
       </Card>
     </Container>
   );

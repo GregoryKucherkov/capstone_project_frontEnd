@@ -51,6 +51,7 @@ function App() {
               </PrivateRoute>
             }
           />
+
           {/* ADD WORKOUT PAGES */}
           <Route
             path="/add-workout"

@@ -30,7 +30,11 @@ export const ExerciseDetails = () => {
   if (!isOpen) return null;
 
   return (
-    <Modal isOpen={isOpen} closeModal={closeModal}>
+    <Modal
+      modalClassName={css.modalDetails}
+      isOpen={isOpen}
+      closeModal={closeModal}
+    >
       {isLoading || isPending ? (
         <Loader />
       ) : exerciseDetails ? (
@@ -43,13 +47,16 @@ export const ExerciseDetails = () => {
               loading="lazy"
             />
           </div>
-          <h4 className={css.label}>{exerciseDetails.title}</h4>
+          <h3 className={css.label}>{exerciseDetails.title}</h3>
           <hr />
           <ul>
             <li>Muscle group: {exerciseDetails.muscle_group}</li>
             <li>Calories burn: {exerciseDetails.calories_burn}</li>
           </ul>
-          <Typography variant="body">{exerciseDetails.description}</Typography>
+          <hr />
+          <Typography variant="body" className={css.description}>
+            {exerciseDetails.description}
+          </Typography>
         </div>
       ) : (
         <div>Exercise not found</div>

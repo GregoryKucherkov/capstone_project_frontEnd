@@ -1,6 +1,63 @@
 .container {
   display: flex;
   flex-direction: column;
+  gap: 30px;
+  padding-top: 150px;
+  padding-bottom: 150px;
+}
+
+.title {
+  font-size: 26px;
+}
+
+.description {
+  color: var(--hot-pink);
+  font-size: 18px;
+}
+
+.subTitle {
+  font-size: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  padding-top: 100px;
+  padding: 40px 20px;
+}
+
+.linkTo {
+  width: fit-content;
+  font-weight: 700;
+  border-radius: var(--border-radius-m);
+  background: transparent;
+
+  cursor: pointer;
+  transition:
+    background var(--transition-duration) var(--transition-timing-function),
+    border var(--transition-duration) var(--transition-timing-function),
+    color var(--transition-duration) var(--transition-timing-function);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 14px 25px;
+  font-size: 14px;
+  line-height: 143%;
+
+  margin: 0 auto;
+}
+
+.linkTo.pink {
+  background: var(--hot-pink);
+  color: var(--white-color);
+  border: 1px solid transparent;
+}
+
+.linkTo.green {
+  background: var(--mint-green);
+  color: var(--main-color);
+  border: 1px solid transparent;
 }

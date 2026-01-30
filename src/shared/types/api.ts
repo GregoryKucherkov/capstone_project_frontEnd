@@ -85,6 +85,30 @@ export interface ProgramDayOutSlim {
   program_id: number | null;
 }
 
+export interface ProgramDayOut {
+  scheduled_for: string; // when the day is scheduled
+  title: string; // program day title
+  id: number; // day id
+  user_id: number;
+  program_id: number;
+  planned_workout: {
+    scheduled_for: string;
+    id: number;
+    program_day_id: number;
+  };
+  exercises: ProgramDayExercise[]; // the actual exercises for the day
+}
+
+export interface ProgramDayExercise {
+  id: number; // exercise id
+  name: string; // exercise name
+  notes?: string; // optional notes
+  reps: string;
+  sets?: number;
+  weight?: number;
+  rest_seconds?: number;
+}
+
 export interface CustomExercisesCreate {
   title: string;
   muscle_group?: string | null;
@@ -170,3 +194,21 @@ export interface QuickWorkoutExercise {
   reps: number | "";
   rest: number | "";
 }
+
+export interface ActiveExerciseUI {
+  name: string; // from planned exercise
+  notes?: string; // optional edit
+}
+
+export interface ActiveSetUI {
+  reps: string;
+  weight: number;
+  rest_seconds: number;
+  notes?: string;
+}
+
+export type PlannedWorkoutProps = {
+  id: number;
+  scheduled_for: string;
+  program_day_id: number;
+};

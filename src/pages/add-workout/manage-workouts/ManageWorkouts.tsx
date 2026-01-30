@@ -17,6 +17,7 @@ import { ListOwnExe } from "@/modules/workouts/components/list-own-exercises/Lis
 import { useCustomExercises } from "@/modules/workouts/hooks/useCustomExercises";
 import { ReviewWorkout } from "@/modules/workouts/components/review-workout/ReviewWorkout";
 import { useScheduleWorkoutFlow } from "@/modules/workouts/hooks/useScheduleWorkout";
+import { Input } from "@/shared/ui/input/Input";
 
 export const ManageWorkouts = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -28,12 +29,13 @@ export const ManageWorkouts = () => {
 
   const [modalExercise, setModalExercise] =
     useState<PlannedExerciseDraft | null>(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // for custom exercises lib
   const [customList, setShowCustomList] = useState(false);
   const [customPage, setCustomPage] = useState(1);
-  const size = 2;
+  const size = 5;
   const skip = (customPage - 1) * size;
 
   const {
@@ -75,6 +77,8 @@ export const ManageWorkouts = () => {
     exercise: ExerciseCommon,
     source: "user" | "library",
   ) => {
+    console.log("Incoming data from list:", exercise);
+
     setModalExercise({
       tempId: crypto.randomUUID(),
       exerciseId: exercise.id,
@@ -84,6 +88,7 @@ export const ManageWorkouts = () => {
       media_url: exercise.media_url,
       calories_burn: exercise.calories_burn,
       muscle_group: exercise.muscle_group,
+      description: exercise.description,
 
       sets: "",
       reps: "",
@@ -136,9 +141,11 @@ export const ManageWorkouts = () => {
       </Card>
 
       {/* STEP 2: Name the workout day */}
-      <Card variant="default" className={css.programDayCard}>
-        <Typography variant="h3">Step 2: Name your workout days</Typography>
-        <input
+      <Card variant="pink" className={css.programDayCard}>
+        <Typography variant="h2" className={css.subTitle}>
+          Name your workout
+        </Typography>
+        <Input
           className={css.inputWktDys}
           type="text"
           placeholder="Workout name"
@@ -146,10 +153,10 @@ export const ManageWorkouts = () => {
           onChange={(e) => setDayTitle(e.target.value)}
         />
 
-        <button
+        <Button
           onClick={handleDay}
           disabled={isPending || !selectedDate}
-          style={{ marginTop: "20px", padding: "12px 24px" }}
+          variant="pink"
           className={css.dayCreateBtn}
         >
           {isPending
@@ -157,149 +164,162 @@ export const ManageWorkouts = () => {
             : activeDayId
               ? "Day Saved"
               : "Next: Add Exercises"}
-        </button>
+        </Button>
       </Card>
 
       {/* STEP 3: Exercises */}
-      <Card>
-        <Typography>Choose your exercises</Typography>
+      <Card variant="yellow" className={css.exerciseCard}>
+        <Typography variant="h2" className={css.subTitle}>
+          Choose your exercises
+        </Typography>
 
         {/* Button to create custom exercise */}
-        <Card variant="small">
-          <Button
-            disabled={!activeDayId}
-            onClick={() => {
-              setShowCustomExerciseForm(true);
-              setShowCustomList(false);
-              setShowLibraryForm(false);
+
+        <Button
+          disabled={!activeDayId}
+          onClick={() => {
+            setShowCustomExerciseForm(true);
+            setShowCustomList(false);
+            setShowLibraryForm(false);
+          }}
+          className={css.exerciseBtn}
+        >
+          Create your own exercises
+        </Button>
+
+        {showCustomExerciseForm && (
+          <OwnExerciseForm
+            onCreate={(newEx) => {
+              const newDraft: PlannedExerciseDraft = {
+                tempId: crypto.randomUUID(),
+                exerciseId: newEx.id,
+                source: "user",
+
+                title: newEx.title,
+                muscle_group: newEx.muscle_group || null,
+                difficulty: newEx.difficulty || null,
+                description: newEx.description || null,
+                media_url: newEx.media_url || null,
+                calories_burn: newEx.calories_burn || 0,
+
+                sets: 0,
+                reps: 0,
+                rest: 0,
+              };
+
+              setModalExercise(newDraft);
+              setIsModalOpen(true);
+              setShowCustomExerciseForm(false);
             }}
-            style={{ border: "1px solid red" }}
           >
-            Create your own exercises
-          </Button>
-
-          {showCustomExerciseForm && (
-            <OwnExerciseForm
-              onCreate={(newEx) => {
-                const newDraft: PlannedExerciseDraft = {
-                  tempId: crypto.randomUUID(),
-                  exerciseId: newEx.id,
-                  source: "user",
-
-                  title: newEx.title,
-                  muscle_group: null,
-                  difficulty: null,
-                  description: null,
-                  media_url: null,
-                  calories_burn: null,
-
-                  sets: 0,
-                  reps: 0,
-                  rest: 0,
-                };
-
-                setModalExercise(newDraft);
-                setIsModalOpen(true);
-                setShowCustomExerciseForm(false);
-              }}
+            <Button
+              onClick={() => setShowCustomExerciseForm(false)}
+              className={css.cancelBtn}
             >
+              Cancel
+            </Button>
+          </OwnExerciseForm>
+        )}
+
+        <Button
+          disabled={!activeDayId}
+          onClick={() => {
+            setShowCustomList(true);
+            setShowCustomExerciseForm(false);
+            setShowLibraryForm(false);
+          }}
+          className={css.exerciseBtn}
+        >
+          Choose from your exercises
+        </Button>
+        {customList && (
+          <>
+            {isLoadingCustom && <Loader />}
+            {isErrorCustom && <p>Failed to load exercises</p>}
+            {custoExe && (
+              <ListOwnExe
+                exercises={custoExe.exercises}
+                totalPages={customTotalPages}
+                currentPage={customPage}
+                onPageChange={setCustomPage}
+                onAdd={(ex) => handleAddFromLibrary(ex, "user")}
+              />
+            )}
+          </>
+        )}
+
+        <Button
+          disabled={!activeDayId}
+          onClick={() => {
+            setShowLibraryForm(true);
+            setShowCustomExerciseForm(false);
+            setShowCustomList(false);
+          }}
+          className={css.exerciseBtn}
+        >
+          Choose from library
+        </Button>
+        {showLibraryForm && (
+          <ExercisesCategories
+            searchValue={search}
+            onSearchChange={(value) => {
+              setSearch(value);
+              setPage(1);
+            }}
+            onSearchSubmit={(e) => {
+              e.preventDefault();
+              setPage(1);
+            }}
+          />
+        )}
+        {showLibraryForm && (
+          <>
+            {isLoading && <Loader />}
+            {isError && <p>Failed to load exercises</p>}
+            {data && (
+              <ExercisesList
+                exercises={data.exercises}
+                totalPages={data.total}
+                currentPage={page}
+                onAdd={(ex) => handleAddFromLibrary(ex, "library")}
+              />
+            )}
+          </>
+        )}
+
+        {modalExercise && (
+          <PlanExerciseModal
+            isOpenModal={isModalOpen}
+            closeModal={() => setIsModalOpen(false)}
+            exercise={modalExercise}
+            onChange={handleModalChange}
+            onSave={handleModalSave}
+          >
+            <div className={css.modalBtnWrapper}>
               <Button
-                onClick={() => setShowCustomExerciseForm(false)}
-                style={{ marginTop: "12px" }}
+                onClick={handleModalSave}
+                className={css.modalExerciseSaveBtn}
+              >
+                Save Exercise
+              </Button>
+              <Button
+                onClick={() => setIsModalOpen(false)}
+                className={css.modalExerciseCancelBtn}
               >
                 Cancel
               </Button>
-            </OwnExerciseForm>
-          )}
-
-          <Button
-            disabled={!activeDayId}
-            onClick={() => {
-              setShowCustomList(true);
-              setShowCustomExerciseForm(false);
-              setShowLibraryForm(false);
-            }}
-            style={{ border: "1px solid red" }}
-          >
-            Choose from your exercises
-          </Button>
-          {customList && (
-            <>
-              {isLoadingCustom && <Loader />}
-              {isErrorCustom && <p>Failed to load exercises</p>}
-              {custoExe && (
-                <ListOwnExe
-                  exercises={custoExe.exercises}
-                  totalPages={customTotalPages}
-                  currentPage={customPage}
-                  onPageChange={setCustomPage}
-                  onAdd={(ex) => handleAddFromLibrary(ex, "user")}
-                />
-              )}
-            </>
-          )}
-
-          <Button
-            disabled={!activeDayId}
-            onClick={() => {
-              setShowLibraryForm(true);
-              setShowCustomExerciseForm(false);
-              setShowCustomList(false);
-            }}
-            style={{ border: "1px solid red" }}
-          >
-            Choose from library
-          </Button>
-          {showLibraryForm && (
-            <ExercisesCategories
-              searchValue={search}
-              onSearchChange={(value) => {
-                setSearch(value);
-                setPage(1);
-              }}
-              onSearchSubmit={(e) => {
-                e.preventDefault();
-                setPage(1);
-              }}
-            />
-          )}
-          {showLibraryForm && (
-            <>
-              {isLoading && <Loader />}
-              {isError && <p>Failed to load exercises</p>}
-              {data && (
-                <ExercisesList
-                  exercises={data.exercises}
-                  totalPages={data.total}
-                  currentPage={page}
-                  onAdd={(ex) => handleAddFromLibrary(ex, "library")}
-                />
-              )}
-            </>
-          )}
-
-          {modalExercise && (
-            <PlanExerciseModal
-              isOpenModal={isModalOpen}
-              closeModal={() => setIsModalOpen(false)}
-              exercise={modalExercise}
-              onChange={handleModalChange}
-              onSave={handleModalSave}
-            >
-              <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
-                <Button onClick={handleModalSave}>Save Exercise</Button>
-                <Button onClick={() => setIsModalOpen(false)}>Cancel</Button>
-              </div>
-            </PlanExerciseModal>
-          )}
-        </Card>
+            </div>
+          </PlanExerciseModal>
+        )}
       </Card>
 
       {/* STEP 4: review and schedule */}
-      <Card>
-        <Typography variant="h4">Checkout</Typography>
+      <Card variant="green" className={css.checkoutCard}>
+        <Typography variant="h2" className={css.subTitle}>
+          Checkout
+        </Typography>
         <Button
-          style={{ border: "1px solid red" }}
+          style={{ border: "1px solid yellow" }}
           onClick={() => {
             setReview(true);
           }}
@@ -310,22 +330,23 @@ export const ManageWorkouts = () => {
           <ReviewWorkout workout={exercises} onDelete={handleDeleteExercise} />
         )}
         <Button
-          style={{ border: "1px solid red" }}
+          style={{ border: "1px solid green" }}
           onClick={handleSchedule}
           disabled={isScheduling || exercises.length === 0}
         >
           {isScheduling ? "Scheduling..." : "Schedule"}
         </Button>
-        <Button
-          style={{ border: "1px solid red" }}
-          onClick={() => {
-            setExercises([]);
-            setReview(false);
-          }}
-        >
-          Cancel
-        </Button>
       </Card>
+      <Button
+        style={{ border: "1px solid red" }}
+        className={css.cancelButton}
+        onClick={() => {
+          setExercises([]);
+          setReview(false);
+        }}
+      >
+        Cancel
+      </Button>
     </Container>
   );
 };

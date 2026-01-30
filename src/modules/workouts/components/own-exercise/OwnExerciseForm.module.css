@@ -1,0 +1,31 @@
+.formCrad {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 16px 48px 16px 18px; /* Leave space for icon on the right */
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  background-color: #ffffff;
+  transition:
+    border-color var(--transition-duration) var(--transition-timing-function),
+    box-shadow var(--transition-duration) var(--transition-timing-function);
+
+  /* todo remove when global styles are added */
+  box-sizing: border-box;
+
+  border: 1px solid var(--gray-color);
+  color: var(--main-color);
+  border-radius: 20px;
+}
+
+.formCrad .formBtn {
+  background-color: var(--mint-green);
+  columns: white;
+  margin: 0 auto;
+}

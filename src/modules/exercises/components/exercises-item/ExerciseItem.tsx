@@ -70,11 +70,17 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
       {isPlanningMode && onAdd && (
         <Button
           variant="light"
-          size="medium"
+          size="small"
           type="button"
           bordered
           fullWidth
-          onClick={() => onAdd({ id: data.id, title: data.title })}
+          onClick={() =>
+            onAdd({
+              id: data.id,
+              title: data.title,
+              description: data.description,
+            })
+          }
         >
           Add to Workout
         </Button>
@@ -83,7 +89,7 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
       {isLibraryMode && (
         <Button
           variant="light"
-          size="medium"
+          size="small"
           type="button"
           bordered
           fullWidth
@@ -96,7 +102,7 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
 
       <Button
         variant="light"
-        size="medium"
+        size="small"
         type="button"
         bordered
         fullWidth

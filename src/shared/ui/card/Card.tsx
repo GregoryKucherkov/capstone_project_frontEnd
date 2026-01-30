@@ -4,7 +4,7 @@ import clsx from "clsx";
 export interface CardProps {
   children: React.ReactNode;
   className?: string;
-  variant?: "pink" | "thick" | "small" | "default";
+  variant?: "green" | "pink" | "yellow" | "thick" | "small" | "default";
 }
 
 export const Card = ({

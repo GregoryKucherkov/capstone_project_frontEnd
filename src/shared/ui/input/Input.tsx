@@ -4,9 +4,10 @@ import styles from "./Input.module.css";
 export type VariantProp = "default" | "underline" | "ghost";
 
 export interface InputProps {
+  id?: string;
   name?: string;
   placeholder?: string;
-  value?: string;
+  value?: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   error?: string;
@@ -22,6 +23,7 @@ export interface InputProps {
 }
 
 export const Input = ({
+  id,
   name,
   placeholder,
   value = "",
@@ -46,6 +48,7 @@ export const Input = ({
     >
       <div className={styles.inputWrapper}>
         <input
+          id={id}
           className={`${styles.input} ${styles[variant]} ${error ? styles.error : ""}`}
           type={type}
           placeholder={required ? `${placeholder}*` : placeholder}
@@ -68,7 +71,7 @@ export const Input = ({
         )}
         {showCounter && (
           <div className={styles.counter}>
-            {value.length}/{maxLength}
+            {String(value).length}/{maxLength}
           </div>
         )}
       </div>

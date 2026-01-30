@@ -36,5 +36,6 @@ export const baseFetch = async (
     // throw new Error(errorMessage);
   }
 
-  return await response.json();
+  const text = await response.text();
+  return text ? JSON.parse(text) : null;
 };

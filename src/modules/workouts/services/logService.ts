@@ -2,6 +2,7 @@ import { baseFetch } from "@/shared/api/baseApi";
 
 export const logService = {
   createSession: () => {
+    console.log("Calling API /workouts/start");
     return baseFetch(`/workouts/start`, {
       method: "POST",
       body: JSON.stringify({ date: new Date().toISOString() }),

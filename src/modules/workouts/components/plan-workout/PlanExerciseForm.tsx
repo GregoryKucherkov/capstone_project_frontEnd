@@ -1,6 +1,8 @@
 import type { PlannedExerciseDraft } from "@/shared/types/api";
 import { Card } from "@/shared/ui/card/Card";
+import { Input } from "@/shared/ui/input/Input";
 import { useId } from "react";
+import css from "./PlanExercise.module.css";
 
 export interface PlanExerciseFormProps {
   exercise: PlannedExerciseDraft;
@@ -14,14 +16,28 @@ export const PlanExerciseForm = ({
   onRemove,
 }: PlanExerciseFormProps) => {
   const { title, sets, reps, rest } = exercise;
+
   const id = useId();
 
   return (
-    <Card variant="small">
+    <Card variant="small" className={css.formCard}>
+      {/* {description && (
+        <p style={{ marginBottom: "10px" }}>
+          {description}
+        </p>
+      )}
+      <Input
+        id={`${id}-exercise`}
+        type="text"
+        placeholder="Exercise description"
+        value={description ?? ""}
+        onChange={(e) => onChange({ ...exercise, description: e.target.value })}
+      /> */}
+
       <label htmlFor={`${id}-exercise`} style={{ color: "black" }}>
         Exercise
       </label>
-      <input
+      <Input
         id={`${id}-exercise`}
         type="text"
         placeholder="Exercise title"
@@ -31,7 +47,7 @@ export const PlanExerciseForm = ({
       <label htmlFor={`${id}-sets`} style={{ color: "black" }}>
         Sets
       </label>
-      <input
+      <Input
         id={`${id}-sets`}
         type="number"
         placeholder="Sets"
@@ -47,7 +63,7 @@ export const PlanExerciseForm = ({
       <label htmlFor={`${id}-reps`} style={{ color: "black" }}>
         Reps
       </label>
-      <input
+      <Input
         id={`${id}-reps`}
         type="number"
         placeholder="Reps"
@@ -62,7 +78,7 @@ export const PlanExerciseForm = ({
       <label htmlFor={`${id}-rest`} style={{ color: "black" }}>
         Rest
       </label>
-      <input
+      <Input
         id={`${id}-rest`}
         type="number"
         placeholder="Rest (sec)"

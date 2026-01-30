@@ -6,6 +6,7 @@
 }
 
 .title {
+  font-size: 28px;
   margin-top: 150px;
 }
 
@@ -17,6 +18,65 @@
   margin: 0 auto;
 }
 
-.dayCreateBtn {
-  margin-bottom: 50px;
+.subTitle {
+  font-size: 24px;
+}
+
+.programDayCard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 50px;
+}
+
+.programDayCard .dayCreateBtn {
+  margin: 0 auto;
+}
+
+.exerciseCard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.exerciseCard .exerciseBtn {
+  border-color: var(--yellow-color);
+}
+
+.checkoutCard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.exerciseCard .cancelBtn {
+  border: 1px solid red;
+  margin: 0 auto;
+}
+
+.modalBtnWrapper {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modalBtnWrapper .modalExerciseSaveBtn {
+  border: 1px solid green;
+}
+
+.modalBtnWrapper .modalExerciseCancelBtn {
+  border: 1px solid red;
+}
+
+.checkoutCard {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.cancelButton {
+  margin: 0 auto;
 }

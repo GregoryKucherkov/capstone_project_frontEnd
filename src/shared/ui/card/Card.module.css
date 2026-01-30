@@ -8,6 +8,16 @@
   padding: 16px;
 }
 
+.green {
+  border-color: var(--mint-green);
+  background-color: var(--green-light);
+}
+
+.yellow {
+  border-color: var(--yellow-color);
+  background-color: var(--bright-yellow);
+}
+
 .pink {
   border-color: #f9a8d4;
   background-color: #fce7f3;

@@ -1,0 +1,8 @@
+.ulExeList {
+  width: 100%;
+  color: var(--main-color);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

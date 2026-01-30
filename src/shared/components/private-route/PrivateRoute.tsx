@@ -1,4 +1,5 @@
 import { useUser } from "@/shared/hooks/use-user";
+import Loader from "@/shared/ui/loader/Loader";
 import type { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
@@ -14,7 +15,7 @@ export const PrivateRoute = ({
   const { user, isLoading } = useUser();
   const location = useLocation();
 
-  if (isLoading) return null;
+  if (isLoading) return <Loader />;
 
   if (!user) {
     return <Navigate to={redirectTo} replace state={{ from: location }} />;

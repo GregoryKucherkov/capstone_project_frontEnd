@@ -20,21 +20,24 @@ export const OwnExeItem = ({ data, onAdd }: ExercisesDataProps) => {
 
   return (
     <div className={css.itemWraper}>
-      <div className={css.thumb}>
-        {data && data.media_url ? (
+      {data?.media_url && (
+        <div className={css.thumb}>
           <img
             src={data.media_url}
             alt={exerciseName}
             className={css.exerciseImage}
             loading="lazy"
           />
-        ) : null}
-      </div>
+        </div>
+      )}
       <h4 className={css.label}>{title}</h4>
       <hr />
       <ul>
         <li>Muscle group: {title}</li>
-        <li>Calories burn: {data.calories_burn}</li>
+        {data.calories_burn ? (
+          <li>Calories burn: {data.calories_burn}</li>
+        ) : null}
+        {data.description ? <li>Description: {data.description}</li> : null}
       </ul>
       <hr />
 
@@ -50,8 +53,14 @@ export const OwnExeItem = ({ data, onAdd }: ExercisesDataProps) => {
                 Details
             </Button> */}
       <Button
-        style={{ border: "1px solid red" }}
-        onClick={() => onAdd({ id: data.id, title: data.title })}
+        className={css.ownExeBtn}
+        onClick={() =>
+          onAdd({
+            id: data.id,
+            title: data.title,
+            description: data.description,
+          })
+        }
       >
         Add to Workout
       </Button>

@@ -1,27 +1,25 @@
 import { useId } from "react";
-import { Card } from "@/shared/ui/card/Card";
 import type { QuickWorkoutExercise } from "@/shared/types/api";
+import { Input } from "@/shared/ui/input/Input";
 
-export interface QuickWorkoutFormProps {
+export interface QuickWorkoutExerciseFormProps {
   exercise: QuickWorkoutExercise;
   onChange: (updated: QuickWorkoutExercise) => void;
-  onRemove?: () => void;
 }
 
-export const QuickWorkoutForm = ({
+export const QuickWorkoutExerciseForm = ({
   exercise,
   onChange,
-  onRemove,
-}: QuickWorkoutFormProps) => {
+}: QuickWorkoutExerciseFormProps) => {
   const { title, sets, reps, rest } = exercise;
   const id = useId();
 
   return (
-    <Card variant="small">
+    <>
       <label htmlFor={`${id}-exercise`} style={{ color: "black" }}>
         Exercise
       </label>
-      <input
+      <Input
         id={`${id}-exercise`}
         type="text"
         placeholder="Exercise title"
@@ -32,7 +30,7 @@ export const QuickWorkoutForm = ({
       <label htmlFor={`${id}-sets`} style={{ color: "black" }}>
         Sets
       </label>
-      <input
+      <Input
         id={`${id}-sets`}
         type="number"
         placeholder="Sets"
@@ -48,7 +46,7 @@ export const QuickWorkoutForm = ({
       <label htmlFor={`${id}-reps`} style={{ color: "black" }}>
         Reps
       </label>
-      <input
+      <Input
         id={`${id}-reps`}
         type="number"
         placeholder="Reps"
@@ -64,7 +62,7 @@ export const QuickWorkoutForm = ({
       <label htmlFor={`${id}-rest`} style={{ color: "black" }}>
         Rest (sec)
       </label>
-      <input
+      <Input
         id={`${id}-rest`}
         type="number"
         placeholder="Rest"
@@ -76,12 +74,6 @@ export const QuickWorkoutForm = ({
           })
         }
       />
-
-      {onRemove && (
-        <button type="button" onClick={onRemove}>
-          Remove
-        </button>
-      )}
-    </Card>
+    </>
   );
 };

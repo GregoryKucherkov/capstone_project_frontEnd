@@ -2,9 +2,11 @@ import { exercisesService } from "@/modules/workouts/services/exercisesServise";
 import type { OwnExercise } from "@/shared/types/api";
 import { Button } from "@/shared/ui/button/Button";
 import { Card } from "@/shared/ui/card/Card";
+import { Input } from "@/shared/ui/input/Input";
 import { Typography } from "@/shared/ui/typography/Typography";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import css from "./OwnExerciseForm.module.css";
 
 interface OwnExerciseFormProps {
   onCreate: (exercise: OwnExercise) => void;
@@ -60,22 +62,22 @@ export const OwnExerciseForm = ({
   };
 
   return (
-    <Card variant="small">
+    <Card variant="small" className={css.formCrad}>
       <Typography variant="h4">Create your own exercise</Typography>
 
-      <input
+      <Input
         type="text"
         placeholder="Exercise title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <input
+      <Input
         type="text"
         placeholder="Muscle group"
         value={muscleGroup}
         onChange={(e) => setMuscleGroup(e.target.value)}
       />
-      <input
+      <Input
         type="text"
         placeholder="Difficulty"
         value={difficulty}
@@ -85,9 +87,10 @@ export const OwnExerciseForm = ({
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        className={css.formTextarea}
       />
 
-      <Button onClick={handleCreate} style={{ marginTop: "12px" }}>
+      <Button onClick={handleCreate} className={css.formBtn}>
         Create Exercise
       </Button>
       {children}
