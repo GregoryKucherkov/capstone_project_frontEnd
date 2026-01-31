@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ExercisesCategories } from "@/modules/exercises/components/exercises-categories/ExercisesCategories";
 import { useSearchParams } from "react-router-dom";
 import Loader from "@/shared/ui/loader/Loader";
+import { useFavoriteIds } from "@/shared/hooks/useAddFavorite";
 
 const ExercisesLib = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,14 +22,20 @@ const ExercisesLib = () => {
     currentPage,
   );
 
+  const currentPageExercises = data?.exercises || [];
+  const limit = currentPageExercises.length;
+  const skip = (currentPage - 1) * limit;
+
+  const { data: favoriteIds = [] } = useFavoriteIds(
+    currentPageExercises?.map((e) => e.id),
+    skip,
+    limit,
+  );
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSearchParams({ search: inputValue, page: "1" });
     setInputValue("");
-  };
-
-  const handleOnAdd = () => {
-    console.log("on Add button");
   };
 
   return (
@@ -52,12 +59,12 @@ const ExercisesLib = () => {
         <ErrorBoundary
           fallback={<p>Failed to load the list. Try refreshing.</p>}
         >
-          {data?.exercises && data.exercises.length > 0 ? (
+          {data?.exercises && data.exercises.length > 0 && favoriteIds ? (
             <ExercisesList
               exercises={data.exercises}
               totalPages={data.total}
               currentPage={currentPage}
-              onAdd={handleOnAdd}
+              favoriteIds={favoriteIds}
             />
           ) : (
             !isLoading && <p>No exercises found.</p>

@@ -70,9 +70,15 @@ export interface PostsResponse {
   size: number;
 }
 
-export interface FavoriteResponse {
-  exercise_id: number;
+export interface FavoriteResponse extends CoreExercisesData {
   user_id: number;
+}
+
+export interface PaginatedFavoriteResponse {
+  exercises: FavoriteResponse[];
+  total_count: number;
+  page: number;
+  size: number;
 }
 
 export type ListItem = Post | UserGuest | FavoriteResponse;

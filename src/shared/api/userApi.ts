@@ -1,6 +1,6 @@
 import { baseFetch } from "@/shared/api/baseApi";
 import type {
-  FavoriteResponse,
+  PaginatedFavoriteResponse,
   PostsResponse,
   User,
   UserGuest,
@@ -56,7 +56,11 @@ export const userService = {
   ): Promise<PostsResponse> => {
     return baseFetch(`/users/${id}/posts?skip=${skip}&limit=${limit}`);
   },
-  getFavorites: (skip: number, limit: number): Promise<FavoriteResponse[]> => {
+
+  getFavorites: (
+    skip: number,
+    limit: number,
+  ): Promise<PaginatedFavoriteResponse> => {
     return baseFetch(`/users/me/favorite?skip=${skip}&limit=${limit}`);
   },
 
@@ -66,6 +70,12 @@ export const userService = {
       body: JSON.stringify({
         exercise_id: exercise_id,
       }),
+    });
+  },
+
+  deleteExeFromFavaorite: (exercise_id: number) => {
+    return baseFetch(`/users/me/favorite/${exercise_id}`, {
+      method: "DELETE",
     });
   },
 };

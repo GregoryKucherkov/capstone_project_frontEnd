@@ -1,0 +1,25 @@
+.container {
+  padding-top: 150px;
+  padding-bottom: 150px;
+}
+
+.title {
+  font-size: 28px;
+  padding-bottom: 30px;
+}
+
+.subtitle {
+  font-size: 20px;
+}
+
+.exeCard {
+  color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 50px;
+}
+
+.favoriteBtn {
+  margin: 0 auto;
+}

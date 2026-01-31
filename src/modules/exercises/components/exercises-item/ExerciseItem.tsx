@@ -2,24 +2,30 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import css from "./ExerciseItem.module.css";
 import { Button } from "@/shared/ui/button/Button";
 import type { CoreExercisesData, ExerciseCommon } from "@/shared/types/api";
-import { useAddFavorite } from "@/shared/hooks/useAddFavorite";
+import {
+  useAddFavorite,
+  useDelExeFromFavorite,
+} from "@/shared/hooks/useAddFavorite";
 import toast from "react-hot-toast";
 
 type ExercisesDataProps = {
   data: CoreExercisesData;
   onAdd?: (exercise: ExerciseCommon) => void;
+  isFavorited?: boolean;
 };
 
-const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
+const ExerciseItem = ({ data, onAdd, isFavorited }: ExercisesDataProps) => {
   const { pathname } = useLocation();
   const exerciseName = data.title;
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const { mutate: addFavorite, isPending } = useAddFavorite();
 
-  const isPlanningMode =
-    pathname.includes("/add-workout") || pathname.includes("/manage");
-  const isLibraryMode = pathname.includes("/exercises");
+  const { mutate: addFavorite, isPending: isAdding } = useAddFavorite();
+  const { mutate: removeFavorite, isPending: isRemoving } =
+    useDelExeFromFavorite();
+
+  const isPending = isAdding || isRemoving;
+  const isPlanningMode = Boolean(onAdd);
 
   const [, setSearchParams] = useSearchParams();
 
@@ -31,6 +37,8 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
   };
   const title = capitalizeWords(data.title);
 
+  const favorited = Boolean(isFavorited);
+
   const handleFavoriteClick = () => {
     if (!token) {
       navigate(
@@ -39,14 +47,18 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
       );
       return;
     }
-    addFavorite(data.id, {
-      onSuccess: () => {
-        toast.success(`${data.title} added to favorites!`);
-      },
-      onError: (error) => {
-        alert(`Error: ${error.message}`);
-      },
-    });
+
+    if (favorited) {
+      removeFavorite(data.id, {
+        onSuccess: () => toast.success(`${data.title} removed from favorites!`),
+        onError: (err) => alert(`Error: ${err.message}`),
+      });
+    } else {
+      addFavorite(data.id, {
+        onSuccess: () => toast.success(`${data.title} added to favorites!`),
+        onError: (err) => alert(`Error: ${err.message}`),
+      });
+    }
   };
 
   return (
@@ -67,36 +79,30 @@ const ExerciseItem = ({ data, onAdd }: ExercisesDataProps) => {
       </ul>
       <hr />
 
-      {isPlanningMode && onAdd && (
+      {isPlanningMode && onAdd ? (
         <Button
           variant="light"
           size="small"
-          type="button"
           bordered
           fullWidth
-          onClick={() =>
-            onAdd({
-              id: data.id,
-              title: data.title,
-              description: data.description,
-            })
-          }
+          onClick={() => onAdd({ ...data })}
         >
           Add to Workout
         </Button>
-      )}
-
-      {isLibraryMode && (
+      ) : (
         <Button
           variant="light"
           size="small"
-          type="button"
           bordered
           fullWidth
           disabled={isPending}
           onClick={handleFavoriteClick}
         >
-          {isPending ? "Adding..." : "Add to Favorites"}
+          {isPending
+            ? "Processing..."
+            : favorited
+              ? "Remove from Favorites"
+              : "Add to Favorites"}
         </Button>
       )}
 

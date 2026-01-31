@@ -9,7 +9,8 @@ export interface ExercisesListProps {
   exercises: CoreExercisesData[];
   totalPages: number;
   currentPage: number;
-  onAdd: (exercise: ExerciseCommon) => void;
+  onAdd?: (exercise: ExerciseCommon) => void;
+  favoriteIds?: number[];
 }
 
 const ExercisesList = ({
@@ -17,6 +18,7 @@ const ExercisesList = ({
   totalPages,
   currentPage,
   onAdd,
+  favoriteIds = [],
 }: ExercisesListProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -31,7 +33,11 @@ const ExercisesList = ({
       <ul className={css.ulExeList}>
         {exercises.map((exercise) => (
           <li className={css.liExelist} key={exercise.id}>
-            <ExerciseItem data={exercise} onAdd={onAdd} />
+            <ExerciseItem
+              data={exercise}
+              onAdd={onAdd}
+              isFavorited={favoriteIds.includes(exercise.id)}
+            />
           </li>
         ))}
       </ul>

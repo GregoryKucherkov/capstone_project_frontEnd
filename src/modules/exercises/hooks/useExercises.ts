@@ -7,7 +7,8 @@ export const useExercises = (query: string, page: number) => {
     queryFn: () => exerciseService.getCoreExercises(query, page),
     enabled: query.length === 0 || query.length >= 2,
 
-    staleTime: Infinity, // Data stays "fresh" as long as the app is open
+    // staleTime: Infinity, // Data stays "fresh" as long as the app is open
+    staleTime: 1000 * 60 * 5,
     refetchOnMount: false, // Don't fetch again if user navigates back to the page
     refetchOnWindowFocus: false,
 

@@ -21,19 +21,6 @@ export const PlanExerciseForm = ({
 
   return (
     <Card variant="small" className={css.formCard}>
-      {/* {description && (
-        <p style={{ marginBottom: "10px" }}>
-          {description}
-        </p>
-      )}
-      <Input
-        id={`${id}-exercise`}
-        type="text"
-        placeholder="Exercise description"
-        value={description ?? ""}
-        onChange={(e) => onChange({ ...exercise, description: e.target.value })}
-      /> */}
-
       <label htmlFor={`${id}-exercise`} style={{ color: "black" }}>
         Exercise
       </label>
