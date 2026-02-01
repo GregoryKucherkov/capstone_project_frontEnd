@@ -115,12 +115,12 @@ export const ManageWorkouts = () => {
   };
 
   const handleSchedule = async () => {
-    if (!activeDayId) return;
+    if (!activeDayId || !selectedDate) return;
 
-    scheduleWorkout({
+    await scheduleWorkout({
       dayId: activeDayId,
       exercises, //PlannedExerciseDraft[]
-      scheduledFor: new Date(),
+      scheduledFor: selectedDate,
     });
   };
 

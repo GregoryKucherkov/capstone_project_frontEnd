@@ -4,10 +4,12 @@ import type {
   PlannedExerciseDraft,
   ProgramExerciseCreatePayload,
 } from "@/shared/types/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export const useScheduleWorkoutFlow = () => {
+  const queryClient = useQueryClient();
+
   const addExercisesMutation = useMutation({
     mutationFn: ({
       dayId,
@@ -53,7 +55,11 @@ export const useScheduleWorkoutFlow = () => {
         scheduledFor: scheduledFor.toISOString(),
       });
 
-      // Step 3 — toast success
+      // Step 3 — invalidate cash
+      await queryClient.invalidateQueries({ queryKey: ["schedule"] });
+      await queryClient.invalidateQueries({ queryKey: ["workoutDay"] });
+
+      // Step 4 — toast success
       toast.success("Workout scheduled successfully!");
     } catch (err) {
       // Step 4 — toast error

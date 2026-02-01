@@ -28,6 +28,8 @@ export const useNextWorkout = () => {
   const { data: sessions, isLoading: sessionsLoading } = useQuery({
     queryKey: ["sessions"],
     queryFn: () => workoutService.listSessions(),
+
+    select: (data) => data.workouts,
   });
 
   // Combined Loading State

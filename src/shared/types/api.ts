@@ -109,8 +109,8 @@ export interface ProgramDayExercise {
   id: number; // exercise id
   name: string; // exercise name
   notes?: string; // optional notes
-  reps: string;
   sets?: number;
+  reps: string;
   weight?: number;
   rest_seconds?: number;
 }
@@ -218,3 +218,34 @@ export type PlannedWorkoutProps = {
   scheduled_for: string;
   program_day_id: number;
 };
+
+export interface WorkoutSessionOut {
+  id: number;
+  user_id: number;
+  notes: string;
+  date: string; // "2026-02-01T10:54:07.601Z"
+  duration: number;
+  completed: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PaginatedWorkouts {
+  workouts: WorkoutSessionOut[];
+  total_count: number;
+  page: number;
+  size: number;
+}
+
+export interface ProgramExerciseOut {
+  exercise_name?: string | null;
+  sets: number;
+  reps: string;
+  rest_seconds?: number | null;
+  id: number;
+  day_id: number;
+  core_exercise_id?: number | null;
+  custom_exercise_id?: number | null;
+  core_exercise?: CoreExercisesData | null;
+  custom_exercise?: OwnExercise | null;
+}

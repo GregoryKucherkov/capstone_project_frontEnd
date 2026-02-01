@@ -2,6 +2,7 @@ import { baseFetch } from "@/shared/api/baseApi";
 import type {
   ProgramDayOutSlim,
   ProgramExerciseCreatePayload,
+  ProgramExerciseOut,
 } from "@/shared/types/api";
 
 export const workoutService = {
@@ -70,6 +71,14 @@ export const workoutService = {
         program_day_id: data.dayId,
         scheduled_for: data.scheduled_for,
       }),
+    });
+  },
+
+  getProgramDayExercises: async (
+    dayId: number,
+  ): Promise<ProgramExerciseOut[]> => {
+    return await baseFetch(`/programs/days/${dayId}/exercises`, {
+      method: "GET",
     });
   },
 };

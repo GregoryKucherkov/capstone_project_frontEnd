@@ -1,7 +1,7 @@
 import { Typography } from "@/shared/ui/typography/Typography";
 import css from "./Goal.module.css";
 import { Card } from "@/shared/ui/card/Card";
-import { useGoals } from "@/modules/workouts/hooks/useGoals";
+import { useGoals } from "@/modules/user/hooks/useGoals";
 import Container from "@/shared/ui/container/Container";
 import Loader from "@/shared/ui/loader/Loader";
 import { Button } from "@/shared/ui/button/Button";

@@ -1,5 +1,5 @@
 import { logService } from "@/modules/workouts/services/logService";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useCreateSession = () => {
   const queryClient = useQueryClient();
@@ -69,5 +69,12 @@ export const useAddSetBulk = () => {
         completed?: boolean;
       }[];
     }) => logService.addSetBulk(params.exerciseId, params.data),
+  });
+};
+
+export const useWorkouts = (skip: number, limit: number) => {
+  return useQuery({
+    queryKey: ["workouts", skip, limit],
+    queryFn: () => logService.listWorkouts(skip, limit),
   });
 };

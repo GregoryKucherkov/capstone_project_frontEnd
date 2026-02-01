@@ -1,4 +1,5 @@
 import { baseFetch } from "@/shared/api/baseApi";
+import type { PaginatedWorkouts } from "@/shared/types/api";
 
 export const logService = {
   createSession: () => {
@@ -64,6 +65,12 @@ export const logService = {
     return baseFetch(`/workouts/exercises/${exerciseId}/sets/bulk`, {
       method: "POST",
       body: JSON.stringify(data),
+    });
+  },
+
+  listWorkouts: (skip: number, limit: number): Promise<PaginatedWorkouts> => {
+    return baseFetch(`/workouts?skip=${skip}&limit=${limit}`, {
+      method: "GET",
     });
   },
 };

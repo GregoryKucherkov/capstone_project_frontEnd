@@ -203,7 +203,6 @@ export const QuickWorkout = () => {
 
       <Button
         disabled={!exercise.title || !exercise.reps}
-        // key={exercise.title + exercise.sets}
         onClick={() => handleSubmitExercise(exercise)}
         bordered
         size="medium"

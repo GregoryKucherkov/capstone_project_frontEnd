@@ -1,4 +1,4 @@
-import { goalsService } from "@/modules/workouts/services/goalsService";
+import { goalsService } from "@/modules/user/services/goalsService";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGoals = () => {
