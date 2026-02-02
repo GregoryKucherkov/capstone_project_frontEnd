@@ -52,6 +52,15 @@ export const PlannedWorkoutExerciseForm = ({
         onChange={(e) => onChange({ ...exercise, reps: e.target.value })}
       />
 
+      <label htmlFor={`${id}-weight`}>Weight</label>
+      <Input
+        id={`${id}-weight`}
+        placeholder="Weight"
+        type="number"
+        value={exercise.weight ?? ""}
+        onChange={(e) => onChange({ ...exercise, weight: parseFloat(e.target.value) || 0 })}
+        />
+
       <label htmlFor={`${id}-rest`}>Rest (sec)</label>
       <Input
         id={`${id}-rest`}

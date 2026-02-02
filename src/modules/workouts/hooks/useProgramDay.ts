@@ -26,7 +26,10 @@ export const useProgramDayExercises = ({
 }: UseProgramDayExercisesArgs) => {
   return useQuery<ProgramExerciseOut[]>({
     queryKey: ["programDayExercises", dayId],
-    queryFn: () => workoutService.getProgramDayExercises(dayId!),
+    queryFn: () => {
+      if (!dayId) return []; // Return empty array if no ID
+      return workoutService.getProgramDayExercises(dayId);
+    },
     enabled: enabled && Boolean(dayId),
   });
 };

@@ -92,6 +92,7 @@ export const ManageWorkouts = () => {
 
       sets: "",
       reps: "",
+      weight: "",
       rest: "",
     });
 
@@ -202,9 +203,10 @@ export const ManageWorkouts = () => {
                 media_url: newEx.media_url || null,
                 calories_burn: newEx.calories_burn || 0,
 
-                sets: 0,
-                reps: 0,
-                rest: 0,
+                sets: "",
+                reps: "",
+                rest: "",
+                weight: "",
               };
 
               setModalExercise(newDraft);

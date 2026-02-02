@@ -4,15 +4,11 @@ import { Card } from "@/shared/ui/card/Card";
 import { Typography } from "@/shared/ui/typography/Typography";
 import { Button } from "@/shared/ui/button/Button";
 import { RestTimer } from "@/shared/ui/timer/Timer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import Loader from "@/shared/ui/loader/Loader";
 import type {
-  ActiveExerciseUI,
-  ActiveSetUI,
   PlannedWorkoutProps,
-  ProgramDayExercise,
   ProgramExerciseOut,
 } from "@/shared/types/api";
 import { useProgramSchedule } from "@/modules/workouts/hooks/usePlannedWorkouts";
@@ -20,14 +16,14 @@ import {
   useAddExercise,
   useAddSet,
   useCreateSession,
+  useFinishSession,
 } from "@/modules/workouts/hooks/useSession";
 import {
-  useProgramDay,
   useProgramDayExercises,
 } from "@/modules/workouts/hooks/useProgramDay";
-import { QuickWorkoutExerciseForm } from "@/modules/workouts/components/quick-workout-form/QuickWorkoutForm";
 import { useNextWorkout } from "@/modules/workouts/hooks/useNextWorkout";
 import { PlannedWorkoutExerciseForm } from "@/modules/workouts/components/planned-workout-exercise-form/PlannedWorkoutExerciseForm";
+
 
 const now = new Date();
 const START_ISO = now.toISOString();
@@ -39,6 +35,13 @@ export const PlannedWorkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const fromDashboard = location.state?.fromDashboard || false;
+  const { mutateAsync: startSession } = useCreateSession();
+  const { mutateAsync: closeSession, isPending: closing } = useFinishSession();
+  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [startTime, setStartTime] = useState<number | null>(() => {
+    const saved = localStorage.getItem("workout_start_time");
+    return saved ? Number(saved) : null;
+  });
 
   const { workoutData: nextWorkout, isLoading: nextLoading } = useNextWorkout();
 
@@ -62,8 +65,6 @@ export const PlannedWorkout = () => {
 
   const { data: exercises, isLoading: exercisesLoading } =
     useProgramDayExercises({
-      // dayId: activeWorkout?.program_day_id ?? null,
-      // enabled: !!activeWorkout?.program_day_id,
       dayId: activeDayId ?? null,
       enabled: !!activeDayId,
     });
@@ -73,12 +74,30 @@ export const PlannedWorkout = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const activeExercise = exercises?.[currentIndex] ?? null;
 
+  
+
+  const handleStartSession = async () => {
+    if (sessionId) return; // Don't start twice
+    try {
+      const session = await startSession();
+      setSessionId(session.id);
+    } catch (err) {
+      console.error("Failed to start session:", err);
+    }
+  };
+
+
+
+
   if (nextLoading || scheduleLoading) return <Loader />;
+
+  
 
   // Move to the next exercise
   const handleNextExercise = () => {
     if (!exercises) return;
-    setCurrentIndex((prev) => Math.min(prev + 1, exercises.length - 1));
+    // setCurrentIndex((prev) => Math.min(prev + 1, exercises.length - 1));
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const handleExerciseChange = (updated: ProgramExerciseOut) => {
@@ -88,20 +107,33 @@ export const PlannedWorkout = () => {
   // const [isResting, setIsResting] = useState(false);
   // const [restDuration, setRestDuration] = useState(60);
 
-  // const { mutateAsync: startSession } = useCreateSession();
-  // const { mutateAsync: closeSession, isPending: closing } = useFinishSession();
+  
 
   // to submit executed exercise
   const handleSubmitExercise = async (current: ProgramExerciseOut) => {
-    if (!sessionId) return;
 
     try {
+      let activeId = sessionId;
+
+        if (!activeId) {
+        const session = await startSession();
+        activeId = session.id;
+        setSessionId(session.id);
+
+        const now = Date.now();
+        setStartTime(now);
+
+        localStorage.setItem("workout_start_time", now.toString());
+      }
+
+      if (!activeId) return;
+
       const exerciseRes = await addExercise({
-        sessionId,
+        sessionId: activeId,
         data: {
           name: current.exercise_name!,
           notes: "",
-          planned_exercise_id: current.id, // now optional but you have it
+          planned_exercise_id: current.id,
         },
       });
 
@@ -109,7 +141,7 @@ export const PlannedWorkout = () => {
         exerciseId: exerciseRes.id,
         data: {
           reps: current.reps,
-          weight: 0,
+          weight: current.weight ?? 0,
           rest_seconds: current.rest_seconds ?? 0,
           notes: "",
           completed: true,
@@ -125,6 +157,32 @@ export const PlannedWorkout = () => {
       setExercise(null); // reset for next
     } catch (err) {
       console.error("Failed to log exercise + sets:", err);
+    }
+  };
+
+  const handleFinishSession = async () => {
+    if (!sessionId || !startTime) return;
+
+    const durationInMinutes = Math.floor((Date.now() - startTime) / 60000);
+
+    try {
+      await closeSession({
+        sessionId: sessionId,
+        data: {
+          duration: durationInMinutes,
+          notes: "Great workout!",
+        },
+      });
+      
+      // 1. Clear the local state
+      setSessionId(null);
+      setStartTime(null);
+      localStorage.removeItem("workout_start_time");
+      
+      // 2. Redirect the user back to the dashboard or a summary page
+      navigate("/", { state: { message: "Workout completed!" } });
+    } catch (err) {
+      console.error("Failed to close session:", err);
     }
   };
 
@@ -151,7 +209,7 @@ export const PlannedWorkout = () => {
             />
           ) : (
             <Typography variant="body">
-              No exercises found for this day.
+              Workout Complete!
             </Typography>
           )}
 
@@ -161,6 +219,16 @@ export const PlannedWorkout = () => {
             onClick={() => handleSubmitExercise(exercise ?? activeExercise!)}
           >
             Log
+          </Button>
+
+          <Button
+            size="small"
+            bordered
+            disabled={closing}
+            variant="green"
+            onClick={handleFinishSession} 
+          >
+            {closing ? "Saving..." : "Finish & Save"}
           </Button>
         </>
       ) : (
@@ -174,6 +242,7 @@ export const PlannedWorkout = () => {
               <Button
                 onClick={() => {
                   setSelectedWorkout(w);
+                  handleStartSession()
                   // Setting fromDashboard to true ensures the logic stays in the "Workout View"
                   navigate("/add-workout/planned", {
                     state: { fromDashboard: true },
@@ -190,121 +259,13 @@ export const PlannedWorkout = () => {
   );
 };
 
-//   const [exerciseUI, setExerciseUI] = useState<ActiveExerciseUI>({ name: "", notes: "" });
-//   const [setUI, setSetUI] = useState<ActiveSetUI>({ reps: "", weight: 0, rest_seconds: 0 });
-//
-//   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
-//   const [activeSessionId, setActiveSessionId] = useState<number | null>(null);
 
-//   const { mutateAsync: startSession } = useCreateSession();
-//   const { mutateAsync: addExercise } = useAddExercise();
-// const { mutateAsync: addSet } = useAddSet();
 
-// return (
-// <div className={css.container}>
-//       <h1 style={{ fontSize: "32px" }}>Your Planned Workout</h1>
-
-//       {/* Logic Fix: If we have a selected workout, show the workout/start UI */}
-//       {selectedWorkout ? (
-//         <>
-//           {!activeSessionId ? (
-//             <div>
-//               <p style={{ fontSize: "18px" }}>
-//                 Starting workout: {new Date(selectedWorkout.scheduled_for).toLocaleDateString()}
-//               </p>
-//               <button onClick={handleBeginWorkout}>Start Now</button>
-//             </div>
-//           ) : (
-//             <div className="active-workout">
-//               <h2 style={{ fontSize: "24px" }}>{exerciseUI.name}</h2>
-//               <div style={{ padding: "20px", border: "1px solid #eee" }}>
-//                 <p style={{ fontSize: "14px" }}>{exerciseUI.notes}</p>
-
-//                 <input
-//                   type="number"
-//                   value={setUI.weight}
-//                   onChange={(e) => setSetUI({...setUI, weight: Number(e.target.value)})}
-//                   placeholder="Weight"
-//                 />
-//                 <input
-//                   type="text"
-//                   value={setUI.reps}
-//                   onChange={(e) => setSetUI({...setUI, reps: e.target.value})}
-//                   placeholder="Reps"
-//                 />
-
-//                 <button onClick={handleSubmitExercise} style={{ display: "block", marginTop: "10px" }}>
-//                   Confirm & Log
-//                 </button>
-//               </div>
 
 //               <RestTimer
 //                 duration={restDuration}
 //                 isPlaying={isResting}
 //                 onComplete={() => setIsResting(false)}
 //               />
-//             </div>
-//           )}
-//         </>
-//       ) : (
-//         /* 2nd Way: Menu Selection */
-//         <div className="selection-menu">
-//           <p style={{ fontSize: "18px" }}>All scheduled workouts:</p>
-//           {schedule?.map(w => (
-//             <div key={w.id} style={{ padding: "15px", border: "1px solid #ccc", marginBottom: "10px" }}>
-//               <p style={{ fontSize: "16px" }}>{new Date(w.scheduled_for).toLocaleDateString()}</p>
-//               <button onClick={() => setSelectedWorkout(w)}>
-//                 Choose Workout
-//               </button>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-// </div>
-// );
 
-//   return (
-//     <Container className={css.container}>
-//       <Typography variant="h1">Your Planned Workout</Typography>
 
-//       {fromDashboard && selectedWorkout ? (
-//         <>
-//           <Typography variant="h2">
-//             Today’s workout: {new Date(selectedWorkout.scheduled_for).toLocaleDateString()}
-//           </Typography>
-
-//           <Card>
-//             <Typography>{exerciseUI.name}</Typography>
-//             <Button onClick={handleSubmitExercise}>Confirm Exercise</Button>
-//           </Card>
-
-//           <RestTimer
-//             duration={restDuration}
-//             isPlaying={isResting}
-//             onComplete={() => {
-//               setIsResting(false);
-//               setSetUI(prev => ({ ...prev, rest_seconds: restDuration }));
-//             }}
-//           />
-//         </>
-//       ) : (
-//         <Card>
-//           <Typography variant="body">All scheduled workouts:</Typography>
-//           {plannedWorkouts.map(w => (
-//             <Card key={w.id}>
-//               <Typography>{new Date(w.scheduled_for).toLocaleDateString()}</Typography>
-//               <Button
-//                 onClick={() => {
-//                   setSelectedWorkout(w);
-//                   navigate("/planned-workout", { state: { fromDashboard: true } });
-//                 }}
-//               >
-//                 Start
-//               </Button>
-//             </Card>
-//           ))}
-//         </Card>
-//       )}
-//     </Container>
-//   );
-// };

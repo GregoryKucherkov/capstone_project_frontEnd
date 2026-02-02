@@ -158,6 +158,7 @@ export type PlannedExerciseDraft = {
   sets: number | "";
   reps: number | "";
   rest: number | "";
+  weight?: number | "";
 };
 
 export interface CustomExercisesCreate {
@@ -174,6 +175,7 @@ export type ProgramExerciseCreatePayload = {
 
   sets: number;
   reps: string;
+  weight?: number;
   rest_seconds: number;
 
   core_exercise_id?: number;
@@ -198,20 +200,11 @@ export interface QuickWorkoutExercise {
   title: string;
   sets: number | "";
   reps: number | "";
+  weight?: number | "";
   rest: number | "";
 }
 
-export interface ActiveExerciseUI {
-  name: string; // from planned exercise
-  notes?: string; // optional edit
-}
 
-export interface ActiveSetUI {
-  reps: string;
-  weight: number;
-  rest_seconds: number;
-  notes?: string;
-}
 
 export type PlannedWorkoutProps = {
   id: number;
@@ -241,6 +234,7 @@ export interface ProgramExerciseOut {
   exercise_name?: string | null;
   sets: number;
   reps: string;
+  weight?: number | null;
   rest_seconds?: number | null;
   id: number;
   day_id: number;

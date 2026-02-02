@@ -38,6 +38,7 @@ export const QuickWorkout = () => {
     title: "",
     sets: "",
     reps: "",
+    weight: "",
     rest: "",
   });
 
@@ -65,6 +66,7 @@ export const QuickWorkout = () => {
     title: "",
     sets: "",
     reps: "",
+    weight: "",
     rest: "",
   };
 
@@ -91,7 +93,7 @@ export const QuickWorkout = () => {
         exerciseId: exerciseRes.id,
         data: {
           reps: exercise.reps.toString(),
-          weight: 0,
+          weight: exercise.weight ? Number(exercise.rest) : 0,
           rest_seconds: exercise.rest ? Number(exercise.rest) : 0,
           notes: "",
           completed: false,
@@ -106,7 +108,7 @@ export const QuickWorkout = () => {
       setCount((prev) => prev + 1);
 
       // 3. Reset card for next exercise
-      setExercise({ title: "", sets: "", reps: "", rest: exercise.rest });
+      setExercise({ title: "", sets: "", reps: "", weight: "", rest: exercise.rest });
     } catch (err) {
       console.error("Failed to log exercise + sets:", err);
     }
