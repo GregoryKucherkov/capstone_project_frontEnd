@@ -108,7 +108,13 @@ export const QuickWorkout = () => {
       setCount((prev) => prev + 1);
 
       // 3. Reset card for next exercise
-      setExercise({ title: "", sets: "", reps: "", weight: "", rest: exercise.rest });
+      setExercise({
+        title: "",
+        sets: "",
+        reps: "",
+        weight: "",
+        rest: exercise.rest,
+      });
     } catch (err) {
       console.error("Failed to log exercise + sets:", err);
     }

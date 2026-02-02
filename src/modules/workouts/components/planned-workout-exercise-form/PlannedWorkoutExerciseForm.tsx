@@ -3,7 +3,7 @@ import Container from "@/shared/ui/container/Container";
 import css from "./PlannedWorkoutExerciseForm.module.css";
 import { useId } from "react";
 import { Input } from "@/shared/ui/input/Input";
-import { Card } from "@/shared/ui/card/Card";
+import { PlannedExerciseItem } from "@/modules/workouts/components/planned-exercise-item/PlannedExerciseItem";
 
 interface PlannedWorkoutExerciseFormProps {
   exercise: ProgramExerciseOut;
@@ -16,8 +16,12 @@ export const PlannedWorkoutExerciseForm = ({
 }: PlannedWorkoutExerciseFormProps) => {
   const id = useId();
 
+  const exerciseData = exercise.core_exercise || exercise.custom_exercise;
+
   return (
     <Container className={css.container}>
+      {exerciseData && <PlannedExerciseItem exercise={exerciseData} />}
+
       <label htmlFor={`${id}-exercise`}>Exercise</label>
       <Input
         id={`${id}-exercise`}
@@ -58,8 +62,10 @@ export const PlannedWorkoutExerciseForm = ({
         placeholder="Weight"
         type="number"
         value={exercise.weight ?? ""}
-        onChange={(e) => onChange({ ...exercise, weight: parseFloat(e.target.value) || 0 })}
-        />
+        onChange={(e) =>
+          onChange({ ...exercise, weight: parseFloat(e.target.value) || 0 })
+        }
+      />
 
       <label htmlFor={`${id}-rest`}>Rest (sec)</label>
       <Input
@@ -74,14 +80,6 @@ export const PlannedWorkoutExerciseForm = ({
           })
         }
       />
-
-      {exercise.core_exercise && (
-        <Card variant="pink">Core: {exercise.core_exercise.title}</Card>
-      )}
-
-      {exercise.custom_exercise && (
-        <Card variant="pink">Custom: {exercise.custom_exercise.title}</Card>
-      )}
     </Container>
   );
 };

@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/shared/ui/button/Button";
 
 interface ExerciseItem {
-  core_exercise: {
+  core_exercise?: {
+    calories_burn: number;
+  };
+  custom_exercise?: {
     calories_burn: number;
   };
 }
@@ -26,27 +29,40 @@ export const NextWorkout = () => {
 
   if (isLoading) return <Loader />;
 
-  // if (!hasWorkout) {
-  //     return (
-  //         <Container>
-  //         <Card className={css.nextWorkout} variant="pink">
-  //             <Typography className={css.titleCard} variant="h2"  >No workout planned</Typography>
-  //             <Typography variant="body">Keep the momentum going! Schedule your next session in the calendar.</Typography>
-  //             <Button variant="pink" size="small" className={css.workoutButton}>Go to Calendar</Button>
-  //         </Card>
-  //         </Container>
-  //     );
-  // }
+  if (!hasWorkout) {
+    return (
+      <Container>
+        <Card className={css.nextWorkout} variant="pink">
+          <Typography className={css.titleCard} variant="h2">
+            No workout planned
+          </Typography>
+          <Typography variant="body">
+            Keep the momentum going! Schedule your next session in the calendar.
+          </Typography>
+          <Button
+            variant="pink"
+            size="small"
+            className={css.workoutButton}
+            onClick={() => navigate("/add-workout/manage")}
+          >
+            Go to Calendar
+          </Button>
+        </Card>
+      </Container>
+    );
+  }
 
   const caloriesToBurn =
     workoutData?.exercises?.reduce(
       (acc: number, ex: ExerciseItem) =>
-        acc + (ex.core_exercise?.calories_burn || 0),
+        acc +
+        (ex.core_exercise?.calories_burn ||
+          ex.custom_exercise?.calories_burn ||
+          0),
       0,
     ) || 0;
 
   const startOfWeek = new Date();
-
   startOfWeek.setDate(startOfWeek.getDate() - ((startOfWeek.getDay() + 6) % 7));
   startOfWeek.setHours(0, 0, 0, 0);
 

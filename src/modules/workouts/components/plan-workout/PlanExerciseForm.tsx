@@ -63,14 +63,18 @@ export const PlanExerciseForm = ({
         }
       />
 
-      <label htmlFor={`${id}-weight`} style={{ color: "black" }}>Weight</label>
+      <label htmlFor={`${id}-weight`} style={{ color: "black" }}>
+        Weight
+      </label>
       <Input
         id={`${id}-weight`}
         placeholder="Weight"
         type="number"
         value={exercise.weight ?? ""}
-        onChange={(e) => onChange({ ...exercise, weight: parseFloat(e.target.value) || 0 })}
-        />
+        onChange={(e) =>
+          onChange({ ...exercise, weight: parseFloat(e.target.value) || 0 })
+        }
+      />
 
       <label htmlFor={`${id}-rest`} style={{ color: "black" }}>
         Rest

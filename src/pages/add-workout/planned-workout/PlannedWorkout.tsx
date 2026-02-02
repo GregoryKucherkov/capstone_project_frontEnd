@@ -1,9 +1,9 @@
+// import { RestTimer } from "@/shared/ui/timer/Timer";
 import Container from "@/shared/ui/container/Container";
 import css from "./PlannedWorkout.module.css";
 import { Card } from "@/shared/ui/card/Card";
 import { Typography } from "@/shared/ui/typography/Typography";
 import { Button } from "@/shared/ui/button/Button";
-import { RestTimer } from "@/shared/ui/timer/Timer";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "@/shared/ui/loader/Loader";
@@ -18,12 +18,9 @@ import {
   useCreateSession,
   useFinishSession,
 } from "@/modules/workouts/hooks/useSession";
-import {
-  useProgramDayExercises,
-} from "@/modules/workouts/hooks/useProgramDay";
+import { useProgramDayExercises } from "@/modules/workouts/hooks/useProgramDay";
 import { useNextWorkout } from "@/modules/workouts/hooks/useNextWorkout";
 import { PlannedWorkoutExerciseForm } from "@/modules/workouts/components/planned-workout-exercise-form/PlannedWorkoutExerciseForm";
-
 
 const now = new Date();
 const START_ISO = now.toISOString();
@@ -60,8 +57,13 @@ export const PlannedWorkout = () => {
 
   const activeWorkout = selectedWorkout || (fromDashboard ? nextWorkout : null);
 
-  const activeDayId =
-    activeWorkout?.program_day_id || (activeWorkout as any)?.id;
+  // const activeDayId =
+  //   activeWorkout?.program_day_id || (activeWorkout as any)?.id;
+  const activeDayId = activeWorkout
+    ? "program_day_id" in activeWorkout
+      ? activeWorkout.program_day_id
+      : activeWorkout.id
+    : null;
 
   const { data: exercises, isLoading: exercisesLoading } =
     useProgramDayExercises({
@@ -69,12 +71,15 @@ export const PlannedWorkout = () => {
       enabled: !!activeDayId,
     });
 
-  console.log("exercises", exercises);
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const activeExercise = exercises?.[currentIndex] ?? null;
 
-  
+  // Timer logic
+  // const currentRest = activeExercise?.rest_seconds && activeExercise.rest_seconds > 0
+  // ? activeExercise.rest_seconds
+  // : 60;
+  // const [isResting, setIsResting] = useState(false);
+  // const [restDuration, setRestDuration] = useState(currentRest);
 
   const handleStartSession = async () => {
     if (sessionId) return; // Don't start twice
@@ -86,12 +91,7 @@ export const PlannedWorkout = () => {
     }
   };
 
-
-
-
   if (nextLoading || scheduleLoading) return <Loader />;
-
-  
 
   // Move to the next exercise
   const handleNextExercise = () => {
@@ -104,18 +104,12 @@ export const PlannedWorkout = () => {
     setExercise(updated);
   };
 
-  // const [isResting, setIsResting] = useState(false);
-  // const [restDuration, setRestDuration] = useState(60);
-
-  
-
   // to submit executed exercise
   const handleSubmitExercise = async (current: ProgramExerciseOut) => {
-
     try {
       let activeId = sessionId;
 
-        if (!activeId) {
+      if (!activeId) {
         const session = await startSession();
         activeId = session.id;
         setSessionId(session.id);
@@ -148,9 +142,11 @@ export const PlannedWorkout = () => {
         },
       });
 
-      // if (exercise.rest_seconds) {
-      //   setRestDuration(exercise.rest_seconds);
-      //   setIsResting(true);
+      // timer logic
+      // if (current.rest_seconds) {
+      //   setRestDuration(current.rest_seconds);
+      // } else {
+      //   setRestDuration(60)
       // }
 
       handleNextExercise();
@@ -173,12 +169,12 @@ export const PlannedWorkout = () => {
           notes: "Great workout!",
         },
       });
-      
+
       // 1. Clear the local state
       setSessionId(null);
       setStartTime(null);
       localStorage.removeItem("workout_start_time");
-      
+
       // 2. Redirect the user back to the dashboard or a summary page
       navigate("/", { state: { message: "Workout completed!" } });
     } catch (err) {
@@ -199,6 +195,20 @@ export const PlannedWorkout = () => {
               : "Active Session"}
           </Typography>
 
+          {/* Timer  */}
+          {/* <RestTimer
+            duration={restDuration}
+            isPlaying={isResting}
+            onComplete={() => setIsResting(false)}
+          />
+          <Button 
+            variant="pink" 
+            size="small"
+            onClick={() => setIsResting(true)}
+          >
+            Start Rest ({restDuration}s)
+          </Button> */}
+
           {/* GUARD: Only render the form if we have an exercise. Fixes TS error and Runtime crash */}
           {exercisesLoading ? (
             <Loader />
@@ -208,9 +218,7 @@ export const PlannedWorkout = () => {
               onChange={(updated) => handleExerciseChange(updated)}
             />
           ) : (
-            <Typography variant="body">
-              Workout Complete!
-            </Typography>
+            <Typography variant="body">Workout Complete!</Typography>
           )}
 
           <Button
@@ -226,7 +234,7 @@ export const PlannedWorkout = () => {
             bordered
             disabled={closing}
             variant="green"
-            onClick={handleFinishSession} 
+            onClick={handleFinishSession}
           >
             {closing ? "Saving..." : "Finish & Save"}
           </Button>
@@ -242,7 +250,7 @@ export const PlannedWorkout = () => {
               <Button
                 onClick={() => {
                   setSelectedWorkout(w);
-                  handleStartSession()
+                  handleStartSession();
                   // Setting fromDashboard to true ensures the logic stays in the "Workout View"
                   navigate("/add-workout/planned", {
                     state: { fromDashboard: true },
@@ -258,14 +266,3 @@ export const PlannedWorkout = () => {
     </Container>
   );
 };
-
-
-
-
-//               <RestTimer
-//                 duration={restDuration}
-//                 isPlaying={isResting}
-//                 onComplete={() => setIsResting(false)}
-//               />
-
-

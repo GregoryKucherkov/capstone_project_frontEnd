@@ -204,8 +204,6 @@ export interface QuickWorkoutExercise {
   rest: number | "";
 }
 
-
-
 export type PlannedWorkoutProps = {
   id: number;
   scheduled_for: string;
