@@ -18,11 +18,11 @@ import { useCustomExercises } from "@/modules/workouts/hooks/useCustomExercises"
 import { ReviewWorkout } from "@/modules/workouts/components/review-workout/ReviewWorkout";
 import { useScheduleWorkoutFlow } from "@/modules/workouts/hooks/useScheduleWorkout";
 import { Input } from "@/shared/ui/input/Input";
+import { useGetfavorite } from "@/shared/hooks/useAddFavorite";
 
 export const ManageWorkouts = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [dayTitle, setDayTitle] = useState<string>("");
-
   const [activeDayId, setActiveDayId] = useState<number | null>(null);
 
   const [showCustomExerciseForm, setShowCustomExerciseForm] = useState(false);
@@ -45,6 +45,18 @@ export const ManageWorkouts = () => {
   } = useCustomExercises(skip, size);
 
   const { scheduleWorkout, isPending: isScheduling } = useScheduleWorkoutFlow();
+
+  // for favorite option
+  const [showFavorite, setShowFavorite] = useState(false);
+  const limit = 10;
+  const currentPage = 1;
+  const {
+    exercises: favoriteExe,
+    totalCount: favTotalCount,
+    isLoading: favIsLoading,
+  } = useGetfavorite(currentPage, limit);
+
+  const favTotalPages = Math.ceil(favTotalCount / limit);
 
   // for library option
   const customTotalPages = custoExe ? Math.ceil(custoExe.total / size) : 0;
@@ -77,8 +89,6 @@ export const ManageWorkouts = () => {
     exercise: ExerciseCommon,
     source: "user" | "library",
   ) => {
-    console.log("Incoming data from list:", exercise);
-
     setModalExercise({
       tempId: crypto.randomUUID(),
       exerciseId: exercise.id,
@@ -249,7 +259,33 @@ export const ManageWorkouts = () => {
             )}
           </>
         )}
+        {/* choose from favorite */}
+        <Button
+          disabled={!activeDayId}
+          onClick={() => {
+            setShowLibraryForm(false);
+            setShowCustomExerciseForm(false);
+            setShowCustomList(false);
+            setShowFavorite(true);
+          }}
+          className={css.exerciseBtn}
+        >
+          Choose from your Favorite
+        </Button>
+        {showFavorite && (
+          <>
+            {favIsLoading && <Loader />}
+            <ExercisesList
+              exercises={favoriteExe}
+              totalPages={favTotalPages}
+              currentPage={currentPage}
+              onAdd={(ex) => handleAddFromLibrary(ex, "library")}
+              favoriteIds={favoriteExe.map((e) => e.id)}
+            />
+          </>
+        )}
 
+        {/* choose from Library */}
         <Button
           disabled={!activeDayId}
           onClick={() => {

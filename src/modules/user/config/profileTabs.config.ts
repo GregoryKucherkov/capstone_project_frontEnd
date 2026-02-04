@@ -1,7 +1,6 @@
 import { userService } from "@/shared/api/userApi";
 import { TabKey, type TabKeyType } from "@/shared/constants/tabData";
 import type {
-  FavoriteResponse,
   ListItem,
   PostsResponse,
   UserListResponse,
@@ -14,11 +13,7 @@ export type ProfileTabConfig<T> = {
 
 export const PROFILE_TABS: {
   [K in TabKeyType]: ProfileTabConfig<
-    K extends typeof TabKey.POSTS
-      ? PostsResponse
-      : K extends typeof TabKey.FAVORITES
-        ? FavoriteResponse[]
-        : UserListResponse
+    K extends typeof TabKey.POSTS ? PostsResponse : UserListResponse
   >;
 } = {
   [TabKey.POSTS]: {
@@ -36,10 +31,5 @@ export const PROFILE_TABS: {
     query: (userId, skip, limit) =>
       userService.getFollowing(userId, skip, limit),
     normalize: (data) => data.items,
-  },
-
-  [TabKey.FAVORITES]: {
-    query: (_, skip, limit) => userService.getFavorites(skip, limit),
-    normalize: (data) => data,
   },
 };

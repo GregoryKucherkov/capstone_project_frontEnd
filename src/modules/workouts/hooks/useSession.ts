@@ -72,7 +72,7 @@ export const useAddSetBulk = () => {
   });
 };
 
-export const useWorkouts = (skip: number, limit: number) => {
+export const useWorkouts = (skip: number = 10, limit: number = 10) => {
   return useQuery({
     queryKey: ["workouts", skip, limit],
     queryFn: () => logService.listWorkouts(skip, limit),

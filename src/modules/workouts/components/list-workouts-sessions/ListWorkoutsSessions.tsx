@@ -2,7 +2,7 @@ import { useWorkouts } from "@/modules/workouts/hooks/useSession";
 import Container from "@/shared/ui/container/Container";
 
 export const ListWorkoutsSessions = () => {
-  const { workouts, isLoading, isError } = useWorkouts();
+  const { workouts, isLoading, isError } = useWorkouts(5, 5);
 
   return (
     <Container>

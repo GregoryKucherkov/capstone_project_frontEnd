@@ -83,6 +83,13 @@ export interface PaginatedFavoriteResponse {
 
 export type ListItem = Post | UserGuest | FavoriteResponse;
 
+export interface PaginatedListItem {
+  items: ListItem[];
+  total: number;
+  page: number;
+  size: number;
+}
+
 export interface ProgramDayOutSlim {
   id: number;
   scheduled_for: string;

@@ -30,6 +30,7 @@ export const ListItems = ({
     const messages = isMyProfile
       ? emptyTabMessagesForOwner
       : emptyTabMessagesForUser;
+
     const message = messages[tab as keyof typeof messages] ?? "No data found.";
 
     return (
@@ -45,15 +46,6 @@ export const ListItems = ({
         // Posts tab
         if ("body" in item) {
           return <PostPreview key={item.id} post={item} />;
-        }
-
-        // Favorites tab (exercises)
-        if ("exercise_id" in item) {
-          return (
-            <div key={`${item.user_id}-${item.exercise_id}`}>
-              Exercise #{item.exercise_id}
-            </div>
-          );
         }
 
         // followers / following
