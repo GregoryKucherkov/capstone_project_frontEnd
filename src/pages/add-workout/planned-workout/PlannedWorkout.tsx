@@ -184,11 +184,13 @@ export const PlannedWorkout = () => {
 
   return (
     <Container className={css.container}>
-      <Typography variant="h1">Your Planned Workout</Typography>
+      <Typography variant="h1" className={css.title}>
+        Your Planned Workout
+      </Typography>
 
       {activeWorkout ? (
         <>
-          <Typography variant="h2">
+          <Typography variant="h2" className={css.subTitle}>
             Planned workout:{" "}
             {activeWorkout.scheduled_for
               ? new Date(activeWorkout.scheduled_for).toLocaleDateString()
@@ -221,33 +223,41 @@ export const PlannedWorkout = () => {
             <Typography variant="body">Workout Complete!</Typography>
           )}
 
-          <Button
-            size="small"
-            bordered
-            onClick={() => handleSubmitExercise(exercise ?? activeExercise!)}
-          >
-            Log
-          </Button>
+          <div className={css.btnWrapper}>
+            <Button
+              className={css.logBtn}
+              variant="pink"
+              size="medium"
+              bordered
+              onClick={() => handleSubmitExercise(exercise ?? activeExercise!)}
+            >
+              Log
+            </Button>
 
-          <Button
-            size="small"
-            bordered
-            disabled={closing}
-            variant="green"
-            onClick={handleFinishSession}
-          >
-            {closing ? "Saving..." : "Finish & Save"}
-          </Button>
+            <Button
+              className={css.finisfBtn}
+              size="medium"
+              bordered
+              disabled={closing}
+              variant="green"
+              onClick={handleFinishSession}
+            >
+              {closing ? "Saving..." : "Finish & Save"}
+            </Button>
+          </div>
         </>
       ) : (
-        <Card>
-          <Typography variant="body">All scheduled workouts:</Typography>
+        <Card variant="pink" className={css.scheduledCards}>
+          <Typography variant="body" className={css.description}>
+            All scheduled workouts:
+          </Typography>
           {schedule?.map((w) => (
-            <Card key={w.id}>
+            <Card variant="green" className={css.workoutCard} key={w.id}>
               <Typography>
                 {new Date(w.scheduled_for).toLocaleDateString()}
               </Typography>
               <Button
+                className={css.workoutBtn}
                 onClick={() => {
                   setSelectedWorkout(w);
                   handleStartSession();

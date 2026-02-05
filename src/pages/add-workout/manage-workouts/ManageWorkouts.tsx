@@ -12,7 +12,7 @@ import { ExercisesCategories } from "@/modules/exercises/components/exercises-ca
 import { useExercises } from "@/modules/exercises/hooks/useExercises";
 import Loader from "@/shared/ui/loader/Loader";
 import { ExercisesList } from "@/modules/exercises/components/exercises-list/ExercisesList";
-import { PlanExerciseModal } from "@/modules/workouts/components/PlanExerciseModal/PlanExerciseModal";
+import { PlanExerciseModal } from "@/modules/workouts/components/plan-exercise-modal/PlanExerciseModal";
 import { ListOwnExe } from "@/modules/workouts/components/list-own-exercises/ListOwnExe";
 import { useCustomExercises } from "@/modules/workouts/hooks/useCustomExercises";
 import { ReviewWorkout } from "@/modules/workouts/components/review-workout/ReviewWorkout";

@@ -2,3 +2,42 @@
   padding-top: 150px;
   padding-bottom: 150px;
 }
+
+.title {
+  font-size: 28px;
+  padding-bottom: 15px;
+}
+
+.subTitle {
+  font-size: 24px;
+  padding-bottom: 15px;
+}
+
+.scheduledCards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.workoutCard {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+
+.workoutBtn {
+  margin: 0 auto;
+}
+
+.btnWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 15px;
+  align-items: center;
+}
+
+.btnWrapper .finisfBtn {
+  background-color: var(--mint-green);
+}

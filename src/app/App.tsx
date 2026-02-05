@@ -15,13 +15,10 @@ import { FavoriteExercises } from "@/pages/add-workout/favorite-exercises/Favori
 import { Workouts } from "@/pages/workouts-stats/Workouts";
 import Loader from "@/shared/ui/loader/Loader";
 
-// move filterMap to backend enum mirror
-
-// add infinite query
-
-// prefetch next filter on hover
-
-// sync filters to URL
+import { Comunity } from "@/pages/comunity/Comunity";
+import { ErrorMessage } from "@/shared/ui/error-message/ErrorMessage";
+import { Card } from "@/shared/ui/card/Card";
+import { NotFound } from "@/pages/not-found/NotFound";
 
 function App() {
   const { isError, isLoading } = useUser();
@@ -29,16 +26,14 @@ function App() {
   if (isLoading) return <Loader />;
 
   if (isError)
-    return <div>Server Connection Error. Please try again later.</div>;
+    return (
+      <Card variant="pink">
+        Server Connection Error. Please try again later.
+      </Card>
+    );
 
   return (
-    <ErrorBoundary
-      fallback={
-        <div style={{ color: "red", padding: "50px" }}>
-          CRITICAL APP CRASH: Check dependencies or imports.
-        </div>
-      }
-    >
+    <ErrorBoundary fallback={<ErrorMessage />}>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
@@ -103,11 +98,18 @@ function App() {
             }
           />
 
-          <Route path="/exercises" element={<ExercisesLib />} />
+          {/* COMMUNITY PAGE */}
           <Route
-            path="*"
-            element={<div style={{ color: "black" }}>Not Found</div>}
+            path="/community"
+            element={
+              <PrivateRoute>
+                <Comunity />
+              </PrivateRoute>
+            }
           />
+
+          <Route path="/exercises" element={<ExercisesLib />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </ErrorBoundary>

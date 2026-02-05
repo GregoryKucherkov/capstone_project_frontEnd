@@ -28,7 +28,7 @@ export const useAddFavorite = () => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      queryClient.invalidateQueries({ queryKey: ["favoriteIds"] });
     },
   });
 };
@@ -75,7 +75,8 @@ export const useDelExeFromFavorite = () => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      // queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      queryClient.invalidateQueries({ queryKey: ["favoriteIds"] });
     },
   });
 };
@@ -86,7 +87,7 @@ export const useFavoriteIds = (
   limit: number = 100,
 ) => {
   return useQuery({
-    queryKey: ["favoriteIds", exerciseIds, skip, limit],
+    queryKey: ["favoriteIds", skip, limit],
     queryFn: async () => {
       if (exerciseIds.length === 0) return [];
 

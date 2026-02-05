@@ -72,9 +72,23 @@ export const useAddSetBulk = () => {
   });
 };
 
+// export const useWorkouts = (skip: number = 10, limit: number = 10) => {
+//   return useQuery({
+//     queryKey: ["workouts", skip, limit],
+//     queryFn: () => logService.listWorkouts(skip, limit),
+//   });
+// };
+
 export const useWorkouts = (skip: number = 10, limit: number = 10) => {
-  return useQuery({
+  const result = useQuery({
     queryKey: ["workouts", skip, limit],
     queryFn: () => logService.listWorkouts(skip, limit),
   });
+
+  return {
+    workouts: result.data?.workouts || [],
+    totalCount: result.data?.total_count || 0,
+    isLoading: result.isLoading,
+    isError: result.isError,
+  };
 };

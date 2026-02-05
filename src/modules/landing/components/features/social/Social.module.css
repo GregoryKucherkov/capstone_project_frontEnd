@@ -1,0 +1,44 @@
+.cardsWrapper {
+  border: 2px solid;
+  border-color: var(--pink-middle);
+  border-radius: 15px;
+  /* 
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center; */
+}
+
+.socialFeed {
+  border-radius: 15px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .socialFeed {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .socialFeed {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.feedItem {
+  border: 1px solid var(--pink-middle);
+  background: var(--pink-light);
+  text-align: start;
+
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 30px;
+}

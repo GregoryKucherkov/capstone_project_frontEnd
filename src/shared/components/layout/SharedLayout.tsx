@@ -14,7 +14,7 @@ export const SharedLayout = () => {
   return (
     <div className={css.pageWrapper}>
       <Header />
-      <main>
+      <main className={css.homeStack}>
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>

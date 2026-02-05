@@ -27,6 +27,11 @@ export class ErrorBoundary extends Component<Props, State> {
     console.error("Uncaught error:", error, errorInfo);
   }
 
+  // RESET METHOD
+  public handleReset = () => {
+    this.setState({ hasError: false });
+  };
+
   public render() {
     if (this.state.hasError) {
       return this.props.fallback;

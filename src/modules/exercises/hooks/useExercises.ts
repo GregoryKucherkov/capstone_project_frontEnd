@@ -1,10 +1,14 @@
 import { exerciseService } from "@/modules/exercises/services/exercise-api";
 import { useQuery } from "@tanstack/react-query";
 
-export const useExercises = (query: string, page: number) => {
+export const useExercises = (
+  query: string,
+  page: number,
+  limit: number = 10,
+) => {
   return useQuery({
-    queryKey: ["exercises", query, page],
-    queryFn: () => exerciseService.getCoreExercises(query, page),
+    queryKey: ["exercises", query, page, limit],
+    queryFn: () => exerciseService.getCoreExercises(query, page, limit),
     enabled: query.length === 0 || query.length >= 2,
 
     // staleTime: Infinity, // Data stays "fresh" as long as the app is open
@@ -15,12 +19,11 @@ export const useExercises = (query: string, page: number) => {
     placeholderData: (previousData) => previousData,
 
     select: (data) => {
-      const itemsPerPage = 10;
       return {
         exercises: data.exercises || [],
         total: data.total || 0,
         // We calculate totalPages here so the component doesn't have to
-        totalPages: Math.ceil((data.total || 0) / itemsPerPage),
+        totalPages: Math.ceil((data.total || 0) / limit),
         currentPage: data.page || page, // Using what the server returns
       };
     },

@@ -1,0 +1,75 @@
+.cardsWrapper {
+  border: 2px solid;
+  border-color: var(--pink-middle);
+  border-radius: 15px;
+  /* 
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center; */
+}
+
+.tracking {
+  border-color: var(--mint-green);
+}
+
+.ulTracking {
+  color: black;
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .ulTracking {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .ulTracking {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+}
+
+.liTracking {
+  border: 1px solid var(--mint-green);
+  background: var(--green-light);
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 10px 30px;
+}
+
+.trackingDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardStats {
+  display: flex;
+  justify-content: space-around;
+  gap: 5px;
+}
+
+.statBox {
+  border-radius: 15px;
+  border: 1px white;
+  background-color: white;
+  padding: 10px;
+  padding-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.trackinButton {
+  margin: 0 auto;
+}

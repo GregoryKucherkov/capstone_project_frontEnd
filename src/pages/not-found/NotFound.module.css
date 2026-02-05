@@ -1,0 +1,36 @@
+.container {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.title {
+  font-size: 28px;
+}
+
+.navigation {
+  display: inline-flex;
+  border: 1px solid var(--mint-green);
+  border-radius: 30px;
+  padding: 12px 24px;
+  color: var(--main-color);
+
+  background-color: white;
+  cursor: pointer;
+  text-decoration: none;
+  justify-content: center;
+  appearance: none;
+
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.navigation:hover {
+  background-color: #16a34a;
+}
+
+.navigation:active {
+  background-color: #15803d;
+}

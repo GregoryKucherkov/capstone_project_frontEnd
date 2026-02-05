@@ -1,0 +1,17 @@
+.ulContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detailsTitle {
+  padding-bottom: 20px;
+}
+
+.detailsCard {
+  border-color: var(--bright-yellow);
+}
+.liWOrkoutItem {
+  color: var(--main-color);
+  display: block;
+}

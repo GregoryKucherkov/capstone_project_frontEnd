@@ -29,7 +29,7 @@ const ExercisesList = ({
   };
 
   return (
-    <>
+    <section aria-label="Exercises list results">
       <ul className={css.ulExeList}>
         {exercises.map((exercise) => (
           <li className={css.liExelist} key={exercise.id}>
@@ -44,14 +44,14 @@ const ExercisesList = ({
 
       <ExerciseDetails />
 
-      {totalPages > 0 && (
+      {totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
           activePage={currentPage}
           onPageChange={handlePageChange}
         />
       )}
-    </>
+    </section>
   );
 };
 
