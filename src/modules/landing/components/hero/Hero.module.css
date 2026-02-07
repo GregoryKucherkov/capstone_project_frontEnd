@@ -21,7 +21,8 @@
     background-image:
       linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7)),
       /* url("@/assets/images/hero/hero-img-mob@2x.jpg"); */
-        url("@/assets/images/hero/dumbbells-in-the-gym.jpg");
+        /* url("@/assets/images/hero/dumbbells-in-the-gym.jpg"); */
+        url("../../../../assets/images/hero/dumbbells-in-the-gym.jpg");
   }
 
   /* Tablet */
